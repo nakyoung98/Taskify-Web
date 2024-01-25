@@ -13,9 +13,14 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+    },
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module",
+    // "tsconfigRootDir": "__dirname",
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".eslintrc.json"],
+  "exclude": ["node_modules"],
 }
