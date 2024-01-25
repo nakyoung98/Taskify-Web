@@ -1,7 +1,3 @@
 export default function Home() {
-  return (
-    <div>
-      <button type="button">안녕</button>
-    </div>
-  );
+  return <div>랜딩 페이지임</div>;
 }
