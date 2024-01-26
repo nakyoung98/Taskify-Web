@@ -9,7 +9,10 @@ type MainHeaderProps = {
   themeColor?: 'white' | 'black';
   onClick: MouseEventHandler<HTMLButtonElement>;
 };
-export default function MainHeader({ themeColor, onClick }: MainHeaderProps) {
+export default function MainHeader({
+  themeColor = 'white',
+  onClick,
+}: MainHeaderProps) {
   return (
     <div className={cx('container', themeColor)}>
       <Link href="/">
