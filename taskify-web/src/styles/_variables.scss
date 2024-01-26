@@ -24,11 +24,13 @@ $white_ffffff: #ffffff !default;
 
 // 대시보드 색상
 $purple_760dde: #760dde !default;
-$red_d6173a: #d6173a !default;
 $green_7ac555: #7ac555 !default;
 $orange_ffa500: #ffa500 !default;
 $blue_76a6ea: #76a6ea !default;
 $pink_e876ea: #e876ea !default;
+
+// 에러 색상
+$red_d6173a: #d6173a !default;
 
 // 색상 시스템
 $primary: $violet_5534da !default;
@@ -42,11 +44,9 @@ $error: $red_d6173a !default;
 //
 // 글로벌 스타일 설정
 
-//** <body> 태그의 기본 배경색
-$body_bg: $white_ffffff !default;
 //** <body> 태그 내의 기본 폰트색
-$text_color: $black_333236 !default;
-$hint_color: $gray_9fa6b2 !default;
+$text_color: $on_surface !default;
+$hint_color: $surface_dim !default;
 
 
 //== Tyfography
