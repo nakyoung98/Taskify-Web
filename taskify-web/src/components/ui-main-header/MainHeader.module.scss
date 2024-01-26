@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8rem 0 1.6rem;
+  box-shadow: 0 1px 0 0 #d9d9d9;
+
+  &.black {
+    background: #000;
+  }
+}
+
+.largeLogo {
+  display: block;
+
+  &.black {
+    filter: brightness(0) invert(1);
+  }
+}
+.smallLogo {
+  display: none;
+
+  &.black {
+    filter: brightness(0) invert(1);
+  }
+}
+
+.buttonWrap {
+  display: flex;
+  gap: 3.6rem;
+}
+
+.button {
+  font-family: Pretendard;
+  font-size: 1.6rem;
+  border: none;
+  background: none;
+  font-weight: 400;
+  cursor: pointer;
+
+  &.black {
+    color: #fff;
+  }
+}
+
+@media (max-width: 744px) {
+  .container {
+    padding: 0 4rem 0 1.6rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    padding: 0 2.4rem;
+  }
+
+  .buttonWrap {
+    gap: 2rem;
+  }
+
+  .largeLogo {
+    display: none;
+  }
+  .smallLogo {
+    display: block;
+  }
+}
