@@ -21,7 +21,7 @@
   transition: border-color 0.2s ease-in-out;
 
   &::placeholder {
-    color: $surface_dim;
+    color: $hint_color;
   }
 
   &:focus {
