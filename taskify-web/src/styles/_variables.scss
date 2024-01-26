@@ -40,3 +40,35 @@ $body_bg: $white_ffffff !default;
 //** <body> 태그 내의 기본 폰트색
 $text_color: $black_333236 !default;
 $hint_color: $gray_9fa6b2 !default;
+
+
+//== Tyfography
+//
+//## 폰트패밀리, 폰트사이즈, 행높이
+
+// 폰트패밀리
+$font_family_sans-serif: "Pretendard-Regular", Arial, sans-serif !default;
+$font_family_base: $font_family_sans-serif !default;
+
+// 폰트사이즈
+$font_size_base: 10px !default;
+
+$font_size_xsmall: $font_size_base * 1.2 !default;
+$font_size_small: $font_size_base * 1.4 !default;
+$font_size_medium: $font_size_base * 1.6 !default; // 기본 폰트 사이즈
+$font_size_large: $font_size_base * 1.8 !default;
+$font_size_xlarge: $font_size_base * 2 !default;
+$font_size_xxlarge: $font_size_base * 2.4 !default;
+$font_size_xxxlarge: $font_size_base * 2.8 !default;
+
+$font_size_default: $font_size_medium !default; // 기본 폰트 사이즈 = 16px
+
+// 행높이
+$line_height_base: 1.4 !default;
+
+$line_height_normal: floor($font_size_base * $line-height-base) !default;
+
+// 폰트 두께
+$font_weight_base: 500 !default;
+
+$font_weight_default: $font_weight_base !default;
