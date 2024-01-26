@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
 import styles from './MainHeader.module.scss';
@@ -7,12 +6,8 @@ const cx = classNames.bind(styles);
 
 type MainHeaderProps = {
   themeColor?: 'white' | 'black';
-  onClick: MouseEventHandler<HTMLButtonElement>;
 };
-export default function MainHeader({
-  themeColor = 'white',
-  onClick,
-}: MainHeaderProps) {
+export default function MainHeader({ themeColor = 'white' }: MainHeaderProps) {
   return (
     <div className={cx('container', themeColor)}>
       <Link href="/">
@@ -29,25 +24,13 @@ export default function MainHeader({
       </Link>
 
       <div className={cx('buttonWrap')}>
-        <button
-          className={cx('button', themeColor)}
-          type="button"
-          onClick={onClick}
-        >
+        <Link className={cx('button', themeColor)} href="/signin">
           로그인
-        </button>
-        <button
-          className={cx('button', themeColor)}
-          type="button"
-          onClick={onClick}
-        >
+        </Link>
+        <Link className={cx('button', themeColor)} href="/signup">
           회원가입
-        </button>
+        </Link>
       </div>
     </div>
   );
 }
-
-MainHeader.defaultProps = {
-  themeColor: 'white',
-};
