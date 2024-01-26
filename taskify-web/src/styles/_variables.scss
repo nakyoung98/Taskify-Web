@@ -49,13 +49,12 @@ $error: $red_d6173a !default;
 $text_color: $on_surface !default;
 $hint_color: $surface_dim !default;
 
-
 //== Tyfography
 //
 //## 폰트패밀리, 폰트사이즈, 행높이
 
 // 폰트패밀리
-$font_family_sans-serif: "Pretendard-Regular", Arial, sans-serif !default;
+$font_family_sans-serif: 'Pretendard-Regular', Arial, sans-serif !default;
 $font_family_base: $font_family_sans-serif !default;
 
 // 폰트사이즈
