@@ -17,3 +17,16 @@ body {
   font-weight: $font_weight_default;
   line-height: $line_height_normal;
 }
+// 버튼 기본 스타일 없애기
+button {
+  border: none;
+  padding: unset;
+  background-color: unset;
+  cursor: pointer;
+}
+// a 태그 기본 스타일 없애기
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
