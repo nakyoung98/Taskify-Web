@@ -2,7 +2,9 @@
 @import 'fonts';
 @import 'variables';
 
-
+html{
+    font-size: $font_size_base;
+}
 //== 기본값 정의
 body{
     background-color: $surface;
