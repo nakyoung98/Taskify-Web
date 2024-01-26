@@ -1,0 +1,16 @@
+@import 'normalize';
+@import 'fonts';
+@import 'variables';
+
+html{
+    font-size: $font_size_base;
+}
+//== 기본값 정의
+body{
+    background-color: $surface;
+    color: $text_color;
+    font-family: $font_family_base;
+    font-size: $font_size_default;
+    font-weight: $font_weight_default;
+    line-height: $line_height_normal;
+}
