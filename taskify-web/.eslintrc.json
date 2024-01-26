@@ -3,7 +3,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "prettier"],
   "parserOptions": {
-    "project": "./taskify-web/tsconfig.json",
+    "project": "../taskify-web/tsconfig.json",
     "createDefaultProgram": true
   },
   "env": {
@@ -30,6 +30,12 @@
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
     "import/prefer-default-export": "off",
-    "import/extensions": ["off"]
+    "import/extensions": ["off"],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }
