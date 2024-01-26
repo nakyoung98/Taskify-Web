@@ -69,7 +69,7 @@
   text-decoration: none;
   align-items: center;
   &:visited {
-    color: $black_333236;
+    color: $on_surface;
   }
   @include mobile {
     font-size: $font_size_small;
@@ -80,6 +80,6 @@
   }
 
   &.black {
-    color: $white_ffffff;
+    color: $surface_container;
   }
 }

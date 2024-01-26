@@ -15,26 +15,26 @@
   outline: none;
 
   font-size: $font_size_medium;
-  color: $black_333236;
+  color: $on_surface;
   font-weight: 400;
 
   transition: border-color 0.2s ease-in-out;
 
   &::placeholder {
-    color: $gray_9fa6b2;
+    color: $surface_dim;
   }
 
   &:focus {
-    border-color: $violet_5534da;
+    border-color: $primary;
   }
 
   &.error {
-    border-color: $red_d6173a;
+    border-color: $error;
   }
 }
 
 .messageContainer {
-  color: $red_d6173a;
+  color: $error;
   font-size: $font_size_small;
   font-weight: 400;
 }
