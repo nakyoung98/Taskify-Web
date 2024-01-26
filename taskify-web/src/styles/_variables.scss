@@ -74,7 +74,7 @@ $font_size_default: $font_size_medium !default; // 기본 폰트 사이즈 = 16p
 // 행높이
 $line_height_base: 1.4 !default;
 
-$line_height_normal: floor($font_size_base * $line-height-base) !default;
+$line_height_normal: floor($font_size_default * $line-height-base) !default;
 
 // 폰트 두께
 $font_weight_base: 500 !default;
