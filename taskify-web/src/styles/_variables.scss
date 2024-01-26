@@ -30,3 +30,13 @@ $orange_ffa500: #ffa500 !default;
 $blue_76a6ea: #76a6ea !default;
 $pink_e876ea: #e876ea !default;
 
+
+//== Scaffolding
+//
+// 글로벌 스타일 설정
+
+//** <body> 태그의 기본 배경색
+$body_bg: $white_ffffff !default;
+//** <body> 태그 내의 기본 폰트색
+$text_color: $black_333236 !default;
+$hint_color: $gray_9fa6b2 !default;
