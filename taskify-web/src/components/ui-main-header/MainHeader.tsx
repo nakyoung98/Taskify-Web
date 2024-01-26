@@ -9,7 +9,7 @@ type MainHeaderProps = {
 };
 export default function MainHeader({ themeColor = 'white' }: MainHeaderProps) {
   return (
-    <div className={cx('container', themeColor)}>
+    <nav className={cx('container', themeColor)}>
       <Link href="/">
         <img
           className={cx('largeLogo', themeColor)}
@@ -31,6 +31,6 @@ export default function MainHeader({ themeColor = 'white' }: MainHeaderProps) {
           회원가입
         </Link>
       </div>
-    </div>
+    </nav>
   );
 }
