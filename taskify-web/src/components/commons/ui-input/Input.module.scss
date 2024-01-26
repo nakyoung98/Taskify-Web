@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 .container {
   width: 100%;
   display: flex;
@@ -7,32 +9,32 @@
 
 .input {
   width: 100%;
-  border: 0.1rem solid #d9d9d9;
+  border: 0.1rem solid $gray_d9d9d9;
   border-radius: 0.8rem;
   padding: 1.5rem 1.6rem;
+  outline: none;
 
-  font-size: 1.6rem;
-  color: #333236;
-  font-size: 1.6rem;
+  font-size: $font_size_medium;
+  color: $black_333236;
   font-weight: 400;
 
   transition: border-color 0.2s ease-in-out;
 
   &::placeholder {
-    color: #9fa6b2;
+    color: $gray_9fa6b2;
   }
 
   &:focus {
-    border-color: #5534da;
+    border-color: $violet_5534da;
   }
 
   &.error {
-    border-color: #d6173a;
+    border-color: $red_d6173a;
   }
 }
 
 .messageContainer {
-  color: #d6173a;
-  font-size: 1.4rem;
+  color: $red_d6173a;
+  font-size: $font_size_small;
   font-weight: 400;
 }
