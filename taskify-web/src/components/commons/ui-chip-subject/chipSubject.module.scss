@@ -1,0 +1,21 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+.chip {
+  display: inline-flex;
+  padding: 0.2857rem 0.4286rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 0.8571rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 0.2857rem;
+  width: 3rem;
+  height: 1rem;
+
+  &[data-label='프로젝트'] {
+    background: #f9eee3;
+    color: #d58d49;
+  }
