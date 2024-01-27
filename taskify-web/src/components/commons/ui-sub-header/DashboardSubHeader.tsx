@@ -10,12 +10,12 @@ export default function DashboardSubHeader() {
   return (
     <SubHeader>
       <SubHeaderName>
-        <DashboardName />
+        <DashboardName title="내 대시보드" id={222} />
       </SubHeaderName>
       <SubHeaderItems>
-        <SubHeaderButton />
+        <SubHeaderButton id={222} />
         <DashboardUserList />
-        <MyProfile />
+        <MyProfile nickname="배유철" profileImageUrl="" />
       </SubHeaderItems>
     </SubHeader>
   );
