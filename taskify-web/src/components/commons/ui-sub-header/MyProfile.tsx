@@ -19,7 +19,7 @@ export default function MyProfile({
         src={profileImageUrl}
         alt="내 프로필 이미지"
       />
-      <span className={cx('nickname')}>{nickname}</span>
+      <span>{nickname}</span>
     </div>
   );
 }
