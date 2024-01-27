@@ -13,13 +13,19 @@ const cx = classNames.bind(styles);
 type Drawable = {
   isOpened: OpenStatus;
 };
+
+// DrawableProps를 전달하지 않으면 열고 닫을 수 없음
 type SidebarProps = {
   children: ReactNode;
-  isDrawable: boolean;
-  isOpened: boolean;
+  drawableProps?: Drawable;
 };
 
-export default function Sidebar({ children }: SidebarProps) {
+export default function Sidebar({
+  children,
+  drawableProps = {
+    isOpened: OpenStatus.OPEN,
+  },
+}: SidebarProps) {
 
   
   return (
