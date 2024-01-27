@@ -3,11 +3,11 @@ import styles from './ChipSubject.module.scss';
 
 const cx = classNames.bind(styles);
 
-interface ChipProps {
+type ChipSubjectProps = {
   label: string;
-}
+};
 
-function ChipSubject({ label }: ChipProps) {
+function ChipSubject({ label }: ChipSubjectProps) {
   return (
     <div className={cx('chip')} data-label={label}>
       {label}
