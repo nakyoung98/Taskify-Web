@@ -1,4 +1,8 @@
 import classNames from 'classnames/bind';
+import DashboardName from './DashboardName';
+import SubHeaderButton from './SubHeaderButton';
+import DashboardUserList from './DashboardUserList';
+import MyProfile from './MyProfile';
 import styles from './SubHeader.module.scss';
 import Line from './Line.svg';
 
