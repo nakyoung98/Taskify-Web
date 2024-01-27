@@ -2,20 +2,35 @@
 
 .chip {
   display: inline-flex;
-  padding: 0.2857rem 0.4286rem;
+  padding: 0.4rem 0.6rem;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 0.8571rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  border-radius: 0.2857rem;
-  width: 3rem;
-  height: 1rem;
+  gap: 1rem;
+  border-radius: 0.4rem;
+  background: #f9eee3;
 
   &[data-label='프로젝트'] {
     background: #f9eee3;
     color: #d58d49;
   }
+
+  &[data-label='프로젝트'] {
+    background: #f9eee3;
+    color: #d58d49;
+  }
+
+  &[data-label='일반'] {
+    background: #e7f7db;
+    color: #86d549;
+  }
+
+  &[data-label='백엔드'] {
+    background: #f7dbf0;
+    color: #d549b6;
+  }
+
+  &[data-label='상'] {
+    background: #dbe6f7;
+    color: #4981d5;
+  }
+}
