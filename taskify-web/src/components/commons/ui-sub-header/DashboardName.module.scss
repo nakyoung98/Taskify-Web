@@ -1,0 +1,9 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.dashboardName {
+  font-size: $font_size_xlarge;
+  font-weight: 700;
+  color: $on_surface;
+  line-height: normal;
+}
