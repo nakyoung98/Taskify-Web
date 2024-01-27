@@ -23,7 +23,7 @@ export default function Button({
   return (
     <button
       className={cx(theme, size, 'btn')}
-      type="submit"
+      type="button"
       disabled={disabled}
       onClick={onClick}
     >
