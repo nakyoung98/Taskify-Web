@@ -1,4 +1,4 @@
-import React, { ReactNode, isValidElement, Children } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
@@ -26,11 +26,15 @@ export default function Sidebar({
     isOpened: OpenStatus.OPEN,
   },
 }: SidebarProps) {
+  const { isOpened: initIsOpened } = drawableProps;
+  const [isOpened, setIsOpened] = useState<OpenStatus>(initIsOpened);
+
 
   
   return (
-    <aside className={cx('container')}>
+    <aside className={cx('container', isOpened)}>
       <ArrowComponent
+        className={cx('draw-arrow', isOpened)}
       />
       {children}
     </aside>
