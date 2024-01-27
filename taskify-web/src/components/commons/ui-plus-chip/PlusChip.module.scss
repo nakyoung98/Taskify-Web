@@ -1,0 +1,23 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  background-color: $violet_f1effd;
+  @include mobile {
+    width: 2rem;
+    height: 2rem;
+  }
+  @include tablet {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.icon {
+  width: 100%;
+}
