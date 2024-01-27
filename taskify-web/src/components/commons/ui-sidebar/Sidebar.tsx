@@ -2,9 +2,7 @@ import React, { ReactNode, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
-import SidebarMain from './Sidebarmain';
-import SidebarHeader from './SidebarHeader';
-import SidebarFooter from './SidebarFooter';
+
 import ArrowComponent from './draw-arrow.svg';
 import OpenStatus, { reverseOpenStatus } from './OpenStatus';
 
@@ -34,7 +32,6 @@ export default function Sidebar({
     setIsOpened(newStatus);
   };
 
-  
   return (
     <aside className={cx('container', isOpened)}>
       <ArrowComponent
