@@ -5,6 +5,7 @@ import styles from './Sidebar.module.scss';
 import SidebarMain from './Sidebarmain';
 import SidebarHeader from './SidebarHeader';
 import SidebarFooter from './SidebarFooter';
+import ArrowComponent from './draw-arrow.svg';
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +20,9 @@ export default function Sidebar({ children }: SidebarProps) {
   
   return (
     <aside className={cx('container')}>
-      <SidebarMain>{children}</SidebarMain>
+      <ArrowComponent
+      />
+      {children}
     </aside>
   );
 }
