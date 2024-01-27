@@ -1,8 +1,7 @@
-import React from 'react';
-import cx from 'classnames/bind';
+import classNames from 'classnames/bind';
 import styles from './ChipSubject.module.scss';
 
-const localCx = cx.bind(styles);
+const cx = classNames.bind(styles);
 
 interface ChipProps {
   label: string;
@@ -10,7 +9,7 @@ interface ChipProps {
 
 function ChipSubject({ label }: ChipProps) {
   return (
-    <div className={localCx('chip')} data-label={label}>
+    <div className={cx('chip')} data-label={label}>
       {label}
     </div>
   );
