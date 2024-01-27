@@ -29,12 +29,17 @@ export default function Sidebar({
   const { isOpened: initIsOpened } = drawableProps;
   const [isOpened, setIsOpened] = useState<OpenStatus>(initIsOpened);
 
+  const onArrowClickHandler = () => {
+    const newStatus = reverseOpenStatus(isOpened);
+    setIsOpened(newStatus);
+  };
 
   
   return (
     <aside className={cx('container', isOpened)}>
       <ArrowComponent
         className={cx('draw-arrow', isOpened)}
+        onClick={onArrowClickHandler}
       />
       {children}
     </aside>
