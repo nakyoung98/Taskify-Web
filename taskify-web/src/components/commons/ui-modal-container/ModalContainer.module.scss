@@ -1,0 +1,16 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  padding: 2.8rem;
+  border-radius: 0.8rem;
+  background-color: $surface_container;
+}

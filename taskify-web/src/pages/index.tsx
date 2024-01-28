@@ -1,3 +1,11 @@
+import { Modal } from '@/components/commons/ui-modal/Modal';
+
 export default function Home() {
-  return <div>랜딩 페이지임</div>;
+  const hi = true;
+  return (
+    <div>
+      랜딩 페이지임
+      <Modal isOpen={hi}>dd</Modal>
+    </div>
+  );
 }
