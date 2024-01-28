@@ -1,6 +1,16 @@
 @import '../../../styles/mixin';
 @import '../../../styles/variables';
 
+.container {
+  @include mobile {
+    display: none;
+  }
+
+  @include desktop {
+    display: flex;
+  }
+}
+
 .dashboardName {
   font-size: $font_size_xlarge;
   font-weight: 700;
