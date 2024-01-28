@@ -69,6 +69,25 @@ $animation_duration: 0.2s;
   @include desktop {
     @include adjust-width-with-animation(desktop);
   }
+  .header, .main, .footer {    
+    width: calc(100% - 2 * $container_pad_horizontal);
+
+    overflow: hidden;
+  }
+
+  .main{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-top: $outline 0.1rem solid;
+  }
 }
 
 .draw-arrow {
