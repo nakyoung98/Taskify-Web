@@ -1,4 +1,4 @@
-import classNames from 'classnames/bind'; // Import classNames/bind first
+import classNames from 'classnames/bind';
 import styles from './PaginationButton.module.scss';
 import PaginationButton from './PaginationButton';
 
