@@ -9,18 +9,8 @@ function PaginationButtonContainer() {
 
   return (
     <div className={paginationContainerClass}>
-      <PaginationButton
-        onClick={() => {
-          console.log('왼쪽');
-        }}
-        disabled
-      />
-      <PaginationButton
-        onClick={() => {
-          console.log('오른쪽');
-        }}
-        flipped
-      />
+      <PaginationButton onClick={() => {}} disabled />
+      <PaginationButton onClick={() => {}} flipped />
     </div>
   );
 }
