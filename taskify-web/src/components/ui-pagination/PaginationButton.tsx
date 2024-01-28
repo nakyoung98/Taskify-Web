@@ -20,21 +20,21 @@ function PaginationButton({
   flipped,
   disabled,
 }: PaginationButtonProps) {
-  const containerClass = cx('pagination-container', {
+  const paginationContainerClass = cx('pagination-container', {
     disabled: disabled,
   });
-  const buttonClass = cx('pagination-button', {
+  const paginationbuttonClass = cx('pagination-button', {
     flipped: flipped,
   });
-  const secondButtonClass = cx('pagination-button', {
+  const flippedButtonClass = cx('pagination-button', {
     flipped: !flipped,
   });
 
   return (
-    <div className={containerClass}>
+    <div className={paginationContainerClass}>
       <button
         type="button"
-        className={buttonClass}
+        className={paginationbuttonClass}
         onClick={onClick}
         disabled={disabled}
       >
@@ -42,7 +42,7 @@ function PaginationButton({
       </button>
       <button
         type="button"
-        className={secondButtonClass}
+        className={flippedButtonClass}
         onClick={onClick}
         disabled={disabled}
       >
