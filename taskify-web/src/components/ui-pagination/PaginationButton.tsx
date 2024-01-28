@@ -1,7 +1,6 @@
 import React, { MouseEventHandler } from 'react';
 import classNames from 'classnames/bind';
 import styles from './PaginationButton.module.scss';
-// import ArrowIcon from './ArrowIcon';
 import ArrowIcon from './arrow.svg';
 
 const cx = classNames.bind(styles);
