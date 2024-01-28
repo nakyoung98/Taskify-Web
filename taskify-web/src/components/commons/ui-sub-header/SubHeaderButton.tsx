@@ -11,17 +11,17 @@ type SubHeaderButtonProps = {
 
 export default function SubHeaderButton({ id }: SubHeaderButtonProps) {
   return (
-    <div className={cx('container')}>
+    <>
       {id && (
-        <button className={cx('button')} type="button">
+        <button className={cx('button', 'setting')} type="button">
           <SettingIcon />
           <span>관리</span>
         </button>
       )}
-      <button className={cx('button')} type="button">
+      <button className={cx('button', 'invite')} type="button">
         <InviteIcon />
         <span>초대하기</span>
       </button>
-    </div>
+    </>
   );
 }
