@@ -19,7 +19,6 @@ function PaginationButtonContainer() {
         onClick={() => {
           console.log('오른쪽');
         }}
-        disabled
         flipped
       />
     </div>
