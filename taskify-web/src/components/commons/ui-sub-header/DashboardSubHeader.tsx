@@ -13,16 +13,16 @@ export default function DashboardSubHeader() {
   return (
     <SubHeader>
       <SubHeaderName>
-        <DashboardName />
+        <DashboardName title="" id={0} />
       </SubHeaderName>
       <SubHeaderItems>
         <SubHeaderItemsLeft>
-          <SubHeaderButton />
+          <SubHeaderButton id={0} />
         </SubHeaderItemsLeft>
         <SubHeaderItemsRight>
           <DashboardUserList />
           <DashboardItemsProvider />
-          <MyProfile />
+          <MyProfile nickname="" profileImageUrl="" />
         </SubHeaderItemsRight>
       </SubHeaderItems>
     </SubHeader>
