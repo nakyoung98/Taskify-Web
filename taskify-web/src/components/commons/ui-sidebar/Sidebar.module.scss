@@ -69,18 +69,20 @@ $animation_duration: 0.2s;
   @include desktop {
     @include adjust-width-with-animation(desktop);
   }
-  .header, .main, .footer {    
+  .header,
+  .main,
+  .footer {
     width: calc(100% - 2 * $container_pad_horizontal);
 
     overflow: hidden;
   }
 
-  .main{
+  .main {
     display: flex;
     flex-direction: column;
   }
 
-  .footer{
+  .footer {
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -129,7 +131,5 @@ $animation_duration: 0.2s;
 
     left: 50%;
     transform: translateX(-50%);
-
-
   }
 }
