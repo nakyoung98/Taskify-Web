@@ -1,6 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import classNames from 'classnames/bind';
 import styles from './PaginationButton.module.scss';
+// import ArrowIcon from './ArrowIcon';
 import ArrowIcon from './arrow.svg';
 
 const cx = classNames.bind(styles);
@@ -18,7 +19,6 @@ function PaginationButton({
 }: PaginationButtonProps) {
   const paginationClass = cx('pagination-button', {
     flipped: flipped,
-    disabled: disabled,
   });
 
   return (
@@ -29,7 +29,12 @@ function PaginationButton({
         onClick={onClick}
         disabled={disabled}
       >
-        pagination
+        <div className={cx('button-content')}>
+          페이지네이션
+          <ArrowIcon
+            className={cx('arrow-icon', disabled ? 'disabled' : null)}
+          />
+        </div>
       </button>
     </div>
   );
