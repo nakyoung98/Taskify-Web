@@ -9,7 +9,7 @@
   .pagination-button {
     border-radius: 0.4rem 0 0 0.4rem;
     border: 0.1rem solid #{$outline};
-    background: #{$surface_container} url('./arrow.svg') center no-repeat;
+    background: #{$surface_container} center no-repeat;
     cursor: pointer;
     text-indent: -999rem;
 
@@ -25,5 +25,19 @@
       width: 4rem;
       height: 4rem;
     }
+    .button-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.arrow-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+
+  &.disabled {
+    opacity: 0.5;
   }
 }
