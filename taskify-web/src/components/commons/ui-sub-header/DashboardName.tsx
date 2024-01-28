@@ -5,10 +5,13 @@ const cx = classNames.bind(styles);
 
 type DashboardNameProps = {
   title: string;
-  id: number;
+  id: number | null;
 };
 
-export default function DashboardName({ title, id }: DashboardNameProps) {
+export default function DashboardName({
+  title,
+  id = null,
+}: DashboardNameProps) {
   return (
     <div className={cx('container')}>
       <span className={cx('dashboardNameItem')}>{title}</span>
