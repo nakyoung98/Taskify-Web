@@ -13,9 +13,9 @@ const cx = classNames.bind(styles);
 /**
  * 모달 기본 컨테이너
  * @props : isOpen - 모달 보임 여부
- * @props : children - ModalContentBox 컴포넌트를 안에 넣어주세요
+ * @props : children - html 요소
  *
- * @alert 모달을 사용할 때 이 컴포넌트를 사용하세요
+ * @alert 모달의 기본 골조입니다. AlertModal, 등등으로 분기해서 맞게 사용하면 될 것 같습니다.
  *  */
 export function Modal({ isOpen, children }: ModalProps) {
   return (
