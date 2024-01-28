@@ -1,7 +1,7 @@
 import SubHeader from './SubHeader';
 import SubHeaderName from './SubHeaderName';
 import SubHeaderItems from './SubHeaderItems';
-import MyProfile from '../ui-profile/Profile';
+import ProfileLabel from '../ui-profile-Label/ProfileLabel';
 import DashboardName from './DashboardName';
 import DashboardUserList from './DashboardUserList';
 import SubHeaderButton from './SubHeaderButton';
@@ -13,16 +13,16 @@ export default function DashboardSubHeader() {
   return (
     <SubHeader>
       <SubHeaderName>
-        <DashboardName title="" id={0} />
+        <DashboardName title="" id={null} />
       </SubHeaderName>
       <SubHeaderItems>
         <SubHeaderItemsLeft>
-          <SubHeaderButton id={0} />
+          <SubHeaderButton id={null} />
         </SubHeaderItemsLeft>
         <SubHeaderItemsRight>
           <DashboardUserList />
           <DashboardItemsProvider />
-          <MyProfile nickname="" profileImageUrl="" />
+          <ProfileLabel nickname="" profileImageUrl="" />
         </SubHeaderItemsRight>
       </SubHeaderItems>
     </SubHeader>
