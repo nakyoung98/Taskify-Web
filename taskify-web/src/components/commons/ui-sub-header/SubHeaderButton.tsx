@@ -6,10 +6,10 @@ import styles from './SubHeaderButton.module.scss';
 const cx = classNames.bind(styles);
 
 type SubHeaderButtonProps = {
-  id: number;
+  id?: number | null;
 };
 
-export default function SubHeaderButton({ id }: SubHeaderButtonProps) {
+export default function SubHeaderButton({ id = null }: SubHeaderButtonProps) {
   return (
     <>
       {id && (
