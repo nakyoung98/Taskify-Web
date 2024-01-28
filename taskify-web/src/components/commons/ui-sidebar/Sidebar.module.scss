@@ -1,5 +1,6 @@
 @import '../../../styles/variables';
 @import '../../../styles/mixin';
+@import '../../../styles/util';
 
 $container_pad_vertical: 5rem;
 $container_pad_horizontal: 1rem;
@@ -27,19 +28,6 @@ $animation_duration: 0.2s;
       map-get($widths, '#{$version}'),
       $width_closed_state
     );
-  }
-}
-
-@mixin adjust-width-animation($name, $from, $to) {
-  animation: $name ease-in-out $animation_duration 1;
-
-  @keyframes #{$name} {
-    from {
-      width: $from;
-    }
-    to {
-      width: $to;
-    }
   }
 }
 
@@ -73,7 +61,7 @@ $animation_duration: 0.2s;
   .header,
   .main,
   .footer {
-    width: calc(100% - 2 * $container_pad_horizontal);
+    width: calculate-net-width(100%, $container_pad_horizontal);
     overflow: hidden;
   }
 
@@ -85,8 +73,7 @@ $animation_duration: 0.2s;
   .footer {
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    @include center-element-horizontally;
     border-top: $outline 0.1rem solid;
   }
 }
@@ -120,6 +107,8 @@ $animation_duration: 0.2s;
   }
 
   &.close {
+    @include center-element-horizontally;
+    
     @include tablet {
       display: block;
     }
@@ -127,8 +116,5 @@ $animation_duration: 0.2s;
     @include desktop {
       display: block;
     }
-
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
