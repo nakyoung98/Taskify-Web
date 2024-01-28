@@ -15,7 +15,7 @@ $animation_duration: 0.2s;
   &.open {
     width: map-get($widths, '#{$version}');
     @include adjust-width-animation(
-      growing-width,
+      growing-width-#{$version},
       $width_closed_state,
       map-get($widths, '#{$version}')
     );
@@ -23,7 +23,7 @@ $animation_duration: 0.2s;
   &.close {
     width: $width_closed_state;
     @include adjust-width-animation(
-      shirinking-width,
+      shrinking-width-#{$version},
       map-get($widths, '#{$version}'),
       $width_closed_state
     );
@@ -69,11 +69,11 @@ $animation_duration: 0.2s;
   @include desktop {
     @include adjust-width-with-animation(desktop);
   }
+
   .header,
   .main,
   .footer {
     width: calc(100% - 2 * $container_pad_horizontal);
-
     overflow: hidden;
   }
 
@@ -87,7 +87,6 @@ $animation_duration: 0.2s;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-
     border-top: $outline 0.1rem solid;
   }
 }
