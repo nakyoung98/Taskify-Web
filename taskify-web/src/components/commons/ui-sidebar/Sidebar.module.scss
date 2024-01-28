@@ -1,0 +1,120 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+@import '../../../styles/util';
+
+$container_pad_vertical: 5rem;
+$container_pad_horizontal: 1rem;
+$widths: (
+  'mobile': 6.7rem,
+  'tablet': 16rem,
+  'desktop': 30rem,
+);
+$width_closed_state: map-get($widths, 'mobile');
+$animation_duration: 0.2s;
+
+@mixin adjust-width-with-animation($version) {
+  &.open {
+    width: map-get($widths, '#{$version}');
+    @include adjust-width-animation(
+      growing-width-#{$version},
+      $width_closed_state,
+      map-get($widths, '#{$version}')
+    );
+  }
+  &.close {
+    width: $width_closed_state;
+    @include adjust-width-animation(
+      shrinking-width-#{$version},
+      map-get($widths, '#{$version}'),
+      $width_closed_state
+    );
+  }
+}
+
+.container {
+  padding: $container_pad_vertical 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  background-color: $surface_container;
+  border-right: 0.1rem solid $outline;
+
+  @include mobile {
+    @include adjust-width-with-animation(mobile);
+  }
+
+  @include tablet {
+    @include adjust-width-with-animation(tablet);
+  }
+  @include desktop {
+    @include adjust-width-with-animation(desktop);
+  }
+
+  .header,
+  .main,
+  .footer {
+    width: calculate-net-width(100%, $container_pad_horizontal);
+    overflow: hidden;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    @include center-element-horizontally;
+    border-top: $outline 0.1rem solid;
+  }
+}
+
+.draw-arrow {
+  width: 2rem;
+  height: 2rem;
+
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @include mobile {
+    display: none;
+  }
+
+  &.open {
+    @include tablet {
+      display: block;
+      transform: rotate(180deg);
+    }
+
+    @include desktop {
+      display: block;
+      transform: rotate(180deg);
+    }
+  }
+
+  &.close {
+    @include center-element-horizontally;
+    
+    @include tablet {
+      display: block;
+    }
+
+    @include desktop {
+      display: block;
+    }
+  }
+}
