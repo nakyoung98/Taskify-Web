@@ -10,9 +10,9 @@ type DashboardNameProps = {
 
 export default function DashboardName({ title, id }: DashboardNameProps) {
   return (
-    <>
-      <span className={cx('dashboardName')}>{title}</span>
+    <div className={cx('container')}>
+      <span className={cx('dashboardNameItem')}>{title}</span>
       {id && <div>(//TODO:왕관 이미지)</div>}
-    </>
+    </div>
   );
 }
