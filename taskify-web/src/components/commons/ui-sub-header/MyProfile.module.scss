@@ -16,4 +16,12 @@
 .myProfileName {
   width: 4.2rem;
   height: 1.9rem;
+
+  @include mobile {
+    display: none;
+  }
+
+  @include desktop {
+    display: inline;
+  }
 }
