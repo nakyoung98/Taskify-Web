@@ -5,17 +5,25 @@ import MyProfile from './MyProfile';
 import DashboardName from './DashboardName';
 import DashboardUserList from './DashboardUserList';
 import SubHeaderButton from './SubHeaderButton';
+import DashboardItemsProvider from './Line.svg';
+import SubHeaderItemsLeft from './SubHeaderItemsLeft';
+import SubHeaderItemsRight from './SubHeaderItemsRight';
 
 export default function DashboardSubHeader() {
   return (
     <SubHeader>
       <SubHeaderName>
-        <DashboardName title="내 대시보드" id={222} />
+        <DashboardName />
       </SubHeaderName>
       <SubHeaderItems>
-        <SubHeaderButton id={222} />
-        <DashboardUserList />
-        <MyProfile nickname="배유철" profileImageUrl="" />
+        <SubHeaderItemsLeft>
+          <SubHeaderButton />
+        </SubHeaderItemsLeft>
+        <SubHeaderItemsRight>
+          <DashboardUserList />
+          <DashboardItemsProvider />
+          <MyProfile />
+        </SubHeaderItemsRight>
       </SubHeaderItems>
     </SubHeader>
   );
