@@ -1,0 +1,72 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.btn {
+  border: 1px solid $gray_d9d9d9;
+  background: $surface_container;
+
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addColumn {
+  border-radius: 0.8rem;
+
+  gap: 1.2rem;
+
+  @include mobile {
+    font-size: $font_size_medium;
+
+    padding: 2rem 6rem;
+  }
+  @include tablet {
+    font-size: $font_size_large;
+    padding: 2.4rem 0;
+    width: 54.4rem;
+  }
+  @include desktop {
+    width: 35.4rem;
+  }
+}
+
+.addToDo {
+  border-radius: 0.6rem;
+
+  @include mobile {
+    padding: 0.6rem 0;
+    width: 28.4rem;
+  }
+  @include tablet {
+    padding: 0.9rem 0;
+    width: 54.4rem;
+  }
+  @include desktop {
+    width: 31.4rem;
+  }
+}
+
+.addDashBoard {
+  border-radius: 0.8rem;
+
+  gap: 1.2rem;
+
+  @include mobile {
+    font-size: $font_size_xsmall;
+
+    padding: 1.9rem 0;
+    width: 26rem;
+  }
+  @include tablet {
+    font-size: $font_size_medium;
+    padding: 2.4rem 0;
+    width: 24.7rem;
+  }
+  @include desktop {
+    width: 33.2rem;
+  }
+}
