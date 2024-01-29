@@ -1,0 +1,43 @@
+@import '../../styles/_variables';
+@import '../../styles/_mixin';
+
+.pagination-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  .pagination-button {
+    border-radius: 0.4rem 0 0 0.4rem;
+    border: 0.1rem solid #{$outline};
+    background: #{$surface_container} center no-repeat;
+    cursor: pointer;
+    text-indent: -999rem;
+
+    &.flipped {
+      transform: scaleX(-1);
+    }
+
+    @include mobile {
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+    @include tablet {
+      width: 4rem;
+      height: 4rem;
+    }
+    .button-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.arrow-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+
+  &.disabled {
+    opacity: 0.5;
+  }
+}
