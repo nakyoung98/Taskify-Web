@@ -101,3 +101,15 @@ $font_weights: (
   'bold': $font_weight_bold,
 );
 
+// 텍스트 정렬
+$text_align_left: left !default;
+$text_align_center: center !default;
+$text_align_right: right !default;
+
+// 텍스트 정렬 맵
+$text_aligns: (
+  'left': $text_align_left,
+  'center': $text_align_center,
+  'right': $text_align_right,
+);
+
