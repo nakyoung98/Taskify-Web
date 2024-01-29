@@ -1,0 +1,41 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.Badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 100%;
+  border: 0.2rem solid $surface_container;
+
+  &.orange {
+    background: #ffc85a;
+  }
+  &.pink {
+    background: #f4d7da;
+  }
+  &.sky {
+    background: #9dd7ed;
+  }
+  &.brown {
+    background: #c4b1a2;
+  }
+
+  @include mobile {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+  @include tablet {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+}
+
+.Badge-text {
+  font-family: Montserrat;
+  font-weight: 600;
+  color: $surface_container;
+}
