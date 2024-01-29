@@ -1,0 +1,28 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.main {
+  text-align: center;
+  @include mobile {
+    width: 27.1rem;
+    padding-top: 5.3rem;
+    padding-bottom: 5rem;
+  }
+  @include tablet {
+    width: 48.4rem;
+    font-size: $font_size_large;
+    padding-top: 8rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+.footer {
+  display: flex;
+  width: 100%;
+  @include mobile {
+    justify-content: center;
+  }
+  @include tablet {
+    justify-content: flex-end;
+  }
+}
