@@ -1,0 +1,12 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.memberList {
+  width: 3.8rem;
+  height: 3.8rem;
+}
