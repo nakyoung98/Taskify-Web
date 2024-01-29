@@ -89,3 +89,15 @@ $line_height_normal: $line_height_base !default;
 $font_weight_base: 500 !default;
 
 $font_weight_default: $font_weight_base !default;
+
+$font_weight_lighter: lighter;
+$font_weight_normal: normal;
+$font_weight_bold: bold;
+
+// 폰트 두께 맵
+$font_weights: (
+  'lighter': $font_weight_lighter,
+  'normal': $font_weight_normal,
+  'bold': $font_weight_bold,
+);
+
