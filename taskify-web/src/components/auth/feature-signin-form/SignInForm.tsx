@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import { Input } from '@/components/commons/ui-input/Input';
@@ -13,6 +14,10 @@ export default function SignInForm() {
     defaultValues: { email: '', password: '' },
     mode: 'onBlur',
   });
+
+  const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  };
 
   const isSubmit = true;
   return (
@@ -68,7 +73,7 @@ export default function SignInForm() {
           disabled={!watch('email') || !watch('password')}
           size="large"
           isSubmitType={isSubmit}
-          onClick={() => {}}
+          onClick={handleSubmit}
         >
           {TEXT.button}
         </Button>
