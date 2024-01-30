@@ -25,13 +25,6 @@
 
   font-size: $font_size_large;
   line-height: normal;
-
-  @include mobile {
-    padding: 1.9rem 0;
-  }
-  @include tablet {
-    padding: 2.4rem 0;
-  }
 }
 
 /* 로그인 회원가입 용 큰 사이즈 */
