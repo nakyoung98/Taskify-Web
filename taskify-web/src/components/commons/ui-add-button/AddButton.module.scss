@@ -22,11 +22,11 @@
   @include mobile {
     font-size: $font_size_medium;
 
-    padding: 0.5rem 6rem;
+    padding: 2rem 6rem;
   }
   @include tablet {
     font-size: $font_size_large;
-    padding: 0;
+    padding: 2.4rem 0;
     width: 54.4rem;
   }
   @include desktop {
