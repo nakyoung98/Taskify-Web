@@ -1,3 +1,13 @@
+import { AuthLayout } from '@/components/page-layout/auth-layout/AuthLayout';
+
 export default function SignIn() {
-  return <div>로그인 페이지임</div>;
+  return (
+    <main>
+      <AuthLayout
+        authHeader={<div>d</div>}
+        authForm={<div>d</div>}
+        authFooter={<div>d</div>}
+      />
+    </main>
+  );
 }
