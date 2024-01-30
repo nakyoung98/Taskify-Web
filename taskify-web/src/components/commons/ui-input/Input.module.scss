@@ -1,5 +1,5 @@
 @import '../../../styles/variables';
-
+@import '../../../styles/mixin';
 .container {
   width: 100%;
   display: flex;
@@ -37,4 +37,13 @@
   color: $error;
   font-size: $font_size_small;
   font-weight: 400;
+}
+
+.modal {
+  @include mobile {
+    padding: 1.05rem 1.15rem;
+  }
+  @include tablet {
+    padding: 1.35rem 1.45rem;
+  }
 }

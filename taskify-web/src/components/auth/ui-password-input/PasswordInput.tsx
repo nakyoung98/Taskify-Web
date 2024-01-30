@@ -8,7 +8,7 @@ import EyeOffIcon from './eye-off.svg';
 const cx = classNames.bind(styles);
 
 // 기존 Input에서 type에 대한 타입만 제외합니다.
-type PasswordInputProps = Omit<InputProps, 'type'>;
+type PasswordInputProps = Omit<InputProps, 'type' | 'isModal'>;
 
 export default function PasswordInput({
   value,
