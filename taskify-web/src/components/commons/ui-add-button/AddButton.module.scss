@@ -2,11 +2,11 @@
 @import '../../../styles/variables';
 
 .btn {
-  border: 1px solid $gray_d9d9d9;
-  background: $surface_container;
+  width: fit-content;
 
+  color: $text_color;
   font-style: normal;
-  font-weight: 700;
+  font-weight: $font_weight_bold;
   line-height: normal;
 
   display: flex;
@@ -22,11 +22,11 @@
   @include mobile {
     font-size: $font_size_medium;
 
-    padding: 2rem 6rem;
+    padding: 0.5rem 6rem;
   }
   @include tablet {
     font-size: $font_size_large;
-    padding: 2.4rem 0;
+    padding: 0;
     width: 54.4rem;
   }
   @include desktop {
