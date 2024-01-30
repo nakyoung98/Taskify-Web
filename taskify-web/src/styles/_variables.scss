@@ -1,3 +1,5 @@
+@import './fonts';
+
 //
 // Variables
 // ---------------------------------------// ---------------------------------------
@@ -68,6 +70,20 @@ $font_size_xlarge: 2rem !default;
 $font_size_xxlarge: 2.4rem !default;
 $font_size_xxxlarge: 2.8rem !default;
 
+// 폰트 사이즈 맵
+$font_sizes: (
+  'xsmall': $font_size_xsmall,
+  'small': $font_size_small,
+  'medium': $font_size_medium,
+  'large': $font_size_large,
+  'xlarge': $font_size_xlarge,
+  'xxlarge': $font_size_xxlarge,
+  'xxxlarge': $font_size_xxxlarge,
+);
+
+// 폰트 사이즈 class 생성
+@include font-size($font_sizes);
+
 $font_size_default: $font_size_medium !default; // 기본 폰트 사이즈 = 16px
 
 // 행높이
@@ -79,3 +95,32 @@ $line_height_normal: $line_height_base !default;
 $font_weight_base: 500 !default;
 
 $font_weight_default: $font_weight_base !default;
+
+$font_weight_lighter: lighter;
+$font_weight_normal: normal;
+$font_weight_bold: bold;
+
+// 폰트 두께 맵
+$font_weights: (
+  'lighter': $font_weight_lighter,
+  'normal': $font_weight_normal,
+  'bold': $font_weight_bold,
+);
+
+// 폰트 두께 class 생성
+@include font-weight($font_weights);
+
+// 텍스트 정렬
+$text_align_left: left !default;
+$text_align_center: center !default;
+$text_align_right: right !default;
+
+// 텍스트 정렬 맵
+$text_aligns: (
+  'left': $text_align_left,
+  'center': $text_align_center,
+  'right': $text_align_right,
+);
+
+// 텍스트 정렬 class 생성
+@include text-align($text_aligns);
