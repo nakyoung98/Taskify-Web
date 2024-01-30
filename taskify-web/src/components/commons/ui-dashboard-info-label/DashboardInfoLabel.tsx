@@ -21,6 +21,10 @@ export default function DashboardInfoLabel({
 }: DashboardInfoLabelProps) {
   return (
     <div className={cx('dashboard-info-label', location)}>
+      {/** //TODO: 아래 chip 관련 컴포넌트는 색상 Chip Component로 대체 예정 */}
+      {chipColor && <div className={cx('dashboard-color-chip', chipColor)} />}
+      <p className={cx('dashboard-title')}>{text}</p>
+      {isOwner && <OwnerIcon className={cx('dashboard-owner-icon')} />}
     </div>
   );
 }
