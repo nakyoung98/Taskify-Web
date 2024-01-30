@@ -11,6 +11,7 @@ import { AuthModal } from '../ui-auth-modal/AuthModal';
 
 const cx = classNames.bind(styles);
 
+/** signInForm입니다. */
 export default function SignInForm() {
   const { watch, control } = useForm({
     defaultValues: { email: '', password: '' },
@@ -20,6 +21,7 @@ export default function SignInForm() {
 
   const { login, error } = useAuth();
 
+  /** AuthContext의 login 함수 실행시킴. */
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const value = {
@@ -35,7 +37,9 @@ export default function SignInForm() {
     }
   }, [error]);
 
+  /** 직접 true 주면 린터가 에러 뜨게 해서 넣음 */
   const isSubmit = true;
+
   return (
     <>
       <AuthModal
