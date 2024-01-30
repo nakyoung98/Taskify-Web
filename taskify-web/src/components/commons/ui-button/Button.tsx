@@ -6,7 +6,7 @@ type ButtonProps = {
   theme?: 'primary' | 'secondary';
   disabled?: boolean;
   children: ReactNode;
-  size?: 'large' | 'medium' | 'small' | 'modalMedium' | 'modalSmall';
+  size?: 'xlarge' | 'large' | 'medium' | 'small' | 'modalMedium' | 'modalSmall';
   onClick: MouseEventHandler<HTMLButtonElement>;
 };
 
