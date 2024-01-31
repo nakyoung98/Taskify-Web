@@ -37,9 +37,6 @@ export default function SignInForm() {
     }
   }, [error]);
 
-  /** 직접 true 주면 린터가 에러 뜨게 해서 넣음 */
-  const isSubmit = true;
-
   return (
     <>
       <AuthModal
@@ -100,7 +97,7 @@ export default function SignInForm() {
           <Button
             disabled={!watch('email') || !watch('password')}
             size="large"
-            isSubmitType={isSubmit}
+            isSubmitType
             onClick={handleSubmit}
           >
             {TEXT.button}
