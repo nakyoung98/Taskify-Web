@@ -43,4 +43,10 @@
   font-weight: 600;
   color: $surface_container;
   text-transform: uppercase;
+
+  &.twoWord-text {
+    color: #d25b68;
+    font-family: $font_family_base;
+    font-weight: $font_weight_base;
+  }
 }
