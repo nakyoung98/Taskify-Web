@@ -29,6 +29,7 @@ type ModalFooterProps = {
 type InputModalProps = {
   modalHeaderText: string;
   modalBodyText: string;
+  secondButtonText: string;
 };
 
 function ModalContent({ children, className }: ModalContentProps) {
@@ -50,6 +51,7 @@ function ModalFooter({ children, className }: ModalFooterProps) {
 export function InputModal({
   modalHeaderText,
   modalBodyText,
+  secondButtonText, // New prop
 }: InputModalProps) {
   const [value, setValue] = useState<string>('');
 
@@ -79,7 +81,7 @@ export function InputModal({
               취소
             </Button>
             <Button size="modalMedium" onClick={() => {}}>
-              변경
+              {secondButtonText}
             </Button>
           </ModalFooter>
         </ModalContent>
