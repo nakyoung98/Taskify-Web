@@ -49,7 +49,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter();
 
   /**
-   * 유저 정보를 가져오는 기능입니다. 기본적으로 매 로딩마다 실행되며, 없을때
+   * 유저 정보를 가져오는 기능입니다. 기본적으로 매 로딩마다 실행되며, 없을때는 null 그대로 유지됩니다
    * */
   const getMe = async () => {
     setValue((prevValue) => ({ ...prevValue, isPending: true }));
