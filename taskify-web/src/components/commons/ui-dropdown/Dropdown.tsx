@@ -29,26 +29,26 @@ export default function Dropdown({
   isKebab = false,
   children,
 }: DropdownProps) {
-  const [isDropdownView, setIsDropdownView] = useState<boolean>(false);
+  const [isDropped, setIsDropped] = useState<boolean>(false);
   const setTime = 200;
 
   const handleClickContainer = () => {
-    setIsDropdownView(!isDropdownView);
+    setIsDropped(!isDropped);
   };
 
   const handleBlurContainer = () => {
     setTimeout(() => {
-      setIsDropdownView(false);
+      setIsDropped(false);
     }, setTime);
   };
 
   return (
     <div onBlur={handleBlurContainer} className={cx('container')}>
       <button type="button" onClick={handleClickContainer}>
-        {isKebab && <Kebab />}
+        {isKebab && <Kebab className={cx('kebab')} />}
         {children}
       </button>
-      {isDropdownView && (
+      {isDropped && (
         <div className={cx('button-list')}>
           {buttonList.map((button) => (
             <button
