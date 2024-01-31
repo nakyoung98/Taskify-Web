@@ -26,6 +26,11 @@ type ModalFooterProps = {
   className?: string;
 };
 
+type InputModalProps = {
+  modalHeaderText: string;
+  modalBodyText: string;
+};
+
 function ModalContent({ children, className }: ModalContentProps) {
   return <div className={className}>{children}</div>;
 }
@@ -42,7 +47,10 @@ function ModalFooter({ children, className }: ModalFooterProps) {
   return <div className={className}>{children}</div>;
 }
 
-export function InputModal() {
+export function InputModal({
+  modalHeaderText,
+  modalBodyText,
+}: InputModalProps) {
   const [value, setValue] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +61,11 @@ export function InputModal() {
     <div>
       <Modal isOpen={true}>
         <ModalContent>
-          <ModalHeader className={cx('modal-header')}>모달제목</ModalHeader>
+          <ModalHeader className={cx('modal-header')}>
+            {modalHeaderText}
+          </ModalHeader>
           <ModalBody className={cx('modal-body')}>
-            <p>부제목</p>
+            <p>{modalBodyText}</p>
             <Input
               type="text"
               value={value}
