@@ -4,15 +4,17 @@ export interface SignInForm {
   password: string;
 }
 
-/** @type 로그인 시도시 받아오는 userData 타입 선언 */
 export interface UserData {
-  user: {
-    id: 0;
-    email: string;
-    nickname: string;
-    profileImageUrl: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** @type 로그인 시도시 받아오는 userData 타입 선언 */
+export interface SignInData {
+  user: UserData;
   accessToken: string;
 }

@@ -32,7 +32,7 @@ export default function SignInForm() {
   };
 
   useEffect(() => {
-    if (error) {
+    if (error?.response?.status === 404) {
       setIsOpen(!isOpen);
     }
   }, [error]);

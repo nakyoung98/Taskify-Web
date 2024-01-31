@@ -49,18 +49,35 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter();
 
   /**
-   * @TODO getMyDashBoard 내 대시보드 데이터 가져오는 함수 추가해야됨
+   * 유저 정보를 가져오는 기능입니다. 기본적으로 매 로딩마다 실행되며, 없을때
    * */
+  const getMe = async () => {
+    setValue((prevValue) => ({ ...prevValue, isPending: true }));
+    let nextUser: UserData | null = null;
+    try {
+      setAxiosError(null);
+      const res = await axiosInstance.get('users/me');
+      nextUser = res.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setAxiosError(error);
+      }
+    } finally {
+      setValue((prevValue) => ({
+        ...prevValue,
+        user: nextUser,
+        isPending: false,
+      }));
+    }
+  };
 
   /** useCallBack 쓰라고 경고메세지 뜨는데 나중에 리팩토링 기간 주어지면 최적화 해봐도 좋을 것 같습니다. */
   const login = async ({ email, password }: SignInForm) => {
     try {
       setAxiosError(null);
       const res = await axiosInstance.post('auth/login', { email, password });
-      setValue((prevValue) => ({ ...prevValue, user: res.data.user }));
       sessionStorage.setItem('accessToken', res.data.accessToken);
-
-      /** @TODO mydashboard 데이터 가져오는 함수 호출 */
+      await getMe();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setAxiosError(error);
@@ -69,6 +86,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
     router.push('/mydashboard');
   };
+
+  useEffect(() => {
+    getMe();
+  }, []);
 
   const memoizedValue = useMemo(
     () => ({
