@@ -14,14 +14,16 @@ export default function SubHeaderButton({ id = null }: SubHeaderButtonProps) {
     <>
       {id && (
         <button className={cx('button', 'setting')} type="button">
-          <SettingIcon />
+          <SettingIcon className={cx('icon')} />
           <span>관리</span>
         </button>
       )}
-      <button className={cx('button', 'invite')} type="button">
-        <InviteIcon />
-        <span>초대하기</span>
-      </button>
+      {id && (
+        <button className={cx('button', 'invite')} type="button">
+          <InviteIcon className={cx('icon')} />
+          <span>초대하기</span>
+        </button>
+      )}
     </>
   );
 }
