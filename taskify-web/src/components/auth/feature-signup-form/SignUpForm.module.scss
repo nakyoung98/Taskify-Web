@@ -1,0 +1,46 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  @include mobile {
+    margin-top: 4rem;
+    margin-bottom: 2.4rem;
+  }
+  @include tablet {
+    margin-top: 6rem;
+  }
+  @include desktop {
+    margin-top: 3.8rem;
+  }
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.buttonContainer {
+  margin-top: 0.4rem;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.checkbox {
+  width: 2rem;
+  height: 2rem;
+
+  &:checked {
+    accent-color: $primary;
+  }
+}
