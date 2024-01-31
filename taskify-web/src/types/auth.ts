@@ -4,6 +4,12 @@ export interface SignInForm {
   password: string;
 }
 
+export interface SignUpForm {
+  email: string;
+  nickname: string;
+  password: string;
+}
+
 export interface UserData {
   id: number;
   email: string;
