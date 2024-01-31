@@ -9,7 +9,7 @@ import {
 import { useRouter } from 'next/router';
 import axios, { AxiosError } from 'axios';
 import { axiosInstance } from '@/lib/api/axiosInstance';
-import { SignInForm, UserData } from '@/components/commons/type';
+import { SignInForm, UserData } from '@/types/auth';
 
 /** @type AuthContext에 필요한 타입 선언 */
 type AuthContextType = {
