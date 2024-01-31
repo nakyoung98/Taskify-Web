@@ -27,7 +27,6 @@
     border-radius: 0.4rem;
     background: $violet_f1effd;
     color: $primary;
-    font-size: $font_size_small;
   }
 
   @include mobile {
@@ -39,5 +38,16 @@
     width: 8.1rem;
     height: 3.2rem;
     font-size: $font_size_small;
+  }
+}
+
+.kebab {
+  @include mobile {
+    width: 2rem;
+    height: 2rem;
+  }
+  @include tablet {
+    width: 2.8rem;
+    height: 2.8rem;
   }
 }
