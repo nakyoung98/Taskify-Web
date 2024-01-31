@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
  * @props isSignIn : boolean값이며, 분기에 따라 텍스트가 달라집니다.
  * @default isSignIn=true
  */
-export function AuthFooter({ isSignIn = true }: AuthFooterProps) {
+export function AuthFooter({ isSignIn = false }: AuthFooterProps) {
   const textCase = isSignIn ? 'signIn' : 'signUp';
   return (
     <h2 className={cx('suggestion')}>
