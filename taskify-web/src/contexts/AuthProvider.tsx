@@ -92,6 +92,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     router.push('/mydashboard');
   };
 
+  /** 회원가입 시도하고, 성공시 success true로 반환 */
   const signup = async ({ email, nickname, password }: SignUpForm) => {
     try {
       setAxiosError(null);

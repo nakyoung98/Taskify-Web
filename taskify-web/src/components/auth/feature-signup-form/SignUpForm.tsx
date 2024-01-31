@@ -12,14 +12,17 @@ import { AuthModal } from '../ui-auth-modal/AuthModal';
 
 const cx = classNames.bind(styles);
 
+/** signup 페이지에서 쓰는 폼 컴포넌트입니다. */
 export default function SignUpForm() {
   const router = useRouter();
   const { signup, success, error } = useAuth();
+  // 모달 상태
   const [modalStatus, setModalStatus] = useState<{
     isOpen: boolean;
     messageType: 'signUpError' | 'signUpSuccess';
   }>({ isOpen: false, messageType: 'signUpError' });
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  // input 유효 여부
   const [isValid, setIsValid] = useState<{
     email: boolean;
     nickname: boolean;
@@ -37,6 +40,7 @@ export default function SignUpForm() {
     mode: 'onBlur',
   });
 
+  /** 제출 이벤트 */
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const value = {
@@ -52,6 +56,7 @@ export default function SignUpForm() {
   };
 
   useEffect(() => {
+    /** 성공상태면 modal 성공으로 염 */
     if (success) {
       setModalStatus((prevValues) => ({
         ...prevValues,
@@ -59,6 +64,7 @@ export default function SignUpForm() {
         messageType: 'signUpSuccess',
       }));
     }
+    /** 에러 발생시 에러모달 오픈 */
     if (error?.response?.status === 409) {
       setModalStatus((prevValues) => ({
         ...prevValues,
