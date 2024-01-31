@@ -11,8 +11,14 @@ const cx = classNames.bind(styles);
 
 export default function SignUpForm() {
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<{
+    email: boolean;
+    nickname: boolean;
+    password: boolean;
+    passwordRepeat: boolean;
+  }>({ email: false, password: false, passwordRepeat: false, nickname: false });
 
-  const { control } = useForm({
+  const { control, watch, trigger, getFieldState } = useForm({
     defaultValues: {
       email: '',
       nickname: '',
@@ -21,6 +27,7 @@ export default function SignUpForm() {
     },
     mode: 'onBlur',
   });
+
   return (
     <form className={cx('form')}>
       <label className={cx('inputContainer')}>
@@ -39,6 +46,15 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <Input
               {...field}
+              onBlur={() => {
+                trigger('email').then(() => {
+                  if (!getFieldState('email').invalid) {
+                    setIsValid((prev) => ({ ...prev, email: true }));
+                  } else {
+                    setIsValid((prev) => ({ ...prev, email: false }));
+                  }
+                });
+              }}
               placeholder={TEXT.email.message.required}
               hasError={Boolean(fieldState.error)}
               errorMessage={fieldState.error?.message}
@@ -55,13 +71,22 @@ export default function SignUpForm() {
           rules={{
             required: TEXT.nickname.message.required,
             pattern: {
-              value: /^.{1,8}$/,
+              value: /^.{1,10}$/,
               message: TEXT.nickname.message.pattern,
             },
           }}
           render={({ field, fieldState }) => (
             <Input
               {...field}
+              onBlur={() => {
+                trigger('nickname').then(() => {
+                  if (!getFieldState('nickname').invalid) {
+                    setIsValid({ ...isValid, nickname: true });
+                  } else {
+                    setIsValid({ ...isValid, nickname: false });
+                  }
+                });
+              }}
               placeholder="닉네임을 입력해 주세요"
               hasError={Boolean(fieldState.error)}
               errorMessage={fieldState.error?.message}
@@ -85,6 +110,15 @@ export default function SignUpForm() {
           render={({ field, fieldState }) => (
             <PasswordInput
               {...field}
+              onBlur={() => {
+                trigger('password').then(() => {
+                  if (!getFieldState('password').invalid) {
+                    setIsValid({ ...isValid, password: true });
+                  } else {
+                    setIsValid({ ...isValid, password: false });
+                  }
+                });
+              }}
               placeholder="8자 이상 입력해 주세요"
               hasError={Boolean(fieldState.error)}
               errorMessage={fieldState.error?.message}
@@ -93,12 +127,35 @@ export default function SignUpForm() {
         />
       </label>
       <label className={cx('inputContainer')}>
-        비밀번호 확인
+        {TEXT.passwordRepeat.label}
         <Controller
           control={control}
           name="passwordRepeat"
           defaultValue=""
-          render={({ field }) => <PasswordInput {...field} />}
+          rules={{
+            required: TEXT.passwordRepeat.message.required,
+            validate: (value) =>
+              value === watch('password')
+                ? true
+                : TEXT.passwordRepeat.message.pattern,
+          }}
+          render={({ field, fieldState }) => (
+            <PasswordInput
+              {...field}
+              onBlur={() => {
+                trigger('passwordRepeat').then(() => {
+                  if (!getFieldState('passwordRepeat').invalid) {
+                    setIsValid({ ...isValid, passwordRepeat: true });
+                  } else {
+                    setIsValid({ ...isValid, passwordRepeat: false });
+                  }
+                });
+              }}
+              placeholder={TEXT.passwordRepeat.message.required}
+              hasError={Boolean(fieldState.error)}
+              errorMessage={fieldState.error?.message}
+            />
+          )}
         />
       </label>
       <label className={cx('checkboxContainer')}>
@@ -112,7 +169,17 @@ export default function SignUpForm() {
         {TEXT.policy}
       </label>
       <div className={cx('buttonContainer')}>
-        <Button disabled={!isChecked} onClick={() => {}} size="large">
+        <Button
+          disabled={
+            !isChecked ||
+            !isValid.email ||
+            !isValid.nickname ||
+            !isValid.password ||
+            !isValid.passwordRepeat
+          }
+          onClick={() => {}}
+          size="large"
+        >
           회원가입
         </Button>
       </div>
