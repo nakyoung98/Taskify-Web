@@ -87,7 +87,7 @@ export default function SignUpForm() {
                   }
                 });
               }}
-              placeholder="닉네임을 입력해 주세요"
+              placeholder={TEXT.nickname.message.required}
               hasError={Boolean(fieldState.error)}
               errorMessage={fieldState.error?.message}
             />
@@ -119,7 +119,7 @@ export default function SignUpForm() {
                   }
                 });
               }}
-              placeholder="8자 이상 입력해 주세요"
+              placeholder={TEXT.password.message.pattern}
               hasError={Boolean(fieldState.error)}
               errorMessage={fieldState.error?.message}
             />
@@ -180,7 +180,7 @@ export default function SignUpForm() {
           onClick={() => {}}
           size="large"
         >
-          회원가입
+          {TEXT.button}
         </Button>
       </div>
     </form>
