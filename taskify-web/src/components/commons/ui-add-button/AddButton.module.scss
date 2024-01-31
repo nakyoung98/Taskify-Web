@@ -2,11 +2,11 @@
 @import '../../../styles/variables';
 
 .btn {
-  border: 1px solid $gray_d9d9d9;
-  background: $surface_container;
+  width: fit-content;
 
+  color: $text_color;
   font-style: normal;
-  font-weight: 700;
+  font-weight: $font_weight_bold;
   line-height: normal;
 
   display: flex;

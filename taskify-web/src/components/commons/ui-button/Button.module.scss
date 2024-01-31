@@ -14,6 +14,19 @@
 }
 
 /* style */
+/* 대시보드 관련 매우 큰 사이즈*/
+.xlarge {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  border-radius: 0.8rem;
+
+  font-size: $font_size_large;
+  line-height: normal;
+}
+
 /* 로그인 회원가입 용 큰 사이즈 */
 .large {
   width: 100%;
