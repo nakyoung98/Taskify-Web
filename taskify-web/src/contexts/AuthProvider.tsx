@@ -9,14 +9,16 @@ import {
 import { useRouter } from 'next/router';
 import axios, { AxiosError } from 'axios';
 import { axiosInstance } from '@/lib/api/axiosInstance';
-import { SignInForm, UserData } from '@/types/auth';
+import { SignInForm, UserData, SignUpForm } from '@/types/auth';
 
 /** @type AuthContext에 필요한 타입 선언 */
 type AuthContextType = {
   user: UserData | null;
   isPending: boolean;
   login: ({ email, password }: SignInForm) => Promise<void>;
+  signup: ({ email, nickname, password }: SignUpForm) => Promise<void>;
   error: AxiosError | null;
+  success: boolean;
 };
 
 /**  createContext 초기값 지정 */
@@ -24,7 +26,9 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   isPending: true,
   login: async () => {},
+  signup: async () => {},
   error: null,
+  success: false,
 });
 
 type AuthProviderProps = { children: ReactNode };
@@ -45,6 +49,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     isPending: true,
   });
   const [axiosError, setAxiosError] = useState<AxiosError | null>(null);
+  const [axiosSuccess, setAxiosSuccess] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -87,6 +92,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
     router.push('/mydashboard');
   };
 
+  const signup = async ({ email, nickname, password }: SignUpForm) => {
+    try {
+      setAxiosError(null);
+      setAxiosSuccess(false);
+      await axiosInstance.post('users', {
+        email,
+        nickname,
+        password,
+      });
+      setAxiosSuccess(true);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setAxiosError(error);
+      }
+    }
+  };
+
   useEffect(() => {
     getMe();
   }, []);
@@ -96,9 +118,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
       user: value.user,
       isPending: value.isPending,
       login,
+      signup,
       error: axiosError,
+      success: axiosSuccess,
     }),
-    [value.user, value.isPending, login, axiosError],
+    [value.user, value.isPending, login, signup, axiosError, axiosSuccess],
   );
   return (
     <AuthContext.Provider value={memoizedValue}>
