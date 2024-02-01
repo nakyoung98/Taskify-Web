@@ -26,7 +26,7 @@ export default function Card({
   tags,
   expiredDate,
   user,
-  clickable = true,
+  clickable,
   onClick = () => {},
 }: CardProps) {
   return (
