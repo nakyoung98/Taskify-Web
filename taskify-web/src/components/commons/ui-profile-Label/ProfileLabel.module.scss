@@ -21,7 +21,11 @@
     display: none;
   }
 
+  @include tablet {
+    display: block;
+  }
+
   @include desktop {
-    display: inline;
+    display: block;
   }
 }

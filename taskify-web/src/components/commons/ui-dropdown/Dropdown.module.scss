@@ -2,17 +2,17 @@
 @import '../../../styles/variables';
 
 .container {
-  width: 100%;
   position: relative;
 }
 
 .button-list {
   display: flex;
+  background-color: $surface_container;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: 0.3rem;
+  right: 2rem;
   padding: 0.6rem;
   border-radius: 0.6rem;
   border: 0.1rem solid $outline;
