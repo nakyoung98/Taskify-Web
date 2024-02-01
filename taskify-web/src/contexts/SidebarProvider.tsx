@@ -20,6 +20,10 @@ const SidebarContext = createContext<SidebarContextType>({
 type SidebarProviderProps = {
   children: ReactNode;
 };
+
+/** 사이드바 오픈 관련 Provider
+ *  isOpen, setIsOpen을 제공함
+ */
 export function SidebarProvider({ children }: SidebarProviderProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -38,6 +42,7 @@ export function SidebarProvider({ children }: SidebarProviderProps) {
   );
 }
 
+/** 사이드바 컨텍스트 제공하는 커스텀 훅 */
 export function useSideBar() {
   const context = useContext(SidebarContext);
   if (!context) {

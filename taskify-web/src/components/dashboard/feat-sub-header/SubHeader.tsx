@@ -11,6 +11,9 @@ import SubHeaderItemsRight from '@/components/commons/ui-sub-header/SubHeaderIte
 import SubHeaderName from '@/components/commons/ui-sub-header/SubHeaderName';
 import { TEXT } from '@/components/commons/ui-sub-header/constant';
 
+/** 기능 동작하는 subheader 컴포넌트 입니다. 여기서 기능적인 부분 구현하면 될 것 같습니다.
+ * 데이터는 일단 예시로 작성한걸로 적용했습니다.
+ */
 export default function SubHeader() {
   const { subHeaderButtonList } = TEXT;
   const router = useRouter();
