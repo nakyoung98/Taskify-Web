@@ -17,7 +17,7 @@ const cx = classNames.bind(styles);
  * @alert 로고랑 바로 아래 텍스트가 있는 auth페이지의 헤더입니다.
  * @props isSignIn 로그인창에서 사용할 때는 true, 회원가입 창일때는 false를 넣으면 됩니다.
  */
-export function AuthHeader({ isSignIn = true }: AuthHeaderProps) {
+export function AuthHeader({ isSignIn = false }: AuthHeaderProps) {
   return (
     <header className={cx('header')}>
       <div className={cx('imageContainer')}>

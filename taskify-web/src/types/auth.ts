@@ -4,6 +4,11 @@ export interface SignInForm {
   password: string;
 }
 
+/** @type 회원가입 할 때 사용하는 폼 타입 선언 */
+export interface SignUpForm extends SignInForm {
+  nickname: string;
+}
+
 export interface UserData {
   id: number;
   email: string;

@@ -19,9 +19,9 @@ export default function SignIn() {
   return (
     <main>
       <AuthLayout
-        authHeader={<AuthHeader />}
+        authHeader={<AuthHeader isSignIn />}
         authForm={<SignInForm />}
-        authFooter={<AuthFooter />}
+        authFooter={<AuthFooter isSignIn />}
       />
     </main>
   );
