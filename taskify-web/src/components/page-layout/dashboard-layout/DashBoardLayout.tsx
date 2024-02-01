@@ -1,21 +1,25 @@
 import { ReactNode } from 'react';
+import classNames from 'classnames/bind';
+import styles from './DashBoardLayout.module.scss';
+import SubHeader from '@/components/dashboard/feat-sub-header/SubHeader';
+import SideBar from '@/components/dashboard/feat-side-bar/SideBar';
+import { useSideBar } from '@/contexts/SidebarProvider';
 
 type DashBoardLayoutProps = {
-  dashboardHeader: ReactNode;
   dashboardMain: ReactNode;
-  dashboardSideBar: ReactNode;
 };
 
-export function DashBoardLayout({
-  dashboardHeader,
-  dashboardMain,
-  dashboardSideBar,
-}: DashBoardLayoutProps) {
+const cx = classNames.bind(styles);
+
+export function DashBoardLayout({ dashboardMain }: DashBoardLayoutProps) {
+  const { isOpen } = useSideBar();
   return (
     <main>
-      <aside>{dashboardSideBar}</aside>
-      <header>{dashboardHeader}</header>
-      <article>{dashboardMain}</article>
+      <SubHeader />
+      <SideBar />
+      <article className={cx('main', { isOpened: !isOpen })}>
+        {dashboardMain}
+      </article>
     </main>
   );
 }
