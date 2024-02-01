@@ -1,4 +1,7 @@
+import classNames from 'classnames/bind';
+import { MouseEvent } from 'react';
 import Image from 'next/image';
+const cx = classNames.bind(styles);
 
 type CardProps = {
   imageUrl?: string;
@@ -8,6 +11,8 @@ type CardProps = {
   /**TODO: expiredDate type 명확히  */
   expiredDate?: string;
   user?: string;
+  clickable?: boolean;
+  onClick?: (e: MouseEvent) => void;
 };
 
 export default function Card({
@@ -16,6 +21,8 @@ export default function Card({
   tags,
   expiredDate,
   user,
+  clickable = true,
+  onClick = () => {},
 }: CardProps) {
   return (
     <article>
@@ -29,5 +36,12 @@ export default function Card({
         {/** user가 있으면 UserBadge에 userData에 맞게 데이터를 불러와야함 */}
       </footer>
     </article>
+    <button
+      className={cx('button_unstyled')}
+      type="button"
+      onClick={onClick}
+      disabled={clickable}
+    >
+    </button>
   );
 }
