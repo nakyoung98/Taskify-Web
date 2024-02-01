@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import { MouseEvent } from 'react';
 import Image from 'next/image';
+import styles from './Card.module.scss';
 import UserBadge from '../ui-user-badge/UserBadge';
 import Calendar from './calendar.svg';
 import ChipSubject from '../ui-chip-subject/chipSubject';
