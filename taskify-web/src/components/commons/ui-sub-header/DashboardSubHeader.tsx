@@ -22,7 +22,7 @@ export default function DashboardSubHeader() {
     const input = e.target as HTMLElement;
     if (input.innerText === '로그아웃') {
       router.push('/');
-      sessionStorage.clear();
+      sessionStorage.removeItem('accessToken');
     }
     if (input.innerText === '내 정보') {
       router.push('/mypage');
