@@ -17,12 +17,15 @@ const cx = classNames.bind(styles);
 export function DashBoardLayout({ dashboardMain }: DashBoardLayoutProps) {
   const { isOpen } = useSideBar();
   return (
-    <main>
+    <>
       <SubHeader />
-      <SideBar />
-      <article className={cx('main', { isOpened: !isOpen })}>
-        {dashboardMain}
-      </article>
-    </main>
+
+      <main>
+        <SideBar />
+        <article className={cx('main', { isOpened: !isOpen })}>
+          {dashboardMain}
+        </article>
+      </main>
+    </>
   );
 }
