@@ -19,7 +19,6 @@ export function DashBoardLayout({ dashboardMain }: DashBoardLayoutProps) {
   return (
     <>
       <SubHeader />
-
       <main>
         <SideBar />
         <article className={cx('main', { isOpened: !isOpen })}>
