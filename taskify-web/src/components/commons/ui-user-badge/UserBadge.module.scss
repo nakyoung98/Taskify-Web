@@ -6,8 +6,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3.8rem;
-  height: 3.8rem;
   border-radius: 100%;
   border: 0.2rem solid $surface_container;
 
@@ -28,13 +26,82 @@
     background: #c4b1a2;
   }
 
-  @include mobile {
-    width: 3.4rem;
-    height: 3.4rem;
+  &.header {
+    @include mobile {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: $font_size_small;
+    }
+    @include tablet {
+      width: 3.8rem;
+      height: 3.8rem;
+      font-size: $font_size_medium;
+    }
+    @include desktop {
+      width: 3.8rem;
+      height: 3.8rem;
+      font-size: $font_size_medium;
+    }
   }
-  @include tablet {
-    width: 3.8rem;
-    height: 3.8rem;
+
+  &.card {
+    @include mobile {
+      width: 2.6rem;
+      height: 2.6rem;
+      font-size: $font_size_xsmall;
+    }
+    @include tablet {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: $font_size_medium;
+    }
+    @include desktop {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: $font_size_medium;
+    }
+  }
+
+  &.column {
+    @include mobile {
+      width: 2.2rem;
+      height: 2.2rem;
+      font-size: $font_size_base;
+    }
+    @include tablet {
+      width: 2.4rem;
+      height: 2.4rem;
+      font-size: $font_size_xsmall;
+    }
+    @include desktop {
+      width: 2.4rem;
+      height: 2.4rem;
+      font-size: $font_size_xsmall;
+    }
+  }
+
+  &.dropdown {
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: $font_size_xsmall;
+  }
+
+  &.member {
+    @include mobile {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: $font_size_small;
+    }
+    @include tablet {
+      width: 3.8rem;
+      height: 3.8rem;
+      font-size: $font_size_medium;
+    }
+    @include desktop {
+      width: 3.8rem;
+      height: 3.8rem;
+      font-size: $font_size_medium;
+    }
   }
 }
 
