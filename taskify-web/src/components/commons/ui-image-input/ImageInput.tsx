@@ -72,6 +72,7 @@ export default function ImageInput({
         type="file"
         name="file"
         className={cx('input')}
+        accept="image/*"
       />
     </label>
   );
