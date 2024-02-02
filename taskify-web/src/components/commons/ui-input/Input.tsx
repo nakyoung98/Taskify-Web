@@ -18,6 +18,7 @@ export type InputProps = {
   errorMessage?: string;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   name?: string;
+  disabled?: boolean;
 };
 
 /* 필수 props : value, onChange */
@@ -36,6 +37,7 @@ export function Input({
   errorMessage,
   onBlur,
   name,
+  disabled = false,
 }: InputProps) {
   return (
     <div className={cx('container')}>
@@ -47,6 +49,7 @@ export function Input({
         onBlur={onBlur}
         placeholder={placeholder}
         className={cx('input', { error: hasError }, { modal: isModal })}
+        disabled={disabled}
       />
       {hasError && (
         <span className={cx('messageContainer')}>{errorMessage}</span>
