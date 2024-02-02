@@ -36,7 +36,7 @@ export default function Card({
       onClick={onClick}
       disabled={!clickable}
     >
-      <article className={cx('card-container', clickable ? 'clickable' : null)}>
+      <article className={cx('card-container', { clickable })}>
         {imageUrl && (
           <div className={cx('card-container__thumbnail')}>
             <Image
