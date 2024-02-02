@@ -34,7 +34,7 @@ export default function Card({
       className={cx('button_unstyled')}
       type="button"
       onClick={onClick}
-      disabled={clickable}
+      disabled={!clickable}
     >
       <article className={cx('card-container', clickable ? 'clickable' : null)}>
         {imageUrl && (
