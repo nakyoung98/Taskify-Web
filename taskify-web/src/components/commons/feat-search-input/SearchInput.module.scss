@@ -1,0 +1,22 @@
+@import '../../../styles/mixin';
+
+.search-input_icon {
+    position: absolute;
+    right: 1.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+  @include mobile {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  @include tablet {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}
+
+.search-input {
+    position: relative;
+}
