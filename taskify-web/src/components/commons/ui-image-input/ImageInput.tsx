@@ -61,7 +61,12 @@ export default function ImageInput({
     <label className={cx('container', location)}>
       <div className={cx('container', location)}>
         {imageData.preview ? (
-          <Image src={imageData.preview} alt="미리보기" fill />
+          <Image
+            className={cx('image')}
+            src={imageData.preview}
+            alt="미리보기"
+            fill
+          />
         ) : (
           <PlusIcon className={cx('icon')} />
         )}
