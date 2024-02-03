@@ -1,3 +1,4 @@
+import ChangePasswordForm from '@/components/dashboard/feat-change-password-form/ChangePasswordForm';
 import ChangeProfileForm from '@/components/dashboard/feat-change-profile-form/ChangeProfileForm';
 import GoBackMain from '@/components/dashboard/ui-go-back-main/GoBackMain';
 import { DashBoardLayout } from '@/components/page-layout/dashboard-layout/DashBoardLayout';
@@ -10,6 +11,7 @@ export default function MyPage() {
         dashboardMain={
           <GoBackMain>
             <ChangeProfileForm />
+            <ChangePasswordForm />
           </GoBackMain>
         }
       />
