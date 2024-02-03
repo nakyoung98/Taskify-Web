@@ -8,6 +8,9 @@
   justify-content: center;
   align-items: center;
 }
+.image {
+  object-fit: cover;
+}
 .mypage {
   @include mobile {
     width: 10rem;
