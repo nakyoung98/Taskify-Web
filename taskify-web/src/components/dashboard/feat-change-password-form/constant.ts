@@ -8,7 +8,7 @@ export const TEXT = {
   },
   newPassword: {
     label: '새 비밀번호',
-    required: '밀번호를 입력해 주세요',
+    required: '비밀번호를 입력해 주세요',
     pattern: '8자 이상 작성해 주세요.',
     placeholder: '새 비밀번호 입력',
   },
