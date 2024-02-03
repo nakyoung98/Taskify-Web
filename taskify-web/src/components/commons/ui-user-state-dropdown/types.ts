@@ -4,6 +4,9 @@ export type UserData = {
   email: string;
   nickname: string;
   profileImageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  isOwner: boolean;
 };
 
 export type ColumnData = {
