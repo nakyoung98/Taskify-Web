@@ -9,7 +9,12 @@ import {
 import { useRouter } from 'next/router';
 import axios, { AxiosError } from 'axios';
 import { axiosInstance } from '@/lib/api/axiosInstance';
-import { SignInForm, UserData, SignUpForm } from '@/types/auth';
+import {
+  SignInForm,
+  UserData,
+  SignUpForm,
+  ChangeProfileForm,
+} from '@/types/auth';
 
 /** @type AuthContext에 필요한 타입 선언 */
 type AuthContextType = {
@@ -17,6 +22,7 @@ type AuthContextType = {
   isPending: boolean;
   login: ({ email, password }: SignInForm) => Promise<void>;
   signup: ({ email, nickname, password }: SignUpForm) => Promise<void>;
+  updateMe: ({ nickname, image }: ChangeProfileForm) => Promise<void>;
   error: AxiosError | null;
   success: boolean;
 };
@@ -27,6 +33,7 @@ const AuthContext = createContext<AuthContextType>({
   isPending: true,
   login: async () => {},
   signup: async () => {},
+  updateMe: async () => {},
   error: null,
   success: false,
 });
@@ -76,6 +83,44 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  const updateMe = async ({ nickname, image }: ChangeProfileForm) => {
+    if (image) {
+      try {
+        const res = await axiosInstance.post(
+          'users/me/image',
+          {
+            image,
+          },
+          {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          },
+        );
+        const { data } = res;
+        await axiosInstance.put('users/me', {
+          nickname,
+          profileImageUrl: data.profileImageUrl,
+        });
+        getMe();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
+      }
+    } else {
+      try {
+        await axiosInstance.put('users/me', {
+          nickname,
+          profileImageUrl: value.user?.profileImageUrl,
+        });
+        getMe();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
+      }
+    }
+  };
+
   /** useCallBack 쓰라고 경고메세지 뜨는데 나중에 리팩토링 기간 주어지면 최적화 해봐도 좋을 것 같습니다. */
   const login = async ({ email, password }: SignInForm) => {
     try {
@@ -120,10 +165,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
       isPending: value.isPending,
       login,
       signup,
+      updateMe,
       error: axiosError,
       success: axiosSuccess,
     }),
-    [value.user, value.isPending, login, signup, axiosError, axiosSuccess],
+    [
+      value.user,
+      value.isPending,
+      login,
+      signup,
+      updateMe,
+      axiosError,
+      axiosSuccess,
+    ],
   );
   return (
     <AuthContext.Provider value={memoizedValue}>
