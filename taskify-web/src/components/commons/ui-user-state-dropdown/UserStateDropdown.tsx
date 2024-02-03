@@ -8,6 +8,17 @@ import { UserData, ColumnData } from './types';
 
 const cx = classNames.bind(styles);
 
+/**
+ * `UserStateDropdown`컴포넌트의 props 타입을 정의합니다.
+ * @typeof {object} UserStateDropdownProps
+ * @property {text} - 드롭다운명을 지정하는 속성입니다. 예시) 상태, 담당자
+ * @property {userData} - /{teamid}/members api의 members 객체를 받는 속성입니다.
+ * @property {columnData} - /{teamid}/columns api의 data 객체를 받는 속성입니다.
+ * @property {IsUserDataType} - 유저데이터를 받아올지 컬럼데이터를 받아올지를 선택하는 속성입니다. true의 경우 유저데이터를 받습니다.
+ * @property {setUserDataState} - 상위 컴포넌트에서 유저 데이터의 state를 받는 속성입니다.
+ * @property {setColumnDataState} - 상위 컴포넌트에서 컬럼 데이터의 state를 받는 속성입니다.
+ */
+
 type UserStateDropdownProps = {
   text: string;
   userData?: Array<UserData>;
