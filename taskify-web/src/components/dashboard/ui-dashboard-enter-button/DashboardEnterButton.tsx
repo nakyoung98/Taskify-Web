@@ -15,6 +15,14 @@ type DashboardEnterButtonProps = {
   isOwner: boolean;
 };
 
+/**
+ * 대시보드 진입 버튼 컴포넌트
+ *
+ * @param {MouseEventHandler<HTMLButtonElement>} props.onClick 대시보드 버튼 클릭 시 처리할 업무
+ * @param {string} props.dashboardName 대시보드의 이름
+ * @param {ChipColor} props.dashboardColor 대시보드 레이블의 색상
+ * @param {boolean} props.isOwner 사용자가 대시보드의 소유자인지 여부
+ */
 export default function DashboardEnterButton({
   onClick,
   dashboardName,
