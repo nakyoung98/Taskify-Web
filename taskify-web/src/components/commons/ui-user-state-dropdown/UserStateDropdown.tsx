@@ -45,6 +45,9 @@ export default function UserStateDropdown({
     email: '',
     nickname: '',
     profileImageUrl: '',
+    createdAt: '',
+    updatedAt: '',
+    isOwner: false,
   });
   const [columnDataInfo, setColumnDataInfo] = useState<ColumnData>({
     id: 0,
@@ -86,9 +89,30 @@ export default function UserStateDropdown({
     nickname: string,
     email: string,
     profileImageUrl: string,
+    createdAt: string,
+    updatedAt: string,
+    isOwner: boolean,
   ) => {
-    setProfileInfo({ id, userId, nickname, email, profileImageUrl });
-    setUserDataState?.({ id, userId, nickname, email, profileImageUrl });
+    setProfileInfo({
+      id,
+      userId,
+      nickname,
+      email,
+      profileImageUrl,
+      createdAt,
+      updatedAt,
+      isOwner,
+    });
+    setUserDataState?.({
+      id,
+      userId,
+      nickname,
+      email,
+      profileImageUrl,
+      createdAt,
+      updatedAt,
+      isOwner,
+    });
     setIsInsert(true);
     setSearch('');
     setIsDropped(false);
@@ -196,6 +220,9 @@ export default function UserStateDropdown({
                     data.nickname,
                     data.email,
                     data.profileImageUrl,
+                    data.createdAt,
+                    data.updatedAt,
+                    data.isOwner,
                   )
                 }
                 aria-label={data.nickname}
