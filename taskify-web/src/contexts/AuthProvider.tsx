@@ -50,6 +50,9 @@ type AuthProviderProps = { children: ReactNode };
  * Context.Provider를 쉽게 사용하기 위해 만든 Provider 컴포넌트
  * @props children : html요소가 들어가는데 이미 _app에 적용되어있음.
  * @function login : 로그인 동작 함수
+ * @function signup : 회원가입 요청 함수
+ * @function updateMe : 프로필 및 닉네임 변경 요청 함수
+ * @function changePassword : 비밀번호 변경 요청 함수
  */
 export function AuthProvider({ children }: AuthProviderProps) {
   const [value, setValue] = useState<{
@@ -87,6 +90,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  /** 유저 프로필 이미지, 닉네임을 수정하는 함수입니다. */
   const updateMe = async ({ nickname, image }: ChangeProfileForm) => {
     if (image) {
       try {
@@ -125,6 +129,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  /** 비밀번호를 변경하는 함수입니다. */
   const changePassword = async ({
     password,
     newPassword,

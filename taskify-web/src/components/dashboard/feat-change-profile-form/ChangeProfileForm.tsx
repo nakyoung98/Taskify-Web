@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthProvider';
 
 const cx = classNames.bind(styles);
 
+/** 프로필 변경 폼. mypage에서만 사용합니다. */
 export default function ChangeProfileForm() {
   const inputRef = useRef<HTMLInputElement>(null);
 

@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthProvider';
 
 const cx = classNames.bind(styles);
 
+/** 비밀번호를 변경하는 폼. mypage에서만 사용합니다. */
 export default function ChangePasswordForm() {
   const { watch, control, trigger, getFieldState, setError } = useForm({
     defaultValues: { password: '', newPassword: '', newPasswordRepeat: '' },

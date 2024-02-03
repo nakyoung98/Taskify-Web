@@ -10,6 +10,7 @@ type GoBackMainProps = {
 
 const cx = classNames.bind(styles);
 
+/** 뒤로가기 기능이 있는 메인 레이아웃. 뒤로가기 기능이 있는 메인은 이 컨테이너를 사용하면 됩니다. */
 export default function GoBackMain({ children }: GoBackMainProps) {
   const router = useRouter();
   return (
