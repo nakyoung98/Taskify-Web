@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import styles from './ChangePasswordForm.module.scss';
 import Button from '@/components/commons/ui-button/Button';
 import PasswordInput from '@/components/auth/ui-password-input/PasswordInput';
+import { useAuth } from '@/contexts/AuthProvider';
 
 const cx = classNames.bind(styles);
 
 export default function ChangePasswordForm() {
-  const { watch, control, trigger, getFieldState } = useForm({
+  const { watch, control, trigger, getFieldState, setError } = useForm({
     defaultValues: { password: '', newPassword: '', newPasswordRepeat: '' },
     mode: 'onBlur',
   });
@@ -22,8 +23,29 @@ export default function ChangePasswordForm() {
     newPasswordRepeat: false,
   });
 
+  const { changePassword, error } = useAuth();
+
+  const handleSubmit = async () => {
+    const value = {
+      password: watch('password'),
+      newPassword: watch('newPassword'),
+    };
+    changePassword({
+      password: value.password,
+      newPassword: value.newPassword,
+    });
+  };
+
+  useEffect(() => {
+    if (error?.response?.status === 400) {
+      if (error.response?.data) {
+        const message = Object.values(error.response?.data);
+        setError('password', { message: message[0] });
+      }
+    }
+  }, [error]);
+
   /**
-   * @TODO 비밀번호 제출 훅 만들기
    * @TODO 비밀번호 제출시 에러 발생하면 현재 비밀번호에 띄움
    *  */
 
@@ -136,7 +158,7 @@ export default function ChangePasswordForm() {
             !isValid.newPassword ||
             !isValid.newPasswordRepeat
           }
-          onClick={() => {}}
+          onClick={handleSubmit}
           size="medium"
         >
           변경

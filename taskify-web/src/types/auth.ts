@@ -14,6 +14,11 @@ export interface ChangeProfileForm {
   image: File | undefined;
 }
 
+export interface ChangePasswordForm {
+  password: string;
+  newPassword: string;
+}
+
 export interface UserData {
   id: number;
   email: string;

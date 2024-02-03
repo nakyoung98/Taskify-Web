@@ -14,6 +14,7 @@ import {
   UserData,
   SignUpForm,
   ChangeProfileForm,
+  ChangePasswordForm,
 } from '@/types/auth';
 
 /** @type AuthContext에 필요한 타입 선언 */
@@ -23,6 +24,10 @@ type AuthContextType = {
   login: ({ email, password }: SignInForm) => Promise<void>;
   signup: ({ email, nickname, password }: SignUpForm) => Promise<void>;
   updateMe: ({ nickname, image }: ChangeProfileForm) => Promise<void>;
+  changePassword: ({
+    password,
+    newPassword,
+  }: ChangePasswordForm) => Promise<void>;
   error: AxiosError | null;
   success: boolean;
 };
@@ -34,6 +39,7 @@ const AuthContext = createContext<AuthContextType>({
   login: async () => {},
   signup: async () => {},
   updateMe: async () => {},
+  changePassword: async () => {},
   error: null,
   success: false,
 });
@@ -44,8 +50,6 @@ type AuthProviderProps = { children: ReactNode };
  * Context.Provider를 쉽게 사용하기 위해 만든 Provider 컴포넌트
  * @props children : html요소가 들어가는데 이미 _app에 적용되어있음.
  * @function login : 로그인 동작 함수
- * @TODO 대시보드 데이터 가져오기
- * @TODO 회원가입 함수
  */
 export function AuthProvider({ children }: AuthProviderProps) {
   const [value, setValue] = useState<{
@@ -121,6 +125,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  const changePassword = async ({
+    password,
+    newPassword,
+  }: ChangePasswordForm) => {
+    try {
+      setAxiosError(null);
+      await axiosInstance.put('auth/password', { password, newPassword });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setAxiosError(error);
+      }
+    }
+  };
+
   /** useCallBack 쓰라고 경고메세지 뜨는데 나중에 리팩토링 기간 주어지면 최적화 해봐도 좋을 것 같습니다. */
   const login = async ({ email, password }: SignInForm) => {
     try {
@@ -166,6 +184,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       login,
       signup,
       updateMe,
+      changePassword,
       error: axiosError,
       success: axiosSuccess,
     }),
@@ -175,6 +194,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       login,
       signup,
       updateMe,
+      changePassword,
       axiosError,
       axiosSuccess,
     ],
