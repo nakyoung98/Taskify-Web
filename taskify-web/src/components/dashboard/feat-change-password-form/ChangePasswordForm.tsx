@@ -11,10 +11,11 @@ const cx = classNames.bind(styles);
 
 /** 비밀번호를 변경하는 폼. mypage에서만 사용합니다. */
 export default function ChangePasswordForm() {
-  const { watch, control, trigger, getFieldState, setError } = useForm({
-    defaultValues: { password: '', newPassword: '', newPasswordRepeat: '' },
-    mode: 'onBlur',
-  });
+  const { watch, control, trigger, getFieldState, setError, setValue } =
+    useForm({
+      defaultValues: { password: '', newPassword: '', newPasswordRepeat: '' },
+      mode: 'onBlur',
+    });
   const [isValid, setIsValid] = useState<{
     password: boolean;
     newPassword: boolean;
@@ -32,9 +33,13 @@ export default function ChangePasswordForm() {
       password: watch('password'),
       newPassword: watch('newPassword'),
     };
-    changePassword({
+    await changePassword({
       password: value.password,
       newPassword: value.newPassword,
+    }).then(() => {
+      setValue('password', '');
+      setValue('newPassword', '');
+      setValue('newPasswordRepeat', '');
     });
   };
 
