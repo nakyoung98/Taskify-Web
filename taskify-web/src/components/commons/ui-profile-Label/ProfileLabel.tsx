@@ -10,6 +10,7 @@ type ProfileLabelProps = {
   email: string;
   nickname: string;
   profileImageUrl: string;
+  position?: 'header' | 'dropdown' | 'card';
 };
 
 export default function ProfileLabel({
@@ -17,6 +18,7 @@ export default function ProfileLabel({
   email,
   nickname,
   profileImageUrl,
+  position = 'header',
 }: ProfileLabelProps) {
   return (
     <div className={cx('container')}>
@@ -25,7 +27,7 @@ export default function ProfileLabel({
         text={email}
         profileImageUrl={profileImageUrl}
       />
-      <span className={cx('ProfileLabelName')}>{nickname}</span>
+      <span className={cx('ProfileLabelName', position)}>{nickname}</span>
     </div>
   );
 }
