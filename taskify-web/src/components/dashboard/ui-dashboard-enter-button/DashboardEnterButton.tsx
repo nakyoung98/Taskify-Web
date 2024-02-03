@@ -1,10 +1,10 @@
 import { MouseEventHandler } from 'react';
+import classNames from 'classnames/bind';
 import Button from '@/components/commons/ui-button/Button';
 import DashboardInfoLabel from '@/components/commons/ui-dashboard-info-label/DashboardInfoLabel';
 import { ChipColor } from '@/components/commons/ui-dashboard-info-label/types';
 import styles from './DashboardEnterButton.module.scss';
 import ArrowIcon from './arrow.svg';
-import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
