@@ -5,6 +5,7 @@ import styles from './ChangePasswordForm.module.scss';
 import Button from '@/components/commons/ui-button/Button';
 import PasswordInput from '@/components/auth/ui-password-input/PasswordInput';
 import { useAuth } from '@/contexts/AuthProvider';
+import { TEXT } from './constant';
 
 const cx = classNames.bind(styles);
 
@@ -46,25 +47,21 @@ export default function ChangePasswordForm() {
     }
   }, [error]);
 
-  /**
-   * @TODO 비밀번호 제출시 에러 발생하면 현재 비밀번호에 띄움
-   *  */
-
   return (
     <form className={cx('container')}>
-      <h1 className={cx('title')}>비밀번호 변경</h1>
+      <h1 className={cx('title')}>{TEXT.changePassword}</h1>
       <div className={cx('formContainer')}>
         <label className={cx('inputContainer')}>
-          현재 비밀번호
+          {TEXT.password.label}
           <Controller
             control={control}
             defaultValue=""
             name="password"
             rules={{
-              required: '비밀번호를 입력해 주세요',
+              required: TEXT.password.required,
               pattern: {
                 value: /^(?=.*[a-zA-Z0-9]).{8,25}$/,
-                message: '8자 이상 작성해 주세요.',
+                message: TEXT.password.pattern,
               },
             }}
             render={({ field, fieldState }) => (
@@ -79,7 +76,7 @@ export default function ChangePasswordForm() {
                     }
                   });
                 }}
-                placeholder="현재 비밀번호 입력"
+                placeholder={TEXT.password.placeholder}
                 hasError={Boolean(fieldState.error)}
                 errorMessage={fieldState.error?.message}
               />
@@ -87,16 +84,16 @@ export default function ChangePasswordForm() {
           />
         </label>
         <label className={cx('inputContainer')}>
-          새 비밀번호
+          {TEXT.newPassword.label}
           <Controller
             control={control}
             defaultValue=""
             name="newPassword"
             rules={{
-              required: '비밀번호를 입력해 주세요',
+              required: TEXT.newPassword.required,
               pattern: {
                 value: /^(?=.*[a-zA-Z0-9]).{8,25}$/,
-                message: '8자 이상 작성해 주세요.',
+                message: TEXT.newPassword.pattern,
               },
             }}
             render={({ field, fieldState }) => (
@@ -111,7 +108,7 @@ export default function ChangePasswordForm() {
                     }
                   });
                 }}
-                placeholder="새 비밀번호 입력"
+                placeholder={TEXT.newPassword.placeholder}
                 hasError={Boolean(fieldState.error)}
                 errorMessage={fieldState.error?.message}
               />
@@ -119,17 +116,17 @@ export default function ChangePasswordForm() {
           />
         </label>
         <label className={cx('inputContainer')}>
-          새 비밀번호 확인
+          {TEXT.newPasswordRepeat.label}
           <Controller
             control={control}
             defaultValue=""
             name="newPasswordRepeat"
             rules={{
-              required: '비밀번호를 한번 더 입력해 주세요',
+              required: TEXT.newPasswordRepeat.required,
               validate: (value) =>
                 value === watch('newPassword')
                   ? true
-                  : '비밀번호가 일치하지 않습니다.',
+                  : TEXT.newPasswordRepeat.pattern,
             }}
             render={({ field, fieldState }) => (
               <PasswordInput
@@ -143,7 +140,7 @@ export default function ChangePasswordForm() {
                     }
                   });
                 }}
-                placeholder="새 비밀번호 입력"
+                placeholder={TEXT.newPasswordRepeat.placeholder}
                 hasError={Boolean(fieldState.error)}
                 errorMessage={fieldState.error?.message}
               />
@@ -162,7 +159,7 @@ export default function ChangePasswordForm() {
           onClick={handleSubmit}
           size="medium"
         >
-          변경
+          {TEXT.button}
         </Button>
       </div>
     </form>

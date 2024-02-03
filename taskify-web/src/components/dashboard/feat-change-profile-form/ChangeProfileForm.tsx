@@ -6,6 +6,7 @@ import Button from '@/components/commons/ui-button/Button';
 import ImageInput from '@/components/commons/ui-image-input/ImageInput';
 import { Input } from '@/components/commons/ui-input/Input';
 import { useAuth } from '@/contexts/AuthProvider';
+import { TEXT } from './constant';
 
 const cx = classNames.bind(styles);
 
@@ -43,7 +44,7 @@ export default function ChangeProfileForm() {
 
   return (
     <form className={cx('container')}>
-      <h1 className={cx('title')}>프로필</h1>
+      <h1 className={cx('title')}>{TEXT.profile}</h1>
       <div className={cx('form')}>
         <ImageInput
           inputRef={inputRef}
@@ -52,19 +53,19 @@ export default function ChangeProfileForm() {
         />
         <div className={cx('formContainer')}>
           <label className={cx('inputContainer')}>
-            이메일
+            {TEXT.email}
             <Input onChange={() => {}} value={user?.email || ''} disabled />
           </label>
           <label className={cx('inputContainer')}>
-            닉네임
+            {TEXT.nickname.label}
             <Controller
               control={control}
               name="nickname"
               rules={{
-                required: '닉네임을 입력해 주세요',
+                required: TEXT.nickname.required,
                 pattern: {
                   value: /^.{1,10}$/,
-                  message: '열 자 이하로 작성해주세요.',
+                  message: TEXT.nickname.message,
                 },
               }}
               render={({ field, fieldState }) => (
