@@ -3,7 +3,7 @@ import styles from './NumChip.module.scss';
 
 const cx = classNames.bind(styles);
 
-type Props = {
+type NumChipProps = {
   countNumber: number;
 };
 export default function NumChip({ countNumber }: Props) {
