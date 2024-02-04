@@ -2,6 +2,7 @@ import {
   ChangeEventHandler,
   FocusEventHandler,
   HTMLInputTypeAttribute,
+  KeyboardEventHandler,
 } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Input.module.scss';
@@ -19,6 +20,7 @@ export type InputProps = {
   onBlur?: FocusEventHandler<HTMLInputElement>;
   name?: string;
   disabled?: boolean;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 };
 
 /* 필수 props : value, onChange */
@@ -38,6 +40,7 @@ export function Input({
   onBlur,
   name,
   disabled = false,
+  onKeyDown,
 }: InputProps) {
   return (
     <div className={cx('container')}>
@@ -48,6 +51,7 @@ export function Input({
         onChange={onChange}
         onBlur={onBlur}
         placeholder={placeholder}
+        onKeyDown={onKeyDown}
         className={cx('input', { error: hasError }, { modal: isModal })}
         disabled={disabled}
       />
