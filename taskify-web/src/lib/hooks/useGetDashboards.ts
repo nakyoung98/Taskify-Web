@@ -8,7 +8,7 @@ export const useGetDashboards = () => {
   /** @TODO 페이지네이션 관련 쿼리 추가 */
   const getDashboards = useCallback(
     () =>
-      axiosInstance.get<{ data: DashboardsData }>(
+      axiosInstance.get<DashboardsData>(
         `dashboards?navigationMethod=infiniteScroll&page=1&size=10`,
       ),
     [],

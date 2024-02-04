@@ -80,6 +80,10 @@ $animation_duration: 0.2s;
   .main {
     display: flex;
     flex-direction: column;
+    &.hide {
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .footer {
