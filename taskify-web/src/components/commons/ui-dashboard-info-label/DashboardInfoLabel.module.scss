@@ -104,6 +104,7 @@
   .dashboard-title {
     display: none;
     font-weight: $font_weight_bold;
+    margin: 0;
 
     @include desktop {
       display: block;
