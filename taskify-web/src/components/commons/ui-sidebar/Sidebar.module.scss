@@ -68,8 +68,13 @@ $animation_duration: 0.2s;
   .header {
     height: 7rem;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
+    @include mobile {
+      justify-content: center;
+    }
+    @include tablet {
+      justify-content: flex-start;
+    }
   }
 
   .main {
