@@ -34,6 +34,7 @@ export default function DashboardUserList({
       <div className={cx('memberList')}>
         {members.map((member) => (
           <UserBadge
+            location="header"
             key={member.id}
             color={getRandomColor(member.userId)}
             text={member.email}
@@ -41,6 +42,7 @@ export default function DashboardUserList({
           />
         ))}
         <UserBadge
+          location="header"
           color="pink"
           text={`+${remainNumber}`}
           profileImageUrl=""

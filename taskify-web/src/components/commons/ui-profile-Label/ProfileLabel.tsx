@@ -21,6 +21,7 @@ export default function ProfileLabel({
   return (
     <div className={cx('container')}>
       <UserBadge
+        location="header"
         color={getRandomColor(id)}
         text={email}
         profileImageUrl={profileImageUrl}
