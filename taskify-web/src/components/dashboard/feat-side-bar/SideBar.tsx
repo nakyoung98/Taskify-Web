@@ -21,11 +21,7 @@ export default function SideBar() {
         <p>🖤</p>
         <p>💛</p>
       </SidebarMain>
-      <SidebarFooter>
-        <p>footer</p>
-        <p>설정</p>
-        <p>프로필</p>
-      </SidebarFooter>
+      {/** @TODO SideBarFooter 위치 */}
     </UiSideBar>
   );
 }
