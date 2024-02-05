@@ -1,7 +1,12 @@
-import { useRouter } from 'next/router';
+import ChangeDashBoardForm from '@/components/dashboard/feat-change-dashboard-form/ChangeDashBoardForm';
+import GoBackMain from '@/components/dashboard/ui-go-back-main/GoBackMain';
 
 export default function DashBoard() {
-  const router = useRouter();
-  const { boardId } = router.query;
-  return <div>{boardId} 번째 대시보드 수정 페이지입니다.</div>;
+  return (
+    <div>
+      <GoBackMain>
+        <ChangeDashBoardForm />
+      </GoBackMain>
+    </div>
+  );
 }
