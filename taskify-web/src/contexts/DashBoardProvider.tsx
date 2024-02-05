@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import {
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -71,7 +72,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
   const router = useRouter();
   const { boardId } = router.query;
 
-  const getDashBoards = async () => {
+  const getDashBoards = useCallback(async () => {
     try {
       setDashBoards((prevValue) => ({ ...prevValue, error: null }));
       const res = await axiosInstance.get(
@@ -81,9 +82,9 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
     } catch {
       setDashBoards((prevValue) => ({ ...prevValue, error: axiosError }));
     }
-  };
+  }, [axiosError]);
 
-  const getDashBoard = async () => {
+  const getDashBoard = useCallback(async () => {
     try {
       setDashBoard((prevValue) => ({ ...prevValue, error: null }));
       const res = await axiosInstance.get(`dashboards/${boardId}`);
@@ -91,22 +92,25 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
     } catch {
       setDashBoard((prevValue) => ({ ...prevValue, error: axiosError }));
     }
-  };
+  }, [axiosError, boardId]);
 
-  const updateDashBoard = async ({ title, color }: ChangeDashBoardForm) => {
-    try {
-      await axiosInstance.put(`dashboards/${boardId}`, {
-        title,
-        color,
-      });
-      await getDashBoards();
-      await getDashBoard();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setAxiosError(error);
+  const updateDashBoard = useCallback(
+    async ({ title, color }: ChangeDashBoardForm) => {
+      try {
+        await axiosInstance.put(`dashboards/${boardId}`, {
+          title,
+          color,
+        });
+        await getDashBoards();
+        await getDashBoard();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
       }
-    }
-  };
+    },
+    [boardId, getDashBoard, getDashBoards],
+  );
 
   useEffect(() => {
     if (user) {
@@ -117,7 +121,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
         getDashBoard();
       }
     }
-  }, [router, boardId, user]);
+  }, [router, boardId, user, getDashBoard, getDashBoards]);
 
   const memoizedValue = useMemo(
     () => ({
