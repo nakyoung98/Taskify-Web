@@ -1,13 +1,30 @@
+import DashboardInfoLabel from '@/components/commons/ui-dashboard-info-label/DashboardInfoLabel';
 import ChangePasswordForm from '@/components/dashboard/feat-change-password-form/ChangePasswordForm';
 import ChangeProfileForm from '@/components/dashboard/feat-change-profile-form/ChangeProfileForm';
+import SideBar from '@/components/dashboard/feat-side-bar/SideBar';
+import SubHeader from '@/components/dashboard/feat-sub-header/SubHeader';
 import GoBackMain from '@/components/dashboard/ui-go-back-main/GoBackMain';
 import { DashBoardLayout } from '@/components/page-layout/dashboard-layout/DashBoardLayout';
 import { SidebarProvider } from '@/contexts/SidebarProvider';
+import { useGetDashboards } from '@/lib/hooks/useGetDashboards';
 
 export default function MyPage() {
+  const { data } = useGetDashboards();
   return (
     <SidebarProvider>
       <DashBoardLayout
+        subHeader={
+          <SubHeader
+            dashBoardInfoLabel={
+              <DashboardInfoLabel
+                location="header"
+                text="계정 관리"
+                isOwner={false}
+              />
+            }
+          />
+        }
+        sideBar={<SideBar data={data} />}
         dashboardMain={
           <GoBackMain>
             <ChangeProfileForm />

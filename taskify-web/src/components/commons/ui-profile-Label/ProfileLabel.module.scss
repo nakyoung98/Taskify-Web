@@ -11,6 +11,7 @@
 
 .ProfileLabelName {
   &.header {
+    height: 100%;
     @include mobile {
       display: none;
     }
