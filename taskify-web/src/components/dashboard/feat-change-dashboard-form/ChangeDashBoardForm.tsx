@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import styles from './ChangeDashBoardForm.module.scss';
 import Button from '@/components/commons/ui-button/Button';
@@ -11,6 +12,8 @@ const cx = classNames.bind(styles);
 export default function ChangeDashBoardForm() {
   const [selectedColor, setSelectedColor] = useState<ColorChipColor>('#7AC555');
 
+  const { control } = useForm();
+
   return (
     <form className={cx('container')}>
       <div className={cx('header')}>
@@ -21,6 +24,15 @@ export default function ChangeDashBoardForm() {
         />
       </div>
       <div className={cx('formContainer')}>
+        <label className={cx('inputContainer')}>
+          대시보드 이름
+          <Controller
+            control={control}
+            name="dashboardName"
+            defaultValue=""
+            render={({ field }) => <Input {...field} isModal />}
+          />
+        </label>
         <div className={cx('buttonContainer')}>
           <Button onClick={() => {}} size="medium" theme="primary">
             변경
