@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
  * @property {number} columnItemCount - 컬럼 내 항목의 수
  * @property {MouseEventHandler} columnSettingOnClick - 컬럼 설정 아이콘의 클릭 이벤트 핸들러
  */
-type ColumnHeadeProps = {
+type ColumnHeaderProps = {
   columnName: string;
   columnItemCount: number;
   columnSettingOnClick: MouseEventHandler;
@@ -28,7 +28,7 @@ export default function ColumnHeader({
   columnName,
   columnItemCount,
   columnSettingOnClick,
-}: ColumnHeadeProps) {
+}: ColumnHeaderProps) {
   return (
     <header className={cx('column-header')}>
       <div className={cx('column-header__name-label')}>
