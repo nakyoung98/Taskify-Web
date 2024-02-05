@@ -31,7 +31,7 @@ export default function CalendarInput({
     setSelectedDate(date);
 
     if (date && onChange) {
-      onChange(dayjs(date).format('YYYY-MM-DD HH:mm:ss'));
+      onChange(dayjs(date).format('YYYY-MM-DD HH:mm'));
     }
   };
 
@@ -43,7 +43,7 @@ export default function CalendarInput({
         selected={selectedDate}
         onChange={(date: Date | null) => handleDateChange(date)}
         placeholderText={placeholder}
-        dateFormat="yyyy-MM-dd HH:mm:ss"
+        dateFormat="yyyy-MM-dd HH:mm"
         showTimeInput
         timeInputLabel="Time:"
         className={cx(['datepicker'])}
