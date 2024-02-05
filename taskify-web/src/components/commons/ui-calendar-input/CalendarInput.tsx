@@ -46,7 +46,7 @@ export default function CalendarInput({
         dateFormat="yyyy-MM-dd HH:mm:ss"
         showTimeInput
         timeInputLabel="Time:"
-        className={cx('datepicker')}
+        className={cx(['datepicker'])}
         dayClassName={(date) =>
           selectedDate &&
           date.getDate() === selectedDate.getDate() &&
@@ -56,7 +56,10 @@ export default function CalendarInput({
         }
         icon="fa fa-calendar"
       />
-      <CalendarIcon className={cx('calendar-icon')} />
+      <CalendarIcon
+        className={cx('calendar-icon')}
+        fill={selectedDate ? '#333236' : '#9FA6B2'}
+      />
     </div>
   );
 }
