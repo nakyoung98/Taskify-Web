@@ -14,7 +14,7 @@
       border: 1px solid $gray_d9d9d9;
       border-radius: 0.6rem;
       font-size: 1.4rem;
-      text-indent: 2rem;
+      text-indent: 1.8rem;
     }
     @include mobile {
       width: 100%;
@@ -24,7 +24,7 @@
       border: 1px solid $gray_d9d9d9;
       border-radius: 0.6rem;
       font-size: 1.4rem;
-      text-indent: 2rem;
+      text-indent: 1.8rem;
     }
     @include tablet {
       min-width: 45rem;
@@ -37,7 +37,7 @@
     position: absolute;
     width: 2rem;
     height: 2rem;
-    left: 1.9rem;
+    left: 1.6rem;
     top: 50%;
     transform: translateY(-50%);
   }
