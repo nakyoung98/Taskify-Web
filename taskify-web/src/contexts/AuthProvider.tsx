@@ -1,6 +1,7 @@
 import {
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -91,92 +92,101 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   /** 유저 프로필 이미지, 닉네임을 수정하는 함수입니다. */
-  const updateMe = async ({ nickname, image }: ChangeProfileForm) => {
-    if (image) {
-      try {
-        const res = await axiosInstance.post(
-          'users/me/image',
-          {
-            image,
-          },
-          {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          },
-        );
-        const { data } = res;
-        await axiosInstance.put('users/me', {
-          nickname,
-          profileImageUrl: data.profileImageUrl,
-        });
-        getMe();
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setAxiosError(error);
+  const updateMe = useCallback(
+    async ({ nickname, image }: ChangeProfileForm) => {
+      if (image) {
+        try {
+          const res = await axiosInstance.post(
+            'users/me/image',
+            {
+              image,
+            },
+            {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            },
+          );
+          const { data } = res;
+          await axiosInstance.put('users/me', {
+            nickname,
+            profileImageUrl: data.profileImageUrl,
+          });
+          getMe();
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            setAxiosError(error);
+          }
+        }
+      } else {
+        try {
+          await axiosInstance.put('users/me', {
+            nickname,
+            profileImageUrl: value.user?.profileImageUrl,
+          });
+          getMe();
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            setAxiosError(error);
+          }
         }
       }
-    } else {
-      try {
-        await axiosInstance.put('users/me', {
-          nickname,
-          profileImageUrl: value.user?.profileImageUrl,
-        });
-        getMe();
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setAxiosError(error);
-        }
-      }
-    }
-  };
+    },
+    [value.user?.profileImageUrl],
+  );
 
   /** 비밀번호를 변경하는 함수입니다. */
-  const changePassword = async ({
-    password,
-    newPassword,
-  }: ChangePasswordForm) => {
-    try {
-      setAxiosError(null);
-      await axiosInstance.put('auth/password', { password, newPassword });
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setAxiosError(error);
+  const changePassword = useCallback(
+    async ({ password, newPassword }: ChangePasswordForm) => {
+      try {
+        setAxiosError(null);
+        await axiosInstance.put('auth/password', { password, newPassword });
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
       }
-    }
-  };
+    },
+    [],
+  );
 
   /** useCallBack 쓰라고 경고메세지 뜨는데 나중에 리팩토링 기간 주어지면 최적화 해봐도 좋을 것 같습니다. */
-  const login = async ({ email, password }: SignInForm) => {
-    try {
-      setAxiosError(null);
-      const res = await axiosInstance.post('auth/login', { email, password });
-      sessionStorage.setItem('accessToken', res.data.accessToken);
-      await getMe();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setAxiosError(error);
+  const login = useCallback(
+    async ({ email, password }: SignInForm) => {
+      try {
+        setAxiosError(null);
+        const res = await axiosInstance.post('auth/login', { email, password });
+        sessionStorage.setItem('accessToken', res.data.accessToken);
+        await getMe();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
+        return;
       }
-      return;
-    }
-    router.push('/mydashboard');
-  };
+      router.push('/mydashboard');
+    },
+    [router],
+  );
 
   /** 회원가입 시도하고, 성공시 success true로 반환 */
-  const signup = async ({ email, nickname, password }: SignUpForm) => {
-    try {
-      setAxiosError(null);
-      setAxiosSuccess(false);
-      await axiosInstance.post('users', {
-        email,
-        nickname,
-        password,
-      });
-      setAxiosSuccess(true);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setAxiosError(error);
+  const signup = useCallback(
+    async ({ email, nickname, password }: SignUpForm) => {
+      try {
+        setAxiosError(null);
+        setAxiosSuccess(false);
+        await axiosInstance.post('users', {
+          email,
+          nickname,
+          password,
+        });
+        setAxiosSuccess(true);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
       }
-    }
-  };
+    },
+    [],
+  );
 
   useEffect(() => {
     getMe();
