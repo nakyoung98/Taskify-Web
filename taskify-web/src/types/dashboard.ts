@@ -19,5 +19,4 @@ export interface DashboardsData {
 export interface ChangeDashBoardForm {
   title: string;
   color: string;
-  dashboardId: string;
 }

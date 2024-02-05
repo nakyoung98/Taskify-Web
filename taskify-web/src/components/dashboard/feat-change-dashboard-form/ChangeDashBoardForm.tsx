@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { AxiosResponse } from 'axios';
 import classNames from 'classnames/bind';
 import styles from './ChangeDashBoardForm.module.scss';
 import Button from '@/components/commons/ui-button/Button';
@@ -8,20 +7,21 @@ import ColorChipList from '@/components/commons/ui-color-chip/ColorChipList';
 import { ColorChipColor } from '@/components/commons/ui-color-chip/ColorChip';
 import { Input } from '@/components/commons/ui-input/Input';
 import { DashboardData } from '@/types/dashboard';
-import { usePutDashboard } from '@/lib/hooks/usePutDashBoard';
+import { useDashBoard } from '@/contexts/DashBoardProvider';
 
 const cx = classNames.bind(styles);
 
 type ChangeDashBoardFormProps = {
   data: DashboardData | null;
-  boardId: string;
-  reload: () => Promise<AxiosResponse<DashboardData> | undefined>;
 };
 
+/** 대시보드 수정 폼
+ * @props data : 받아온 데이터
+ * @props boardId : query로 가져온 값
+ * @props reload : 대시보드 가져오는 훅의 execute 함수
+ */
 export default function ChangeDashBoardForm({
   data,
-  boardId,
-  reload,
 }: ChangeDashBoardFormProps) {
   const [selectedColor, setSelectedColor] = useState<ColorChipColor>('#7AC555');
 
@@ -29,11 +29,7 @@ export default function ChangeDashBoardForm({
     mode: 'onBlur',
   });
 
-  const { execute } = usePutDashboard({
-    title: watch('dashboardName'),
-    color: selectedColor,
-    dashboardId: boardId,
-  });
+  const { updateDashBoard } = useDashBoard();
 
   useEffect(() => {
     if (data) {
@@ -42,8 +38,7 @@ export default function ChangeDashBoardForm({
   }, [data]);
 
   const handleSubmit = async () => {
-    execute();
-    reload();
+    updateDashBoard({ color: selectedColor, title: watch('dashboardName') });
   };
 
   return (

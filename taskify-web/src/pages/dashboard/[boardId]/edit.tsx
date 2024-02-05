@@ -1,23 +1,40 @@
-import { useRouter } from 'next/router';
 import ChangeDashBoardForm from '@/components/dashboard/feat-change-dashboard-form/ChangeDashBoardForm';
 import GoBackMain from '@/components/dashboard/ui-go-back-main/GoBackMain';
-import { useGetDashboard } from '@/lib/hooks/useGetDashBoard';
+import { DashBoardLayout } from '@/components/page-layout/dashboard-layout/DashBoardLayout';
+import SubHeader from '@/components/dashboard/feat-sub-header/SubHeader';
+import SideBar from '@/components/dashboard/feat-side-bar/SideBar';
+import DashboardInfoLabel from '@/components/commons/ui-dashboard-info-label/DashboardInfoLabel';
+import { SidebarProvider } from '@/contexts/SidebarProvider';
+import SubHeaderButton from '@/components/commons/ui-sub-header/SubHeaderButton';
+import { useDashBoard } from '@/contexts/DashBoardProvider';
 
-export default function DashBoard() {
-  const router = useRouter();
-  const { boardId } = router.query;
-
-  const { data, reloadDashboardInfo } = useGetDashboard(boardId as string);
+export default function DashBoardEdit() {
+  const { dashBoards, dashBoard } = useDashBoard();
 
   return (
-    <div>
-      <GoBackMain>
-        <ChangeDashBoardForm
-          data={data}
-          boardId={boardId as string}
-          reload={reloadDashboardInfo}
-        />
-      </GoBackMain>
-    </div>
+    <SidebarProvider>
+      <DashBoardLayout
+        subHeader={
+          <SubHeader
+            subHeaderButtons={
+              <SubHeaderButton isOwner={dashBoard.data?.createdByMe || false} />
+            }
+            dashBoardInfoLabel={
+              <DashboardInfoLabel
+                location="header"
+                isOwner={dashBoard.data?.createdByMe || false}
+                text={dashBoard.data?.title || ''}
+              />
+            }
+          />
+        }
+        sideBar={<SideBar data={dashBoards.data} />}
+        dashboardMain={
+          <GoBackMain>
+            <ChangeDashBoardForm data={dashBoard.data} />
+          </GoBackMain>
+        }
+      />
+    </SidebarProvider>
   );
 }
