@@ -1,5 +1,22 @@
-.container{
-    display: flex;
-    flex-direction: row;
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: row;
+
+  & > *:not(:first-child) {
+    @include mobile {
+      display: none;
+    }
+    @include tablet {
+      display: flex;
+    }
+  }
+  @include mobile {
+    gap: 0;
+  }
+  @include tablet {
     gap: 1rem;
+  }
 }
