@@ -15,3 +15,9 @@ export interface DashboardsData {
   totalCount: number;
   dashboards: DashboardData[];
 }
+
+export interface ChangeDashBoardForm {
+  title: string;
+  color: string;
+  dashboardId: string;
+}

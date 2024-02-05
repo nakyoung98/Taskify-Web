@@ -13,9 +13,9 @@ export const useGetDashboards = () => {
       ),
     [],
   );
-  const { data, error, loading } = useAsync({
+  const { data, error, loading, execute } = useAsync({
     asyncFunction: getDashboards,
   });
 
-  return { loading, error, data };
+  return { loading, error, data, reloadDashboardsInfo: execute };
 };
