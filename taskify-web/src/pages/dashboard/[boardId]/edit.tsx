@@ -7,15 +7,22 @@ import DashboardInfoLabel from '@/components/commons/ui-dashboard-info-label/Das
 import { SidebarProvider } from '@/contexts/SidebarProvider';
 import SubHeaderButton from '@/components/commons/ui-sub-header/SubHeaderButton';
 import { useDashBoard } from '@/contexts/DashBoardProvider';
+import { useGetMembers } from '@/lib/hooks/useGetMembers';
+import DashboardUserList from '@/components/commons/ui-sub-header/DashboardUserList';
+import { useAuth } from '@/contexts/AuthProvider';
 
 export default function DashBoardEdit() {
-  const { dashBoards, dashBoard } = useDashBoard();
+  useAuth(true);
+  const { dashBoards, dashBoard, boardId } = useDashBoard();
+
+  const { membersData } = useGetMembers(boardId as string);
 
   return (
     <SidebarProvider>
       <DashBoardLayout
         subHeader={
           <SubHeader
+            dashBoardUserList={<DashboardUserList memberData={membersData} />}
             subHeaderButtons={
               <SubHeaderButton isOwner={dashBoard.data?.createdByMe || false} />
             }

@@ -28,6 +28,7 @@ type DashBoardProviderType = {
   getDashBoards: () => Promise<void>;
   updateDashBoard: ({ color, title }: ChangeDashBoardForm) => Promise<void>;
   error: AxiosError | null;
+  boardId: string | string[] | undefined;
 };
 
 const DashBoardContext = createContext<DashBoardProviderType>({
@@ -42,6 +43,7 @@ const DashBoardContext = createContext<DashBoardProviderType>({
   getDashBoards: async () => {},
   updateDashBoard: async () => {},
   error: null,
+  boardId: undefined,
 });
 
 type DashBoardProviderProps = {
@@ -125,6 +127,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
       getDashBoard,
       updateDashBoard,
       error: axiosError,
+      boardId,
     }),
     [
       dashBoard,
@@ -133,6 +136,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
       getDashBoard,
       updateDashBoard,
       axiosError,
+      boardId,
     ],
   );
 
