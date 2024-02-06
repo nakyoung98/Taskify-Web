@@ -7,41 +7,45 @@ import DashboardInfoLabel from '@/components/commons/ui-dashboard-info-label/Das
 import { SidebarProvider } from '@/contexts/SidebarProvider';
 import SubHeaderButton from '@/components/commons/ui-sub-header/SubHeaderButton';
 import { useDashBoard } from '@/contexts/DashBoardProvider';
-import { useGetMembers } from '@/lib/hooks/useGetMembers';
 import DashboardUserList from '@/components/commons/ui-sub-header/DashboardUserList';
 import { useAuth } from '@/contexts/AuthProvider';
+import MemberList from '@/components/dashboard/feat-member-list/MemberList';
+import { MemberProvider } from '@/contexts/MemberProvider';
 
 export default function DashBoardEdit() {
   useAuth(true);
-  const { dashBoards, dashBoard, boardId } = useDashBoard();
-
-  const { membersData } = useGetMembers(boardId as string);
+  const { dashBoards, dashBoard } = useDashBoard();
 
   return (
     <SidebarProvider>
-      <DashBoardLayout
-        subHeader={
-          <SubHeader
-            dashBoardUserList={<DashboardUserList memberData={membersData} />}
-            subHeaderButtons={
-              <SubHeaderButton isOwner={dashBoard.data?.createdByMe || false} />
-            }
-            dashBoardInfoLabel={
-              <DashboardInfoLabel
-                location="header"
-                isOwner={dashBoard.data?.createdByMe || false}
-                text={dashBoard.data?.title || ''}
-              />
-            }
-          />
-        }
-        sideBar={<SideBar data={dashBoards.data} />}
-        dashboardMain={
-          <GoBackMain>
-            <ChangeDashBoardForm data={dashBoard.data} />
-          </GoBackMain>
-        }
-      />
+      <MemberProvider>
+        <DashBoardLayout
+          subHeader={
+            <SubHeader
+              dashBoardUserList={<DashboardUserList />}
+              subHeaderButtons={
+                <SubHeaderButton
+                  isOwner={dashBoard.data?.createdByMe || false}
+                />
+              }
+              dashBoardInfoLabel={
+                <DashboardInfoLabel
+                  location="header"
+                  isOwner={dashBoard.data?.createdByMe || false}
+                  text={dashBoard.data?.title || ''}
+                />
+              }
+            />
+          }
+          sideBar={<SideBar data={dashBoards.data} />}
+          dashboardMain={
+            <GoBackMain>
+              <ChangeDashBoardForm data={dashBoard.data} />
+              <MemberList />
+            </GoBackMain>
+          }
+        />
+      </MemberProvider>
     </SidebarProvider>
   );
 }

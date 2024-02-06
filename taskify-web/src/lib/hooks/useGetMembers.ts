@@ -3,18 +3,19 @@ import { Members } from '@/types/dashboard';
 import { axiosInstance } from '../api/axiosInstance';
 import { useAsync } from './useAsync';
 
-export const useGetMembers = (boardId: string) => {
+export const useGetMembers = (boardId: string, page: number = 1) => {
   const getUser = useCallback(
     () =>
       axiosInstance.get<Members>(
-        `members?page=1&size=20&dashboardId=${boardId}`,
+        `members?page=${page}&size=4&dashboardId=${boardId}`,
       ),
-    [boardId],
+    [boardId, page],
   );
-  const { loading, error, data } = useAsync({
+  const { loading, error, data, execute } = useAsync({
     asyncFunction: getUser,
-    reload: !!boardId,
+    isManual: true,
+    reload: !!boardId && !!page,
   });
 
-  return { loading, error, membersData: data };
+  return { loading, error, membersData: data, executeGetMembers: execute };
 };
