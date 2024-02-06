@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import { AxiosError } from 'axios';
-import { Members } from '@/types/dashboard';
+import { Invites, Members } from '@/types/dashboard';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 
 type MemberProviderType = {
@@ -21,10 +21,15 @@ type MemberProviderType = {
     data: Members | null;
     error: AxiosError<unknown> | null;
   };
+  invitedMembersData: {
+    data: Invites | null;
+    error: AxiosError<unknown> | null;
+  };
   getMembers: () => Promise<void>;
   getPaginationedMembers: (page: number) => Promise<void>;
   deleteMember: (id: number) => Promise<void>;
-  inviteMember: (email: string) => Promise<void>;
+  inviteMember: (email: string, dashboardId: string) => Promise<void>;
+  getInvitedMember: (dashboardId: string, page: number) => Promise<void>;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -38,10 +43,15 @@ const MemberContext = createContext<MemberProviderType>({
     data: null,
     error: null,
   },
+  invitedMembersData: {
+    data: null,
+    error: null,
+  },
   getMembers: async () => {},
   getPaginationedMembers: async () => {},
   deleteMember: async () => {},
   inviteMember: async () => {},
+  getInvitedMember: async () => {},
   error: null,
   boardId: undefined,
 });
@@ -61,6 +71,13 @@ export function MemberProvider({ children }: MemberProviderProps) {
   const [paginationedMembersData, setPaginationedMembersData] = useState<{
     data: Members | null;
     error: AxiosError | null;
+  }>({
+    data: null,
+    error: null,
+  });
+  const [invitedMembersData, setInvitedMembersData] = useState<{
+    data: Invites | null;
+    error: AxiosError<unknown> | null;
   }>({
     data: null,
     error: null,
@@ -125,16 +142,38 @@ export function MemberProvider({ children }: MemberProviderProps) {
     [axiosError, getMembers, getPaginationedMembers],
   );
 
-  const inviteMember = useCallback(async (email: string) => {
-    try {
-      setAxiosError(null);
-      await axiosInstance.post(`dashboards/${boardId}/invitations`, {
-        email,
-      });
-    } catch {
-      setAxiosError(axiosError);
-    }
-  }, []);
+  const getInvitedMember = useCallback(
+    async (dashboardId: string, page: number = 1) => {
+      try {
+        setAxiosError(null);
+        const res = await axiosInstance.get(
+          `dashboards/${dashboardId}/invitations?page=${page}&size=5`,
+        );
+        setInvitedMembersData((prevValue) => ({
+          ...prevValue,
+          data: res.data,
+        }));
+      } catch {
+        setAxiosError(axiosError);
+      }
+    },
+    [axiosError],
+  );
+
+  const inviteMember = useCallback(
+    async (email: string, dashboardId: string) => {
+      try {
+        setAxiosError(null);
+        await axiosInstance.post(`dashboards/${dashboardId}/invitations`, {
+          email,
+        });
+        await getInvitedMember(boardId as string, 1);
+      } catch {
+        setAxiosError(axiosError);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (router.isReady) {
@@ -149,20 +188,24 @@ export function MemberProvider({ children }: MemberProviderProps) {
     () => ({
       membersData,
       paginationedMembersData,
+      invitedMembersData,
       getMembers,
       deleteMember,
       getPaginationedMembers,
       inviteMember,
+      getInvitedMember,
       error: axiosError,
       boardId,
     }),
     [
       membersData,
       paginationedMembersData,
+      invitedMembersData,
       getMembers,
       deleteMember,
       getPaginationedMembers,
       inviteMember,
+      getInvitedMember,
       axiosError,
       boardId,
     ],

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
@@ -15,6 +16,8 @@ type InviteProps = {
 const cx = classNames.bind(styles);
 
 export default function InviteModal({ isOpen, setIsOpen }: InviteProps) {
+  const router = useRouter();
+  const { boardId } = router.query;
   const { control, watch } = useForm({
     defaultValues: { email: '' },
     mode: 'onBlur',
@@ -23,7 +26,7 @@ export default function InviteModal({ isOpen, setIsOpen }: InviteProps) {
   const { inviteMember } = useMembers();
 
   const handleSubmit = async () => {
-    await inviteMember(watch('email'));
+    await inviteMember(watch('email'), boardId as string);
     setIsOpen(false);
   };
 

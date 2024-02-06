@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './InviteStatusList.module.scss';
 import PaginationButtonContainer from '@/components/commons/ui-pagination/PaginationButtonContainer';
 import Button from '@/components/commons/ui-button/Button';
 import AddIcon from './add-box.svg';
 import InviteStatusListItem from './InviteStatusListItem';
+import { useMembers } from '@/contexts/MemberProvider';
 
 const cx = classNames.bind(styles);
 
 export default function InviteStatusList() {
+  const router = useRouter();
+  const { boardId } = router.query;
   const [pagination, setPagination] = useState<number>(1);
+  const { invitedMembersData, getInvitedMember } = useMembers();
+
+  useEffect(() => {
+    if (boardId !== undefined) {
+      getInvitedMember(boardId as string, pagination);
+    }
+  }, [pagination]);
 
   return (
     <section className={cx('container')}>
@@ -17,37 +28,35 @@ export default function InviteStatusList() {
         <div className={cx('headerTitle')}>
           <h1 className={cx('title')}>초대내역</h1>
           <div className={cx('pagination')}>
-            <p className={cx('leftPage')}>페이지 중</p>
+            <p className={cx('leftPage')}>
+              {Math.ceil((invitedMembersData.data?.totalCount || 1) / 5)} 페이지
+              중 {pagination}
+            </p>
             <PaginationButtonContainer
               leftClick={() => {
-                //   getPaginationedMembers(pagination - 1);
-                //   setPagination(pagination - 1);
+                setPagination(pagination - 1);
               }}
               rightClick={() => {
-                //   getPaginationedMembers(pagination + 1);
-                //   setPagination(pagination + 1);
+                setPagination(pagination + 1);
               }}
-              // leftDisabled={(() => {
-              //   if (paginationedMembersData) {
-              //     return (
-              //       Math.ceil(
-              //         (paginationedMembersData.data?.totalCount || 1) / 4,
-              //       ) >= pagination
-              //     );
-              //   }
-              //   return false;
-              // })()}
-              // righttDisabled={(() => {
-              //   if (paginationedMembersData) {
-              //     return (
-              //       Math.ceil(
-              //         (paginationedMembersData.data?.totalCount || 1) / 4,
-              //       ) <= pagination
-              //     );
-              //   }
-
-              //   return false;
-              // })()}
+              leftDisabled={(() => {
+                if (invitedMembersData) {
+                  return (
+                    Math.ceil((invitedMembersData.data?.totalCount || 1) / 5) >=
+                    pagination
+                  );
+                }
+                return false;
+              })()}
+              righttDisabled={(() => {
+                if (invitedMembersData) {
+                  return (
+                    Math.ceil((invitedMembersData.data?.totalCount || 1) / 5) <=
+                    pagination
+                  );
+                }
+                return false;
+              })()}
             />
           </div>
         </div>
@@ -58,13 +67,25 @@ export default function InviteStatusList() {
       </div>
       <h2 className={cx('subtitle')}>이메일</h2>
       <ul className={cx('memberList')}>
-        <InviteStatusListItem />
+        <InviteStatusListItem
+          data={invitedMembersData.data?.invitations?.[0]}
+        />
         <hr className={cx('partition')} />
-        <InviteStatusListItem />
+        <InviteStatusListItem
+          data={invitedMembersData.data?.invitations?.[1]}
+        />
         <hr className={cx('partition')} />
-        <InviteStatusListItem />
+        <InviteStatusListItem
+          data={invitedMembersData.data?.invitations?.[2]}
+        />
         <hr className={cx('partition')} />
-        <InviteStatusListItem />
+        <InviteStatusListItem
+          data={invitedMembersData.data?.invitations?.[3]}
+        />
+        <hr className={cx('partition')} />
+        <InviteStatusListItem
+          data={invitedMembersData.data?.invitations?.[4]}
+        />
       </ul>
     </section>
   );
