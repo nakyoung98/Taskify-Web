@@ -5,13 +5,12 @@ import Progress from './Progress.svg';
 const cx = classNames.bind(styles);
 
 type ProgressChipProps = {
-  size: 'onProgress'|'done'|'toDo';
   text: string;
 };
 
-export default function ProgressChip({ text, size }: ProgressChipProps) {
+export default function ProgressChip({ text }: ProgressChipProps) {
   return (
-    <div className={cx('chip', size)}>
+    <div className={cx('chip')}>
       <Progress />
       <span className={cx('text')}>{text}</span>
     </div>
