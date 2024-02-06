@@ -24,6 +24,7 @@ type MemberProviderType = {
   getMembers: () => Promise<void>;
   getPaginationedMembers: (page: number) => Promise<void>;
   deleteMember: (id: number) => Promise<void>;
+  inviteMember: (email: string) => Promise<void>;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -40,6 +41,7 @@ const MemberContext = createContext<MemberProviderType>({
   getMembers: async () => {},
   getPaginationedMembers: async () => {},
   deleteMember: async () => {},
+  inviteMember: async () => {},
   error: null,
   boardId: undefined,
 });
@@ -123,6 +125,17 @@ export function MemberProvider({ children }: MemberProviderProps) {
     [axiosError, getMembers, getPaginationedMembers],
   );
 
+  const inviteMember = useCallback(async (email: string) => {
+    try {
+      setAxiosError(null);
+      await axiosInstance.post(`dashboards/${boardId}/invitations`, {
+        email,
+      });
+    } catch {
+      setAxiosError(axiosError);
+    }
+  }, []);
+
   useEffect(() => {
     if (router.isReady) {
       if (boardId) {
@@ -139,6 +152,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
       getMembers,
       deleteMember,
       getPaginationedMembers,
+      inviteMember,
       error: axiosError,
       boardId,
     }),
@@ -148,6 +162,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
       getMembers,
       deleteMember,
       getPaginationedMembers,
+      inviteMember,
       axiosError,
       boardId,
     ],
