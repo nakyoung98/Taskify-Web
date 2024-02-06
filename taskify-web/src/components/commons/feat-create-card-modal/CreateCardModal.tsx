@@ -120,6 +120,17 @@ export default function CreateCardModal({
     }
   };
 
+  const isFormValid = () => {
+    return (
+      memberListValue &&
+      titleValue &&
+      descriptionValue &&
+      tagDataValue.length > 0 &&
+      dueDateValue &&
+      imageData.data
+    );
+  };
+
   return (
     <Modal isOpen={isOpen}>
       <div className={cx('container')}>
@@ -181,7 +192,11 @@ export default function CreateCardModal({
           <Button onClick={onClick} theme="secondary" size="modalMedium">
             취소
           </Button>
-          <Button onClick={RequestData} size="modalMedium">
+          <Button
+            onClick={RequestData}
+            size="modalMedium"
+            disabled={!isFormValid()}
+          >
             생성
           </Button>
         </div>
