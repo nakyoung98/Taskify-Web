@@ -17,7 +17,12 @@ type MemberProviderType = {
     data: Members | null;
     error: AxiosError<unknown> | null;
   };
-  getMembers: (page: number) => Promise<void>;
+  paginationedMembersData: {
+    data: Members | null;
+    error: AxiosError<unknown> | null;
+  };
+  getMembers: () => Promise<void>;
+  getPaginationedMembers: (page: number) => Promise<void>;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -27,7 +32,12 @@ const MemberContext = createContext<MemberProviderType>({
     data: null,
     error: null,
   },
+  paginationedMembersData: {
+    data: null,
+    error: null,
+  },
   getMembers: async () => {},
+  getPaginationedMembers: async () => {},
   error: null,
   boardId: undefined,
 });
@@ -44,43 +54,85 @@ export function MemberProvider({ children }: MemberProviderProps) {
     data: null,
     error: null,
   });
+  const [paginationedMembersData, setPaginationedMembersData] = useState<{
+    data: Members | null;
+    error: AxiosError | null;
+  }>({
+    data: null,
+    error: null,
+  });
 
   const [axiosError, setAxiosError] = useState<AxiosError | null>(null);
 
   const router = useRouter();
   const { boardId } = router.query;
 
-  const getMembers = useCallback(
+  const getMembers = useCallback(async () => {
+    try {
+      setAxiosError(null);
+      setMembersData((prevValue) => ({ ...prevValue, error: null }));
+      const res = await axiosInstance.get(
+        `members?page=1&size=4&dashboardId=${boardId}`,
+      );
+      setMembersData((prevValue) => ({ ...prevValue, data: res.data }));
+    } catch {
+      setAxiosError(axiosError);
+      setMembersData((prevValue) => ({ ...prevValue, error: axiosError }));
+    }
+  }, [axiosError, boardId]);
+
+  const getPaginationedMembers = useCallback(
     async (page: number = 1) => {
       try {
         setAxiosError(null);
-        setMembersData((prevValue) => ({ ...prevValue, error: null }));
+        setPaginationedMembersData((prevValue) => ({
+          ...prevValue,
+          error: null,
+        }));
         const res = await axiosInstance.get(
           `members?page=${page}&size=4&dashboardId=${boardId}`,
         );
-        setMembersData((prevValue) => ({ ...prevValue, data: res.data }));
+        setPaginationedMembersData((prevValue) => ({
+          ...prevValue,
+          data: res.data,
+        }));
       } catch {
         setAxiosError(axiosError);
-        setMembersData((prevValue) => ({ ...prevValue, error: axiosError }));
+        setPaginationedMembersData((prevValue) => ({
+          ...prevValue,
+          error: axiosError,
+        }));
       }
     },
     [axiosError, boardId],
   );
 
   useEffect(() => {
-    if (boardId !== undefined) {
-      getMembers();
+    if (router.isReady) {
+      if (boardId) {
+        getPaginationedMembers();
+        getMembers();
+      }
     }
-  }, [boardId, getMembers]);
+  }, [router.isReady]);
 
   const memoizedValue = useMemo(
     () => ({
       membersData,
+      paginationedMembersData,
       getMembers,
+      getPaginationedMembers,
       error: axiosError,
       boardId,
     }),
-    [membersData, getMembers, axiosError, boardId],
+    [
+      membersData,
+      paginationedMembersData,
+      getMembers,
+      getPaginationedMembers,
+      axiosError,
+      boardId,
+    ],
   );
 
   return (

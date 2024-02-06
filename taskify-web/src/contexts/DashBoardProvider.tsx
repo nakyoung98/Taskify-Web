@@ -15,7 +15,6 @@ import {
   DashboardsData,
 } from '@/types/dashboard';
 import { axiosInstance } from '@/lib/api/axiosInstance';
-import { useAuth } from './AuthProvider';
 
 type DashBoardProviderType = {
   dashBoards: {
@@ -54,7 +53,6 @@ type DashBoardProviderProps = {
 };
 
 export function DashBoardProvider({ children }: DashBoardProviderProps) {
-  const { user } = useAuth();
   const [dashBoards, setDashBoards] = useState<{
     data: DashboardsData | null;
     error: AxiosError | null;
@@ -132,7 +130,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
   );
 
   useEffect(() => {
-    if (user) {
+    if (router.isReady) {
       if (router.asPath.includes('my') || router.asPath.includes('dashboard')) {
         getDashBoards();
       }
@@ -140,7 +138,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
         getDashBoard();
       }
     }
-  }, [router, boardId, user, getDashBoard, getDashBoards]);
+  }, [router.isReady]);
 
   const memoizedValue = useMemo(
     () => ({

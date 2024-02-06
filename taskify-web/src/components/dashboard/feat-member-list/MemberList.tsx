@@ -8,7 +8,7 @@ import { useMembers } from '@/contexts/MemberProvider';
 const cx = classNames.bind(styles);
 
 export default function MemberList() {
-  const { membersData } = useMembers();
+  const { paginationedMembersData, getPaginationedMembers } = useMembers();
   const [pagination, setPagination] = useState<number>(1);
 
   return (
@@ -16,33 +16,37 @@ export default function MemberList() {
       <div className={cx('header')}>
         <h1 className={cx('title')}>구성원</h1>
         <div className={cx('pagination')}>
-          {membersData && (
+          {paginationedMembersData && (
             <p className={cx('leftPage')}>
-              {Math.ceil((membersData.data?.totalCount || 1) / 4)} 페이지 중{' '}
-              {pagination}
+              {Math.ceil((paginationedMembersData.data?.totalCount || 1) / 4)}{' '}
+              페이지 중 {pagination}
             </p>
           )}
           <PaginationButtonContainer
             leftClick={() => {
+              getPaginationedMembers(pagination - 1);
               setPagination(pagination - 1);
             }}
             rightClick={() => {
+              getPaginationedMembers(pagination + 1);
               setPagination(pagination + 1);
             }}
             leftDisabled={(() => {
-              if (membersData) {
+              if (paginationedMembersData) {
                 return (
-                  Math.ceil((membersData.data?.totalCount || 1) / 4) >=
-                  pagination
+                  Math.ceil(
+                    (paginationedMembersData.data?.totalCount || 1) / 4,
+                  ) >= pagination
                 );
               }
               return false;
             })()}
             righttDisabled={(() => {
-              if (membersData) {
+              if (paginationedMembersData) {
                 return (
-                  Math.ceil((membersData.data?.totalCount || 1) / 4) <=
-                  pagination
+                  Math.ceil(
+                    (paginationedMembersData.data?.totalCount || 1) / 4,
+                  ) <= pagination
                 );
               }
 
@@ -53,13 +57,13 @@ export default function MemberList() {
       </div>
       <h2 className={cx('subtitle')}>이름</h2>
       <ul className={cx('memberList')}>
-        <MemberListItem data={membersData.data?.members?.[0]} />
+        <MemberListItem data={paginationedMembersData.data?.members?.[0]} />
         <hr className={cx('partition')} />
-        <MemberListItem data={membersData.data?.members?.[1]} />
+        <MemberListItem data={paginationedMembersData.data?.members?.[1]} />
         <hr className={cx('partition')} />
-        <MemberListItem data={membersData.data?.members?.[2]} />
+        <MemberListItem data={paginationedMembersData.data?.members?.[2]} />
         <hr className={cx('partition')} />
-        <MemberListItem data={membersData.data?.members?.[3]} />
+        <MemberListItem data={paginationedMembersData.data?.members?.[3]} />
       </ul>
     </section>
   );
