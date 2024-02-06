@@ -9,48 +9,6 @@
   gap: 0.6rem;
   border-radius: 1.1rem;
   background: $violet_f1effd;
-  &.done {
-    @include mobile {
-      width: 5.2rem;
-      height: 2rem;
-    }
-    @include tablet {
-      width: 5.7rem;
-      height: 2.2rem;
-    }
-    @include desktop {
-      width: 5.7rem;
-      height: 2.2rem;
-    }
-  }
-  &.toDo {
-    @include mobile {
-      width: 5.5rem;
-      height: 2rem;
-    }
-    @include tablet {
-      width: 6rem;
-      height: 2.2rem;
-    }
-    @include desktop {
-      width: 6rem;
-      height: 2.2rem;
-    }
-  }
-  &.onProgress {
-    @include mobile {
-      width: 8.3rem;
-      height: 2rem;
-    }
-    @include tablet {
-      width: 9.4rem;
-      height: 2.2rem;
-    }
-    @include desktop {
-      width: 9.4rem;
-      height: 2.2rem;
-    }
-  }
 
   .text {
     color: $primary;
@@ -61,9 +19,6 @@
       font-size: $font_size_base;
     }
     @include tablet {
-      font-size: $font_size_xsmall;
-    }
-    @include desktop {
       font-size: $font_size_xsmall;
     }
   }
