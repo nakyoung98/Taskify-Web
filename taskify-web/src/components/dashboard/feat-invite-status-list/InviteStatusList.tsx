@@ -22,6 +22,11 @@ export default function InviteStatusList() {
       getInvitedMember(boardId as string, pagination);
     }
   }, [pagination]);
+  useEffect(() => {
+    if (boardId !== undefined) {
+      getInvitedMember(boardId as string, pagination);
+    }
+  }, [boardId]);
 
   return (
     <>
@@ -43,12 +48,8 @@ export default function InviteStatusList() {
                   setPagination(pagination + 1);
                 }}
                 leftDisabled={(() => {
-                  if (invitedMembersData) {
-                    return (
-                      Math.ceil(
-                        (invitedMembersData.data?.totalCount || 1) / 5,
-                      ) >= pagination
-                    );
+                  if (pagination <= 1) {
+                    return true;
                   }
                   return false;
                 })()}

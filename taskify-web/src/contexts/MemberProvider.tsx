@@ -172,7 +172,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
         await axiosInstance.post(`dashboards/${dashboardId}/invitations`, {
           email,
         });
-        await getInvitedMember(boardId as string, 1);
+        await getInvitedMember(dashboardId, 1);
       } catch {
         setAxiosError(axiosError);
       }
@@ -187,7 +187,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
         await axiosInstance.delete(
           `dashboards/${dashboardId}/invitations/${invitationId}`,
         );
-        await getInvitedMember(boardId as string, 1);
+        await getInvitedMember(dashboardId as string, 1);
       } catch {
         setAxiosError(axiosError);
       }

@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 export default function MemberList() {
   const { paginationedMembersData, getPaginationedMembers } = useMembers();
-  const [pagination, setPagination] = useState<number>(1);
+  const [pagination, setPagination] = useState<number>(3);
 
   return (
     <section className={cx('container')}>
@@ -32,12 +32,8 @@ export default function MemberList() {
               setPagination(pagination + 1);
             }}
             leftDisabled={(() => {
-              if (paginationedMembersData) {
-                return (
-                  Math.ceil(
-                    (paginationedMembersData.data?.totalCount || 1) / 4,
-                  ) >= pagination
-                );
+              if (pagination <= 1) {
+                return true;
               }
               return false;
             })()}
