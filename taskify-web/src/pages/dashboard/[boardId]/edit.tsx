@@ -11,6 +11,7 @@ import DashboardUserList from '@/components/commons/ui-sub-header/DashboardUserL
 import { useAuth } from '@/contexts/AuthProvider';
 import MemberList from '@/components/dashboard/feat-member-list/MemberList';
 import { MemberProvider } from '@/contexts/MemberProvider';
+import InviteStatusList from '@/components/dashboard/feat-invite-status-list/InviteStatusList';
 
 export default function DashBoardEdit() {
   useAuth(true);
@@ -42,6 +43,7 @@ export default function DashBoardEdit() {
             <GoBackMain>
               <ChangeDashBoardForm data={dashBoard.data} />
               <MemberList />
+              <InviteStatusList />
             </GoBackMain>
           }
         />
