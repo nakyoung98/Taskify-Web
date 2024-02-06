@@ -44,3 +44,17 @@
     }
   }
 }
+
+.icon {
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet {
+    display: block;
+  }
+
+  @include desktop {
+    display: block;
+  }
+}

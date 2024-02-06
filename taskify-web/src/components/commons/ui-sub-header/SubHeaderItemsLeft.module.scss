@@ -3,5 +3,14 @@
 
 .container {
   display: flex;
-  gap: 1.6rem;
+
+  @include mobile {
+    gap: 0.6rem;
+  }
+  @include tablet {
+    gap: 1.2rem;
+  }
+  @include desktop {
+    gap: 1.6rem;
+  }
 }

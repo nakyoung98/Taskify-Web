@@ -1,11 +1,8 @@
-import React, { ReactNode, useState } from 'react';
-
+import React, { ReactNode } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
-
 import ArrowComponent from './draw-arrow.svg';
-import OpenStatus, { reverseOpenStatus } from './OpenStatus';
-import { Drawable } from './types';
+import { useSideBar } from '@/contexts/SidebarProvider';
 
 const cx = classNames.bind(styles);
 
@@ -21,27 +18,22 @@ const cx = classNames.bind(styles);
  */
 type SidebarProps = {
   children: ReactNode;
-  drawableProps?: Drawable;
 };
 
-export default function Sidebar({ children, drawableProps }: SidebarProps) {
-  const [isOpened, setIsOpened] = useState<OpenStatus>(
-    drawableProps?.isOpened || OpenStatus.OPEN,
-  );
+export default function Sidebar({ children }: SidebarProps) {
+  const { isOpen, setIsOpen } = useSideBar();
 
   const onArrowClickHandler = () => {
-    const newStatus = reverseOpenStatus(isOpened);
-    setIsOpened(newStatus);
+    setIsOpen(!isOpen);
   };
 
   return (
-    <aside className={cx('container', isOpened)}>
-      {drawableProps && (
-        <ArrowComponent
-          className={cx('draw-arrow', isOpened)}
-          onClick={onArrowClickHandler}
-        />
-      )}
+    <aside className={cx('container', { open: isOpen }, { close: !isOpen })}>
+      <ArrowComponent
+        className={cx('draw-arrow', { open: isOpen }, { close: !isOpen })}
+        onClick={onArrowClickHandler}
+      />
+
       {children}
     </aside>
   );
