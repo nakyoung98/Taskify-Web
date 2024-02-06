@@ -30,6 +30,10 @@ type MemberProviderType = {
   deleteMember: (id: number) => Promise<void>;
   inviteMember: (email: string, dashboardId: string) => Promise<void>;
   getInvitedMember: (dashboardId: string, page: number) => Promise<void>;
+  cancelInviteMember: (
+    dashboardId: string,
+    invitationId: number,
+  ) => Promise<void>;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -52,6 +56,7 @@ const MemberContext = createContext<MemberProviderType>({
   deleteMember: async () => {},
   inviteMember: async () => {},
   getInvitedMember: async () => {},
+  cancelInviteMember: async () => {},
   error: null,
   boardId: undefined,
 });
@@ -175,6 +180,21 @@ export function MemberProvider({ children }: MemberProviderProps) {
     [],
   );
 
+  const cancelInviteMember = useCallback(
+    async (dashboardId: string, invitationId: number) => {
+      try {
+        setAxiosError(null);
+        await axiosInstance.delete(
+          `dashboards/${dashboardId}/invitations/${invitationId}`,
+        );
+        await getInvitedMember(boardId as string, 1);
+      } catch {
+        setAxiosError(axiosError);
+      }
+    },
+    [],
+  );
+
   useEffect(() => {
     if (router.isReady) {
       if (boardId) {
@@ -194,6 +214,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
       getPaginationedMembers,
       inviteMember,
       getInvitedMember,
+      cancelInviteMember,
       error: axiosError,
       boardId,
     }),
@@ -206,6 +227,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
       getPaginationedMembers,
       inviteMember,
       getInvitedMember,
+      cancelInviteMember,
       axiosError,
       boardId,
     ],
