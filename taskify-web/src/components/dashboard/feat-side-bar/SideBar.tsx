@@ -16,8 +16,7 @@ type SideBarProps = {
   data: DashboardsData | null;
 };
 
-/** sidebar 기능적 컴포넌트입니다.
- * 기능동작 관련은 여기서 구현하면 될 것 같습니다. */
+/** sidebar 기능적 컴포넌트입니다. */
 export default function SideBar({ data }: SideBarProps) {
   const { isOpen } = useSideBar();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

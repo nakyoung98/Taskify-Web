@@ -7,6 +7,7 @@ import { Input } from '@/components/commons/ui-input/Input';
 import Button from '@/components/commons/ui-button/Button';
 import ColorChipList from '@/components/commons/ui-color-chip/ColorChipList';
 import { ColorChipColor } from '@/components/commons/ui-color-chip/ColorChip';
+import { useDashBoard } from '@/contexts/DashBoardProvider';
 
 type AddDashboardModalProps = {
   isOpen: boolean;
@@ -24,6 +25,17 @@ export default function AddDashboardModal({
     defaultValues: { dashboardName: '' },
     mode: 'onBlur',
   });
+
+  const { createDashBoard } = useDashBoard();
+
+  const handleSubmit = async () => {
+    await createDashBoard({
+      color: selectedColor,
+      title: watch('dashboardName'),
+    });
+    setIsOpen(false);
+  };
+
   return (
     <Modal isOpen={isOpen}>
       <form className={cx('form')}>
@@ -53,7 +65,7 @@ export default function AddDashboardModal({
             취소
           </Button>
           <Button
-            onClick={() => {}}
+            onClick={handleSubmit}
             disabled={!watch('dashboardName')}
             size="modalMedium"
             theme="primary"

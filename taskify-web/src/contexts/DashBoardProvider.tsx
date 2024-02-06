@@ -28,6 +28,7 @@ type DashBoardProviderType = {
   };
   getDashBoards: () => Promise<void>;
   updateDashBoard: ({ color, title }: ChangeDashBoardForm) => Promise<void>;
+  createDashBoard: ({ color, title }: ChangeDashBoardForm) => Promise<void>;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -43,6 +44,7 @@ const DashBoardContext = createContext<DashBoardProviderType>({
   },
   getDashBoards: async () => {},
   updateDashBoard: async () => {},
+  createDashBoard: async () => {},
   error: null,
   boardId: undefined,
 });
@@ -112,6 +114,23 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
     [boardId, getDashBoard, getDashBoards],
   );
 
+  const createDashBoard = useCallback(
+    async ({ title, color }: ChangeDashBoardForm) => {
+      try {
+        await axiosInstance.post(`dashboards`, {
+          title,
+          color,
+        });
+        await getDashBoards();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
+      }
+    },
+    [getDashBoards],
+  );
+
   useEffect(() => {
     if (user) {
       if (router.asPath.includes('my') || router.asPath.includes('dashboard')) {
@@ -130,6 +149,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
       getDashBoards,
       getDashBoard,
       updateDashBoard,
+      createDashBoard,
       error: axiosError,
       boardId,
     }),
@@ -139,6 +159,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
       getDashBoards,
       getDashBoard,
       updateDashBoard,
+      createDashBoard,
       axiosError,
       boardId,
     ],
