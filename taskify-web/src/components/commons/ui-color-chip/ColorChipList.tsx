@@ -10,6 +10,7 @@ const cx = classNames.bind(styles); // styles 객체를 바인딩하여 CSS 클�
 type ColorChipListProps = {
   selectedColor: ColorChipColor;
   onSelect: Dispatch<SetStateAction<ColorChipColor>>;
+  isModal?: boolean;
 };
 
 /** 컬러칩 리스트입니다.
@@ -19,6 +20,7 @@ type ColorChipListProps = {
 export default function ColorChipList({
   selectedColor,
   onSelect,
+  isModal = false,
 }: ColorChipListProps) {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const colorList: ColorChipColor[] = [
@@ -44,24 +46,24 @@ export default function ColorChipList({
   }, []);
 
   return (
-    <div className={cx('container')}>
-      {!isMobile &&
+    <div className={cx('container', { mobile: !isModal })}>
+      {!(isModal === false && isMobile === true) &&
         colorList.map((color) => (
           <ColorChip
             key={color}
             color={color}
             colorList={colorList}
             onClick={onSelect}
-            isMobile={isMobile}
+            isMobile={!isModal && isMobile}
             isChoice={selectedColor === color}
           />
         ))}
-      {isMobile && (
+      {isModal === false && isMobile === true && (
         <ColorChip
           color={selectedColor}
           colorList={colorList}
           onClick={onSelect}
-          isMobile={isMobile}
+          isMobile={!isModal && isMobile}
           isChoice
         />
       )}
