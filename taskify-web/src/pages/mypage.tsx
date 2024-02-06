@@ -5,11 +5,11 @@ import SideBar from '@/components/dashboard/feat-side-bar/SideBar';
 import SubHeader from '@/components/dashboard/feat-sub-header/SubHeader';
 import GoBackMain from '@/components/dashboard/ui-go-back-main/GoBackMain';
 import { DashBoardLayout } from '@/components/page-layout/dashboard-layout/DashBoardLayout';
+import { useDashBoard } from '@/contexts/DashBoardProvider';
 import { SidebarProvider } from '@/contexts/SidebarProvider';
-import { useGetDashboards } from '@/lib/hooks/useGetDashboards';
 
 export default function MyPage() {
-  const { data } = useGetDashboards();
+  const { dashBoards } = useDashBoard();
   return (
     <SidebarProvider>
       <DashBoardLayout
@@ -24,7 +24,7 @@ export default function MyPage() {
             }
           />
         }
-        sideBar={<SideBar data={data} />}
+        sideBar={<SideBar data={dashBoards.data} />}
         dashboardMain={
           <GoBackMain>
             <ChangeProfileForm />
