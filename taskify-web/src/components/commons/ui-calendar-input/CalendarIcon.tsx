@@ -8,7 +8,7 @@ type CalendarIconProps = {
 export default function CalendarIcon({
   fill = '#9FA6B2',
   className,
-}: CalendarIconProps) {
+}: CalendarIconProps): JSX.Element {
   return (
     <div className={className}>
       <svg
