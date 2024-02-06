@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import ChangeDashBoardForm from '@/components/dashboard/feat-change-dashboard-form/ChangeDashBoardForm';
 import GoBackMain from '@/components/dashboard/ui-go-back-main/GoBackMain';
 import { DashBoardLayout } from '@/components/page-layout/dashboard-layout/DashBoardLayout';
@@ -12,10 +13,13 @@ import { useAuth } from '@/contexts/AuthProvider';
 import MemberList from '@/components/dashboard/feat-member-list/MemberList';
 import { MemberProvider } from '@/contexts/MemberProvider';
 import InviteStatusList from '@/components/dashboard/feat-invite-status-list/InviteStatusList';
+import DeleteDashBoardButton from '@/components/commons/ui-delete-dashboard-button/DeleteDashBoardButton';
 
 export default function DashBoardEdit() {
   useAuth(true);
-  const { dashBoards, dashBoard } = useDashBoard();
+  const router = useRouter();
+  const { boardId } = router.query;
+  const { dashBoards, dashBoard, deleteDashBoard } = useDashBoard();
 
   return (
     <SidebarProvider>
@@ -44,6 +48,11 @@ export default function DashBoardEdit() {
               <ChangeDashBoardForm data={dashBoard.data} />
               <MemberList />
               <InviteStatusList />
+              <DeleteDashBoardButton
+                onClick={() => {
+                  deleteDashBoard(boardId as string);
+                }}
+              />
             </GoBackMain>
           }
         />

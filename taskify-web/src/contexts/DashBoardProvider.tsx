@@ -28,6 +28,7 @@ type DashBoardProviderType = {
   getDashBoards: () => Promise<void>;
   updateDashBoard: ({ color, title }: ChangeDashBoardForm) => Promise<void>;
   createDashBoard: ({ color, title }: ChangeDashBoardForm) => Promise<void>;
+  deleteDashBoard: (dashboardId: string) => Promise<void>;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -44,6 +45,7 @@ const DashBoardContext = createContext<DashBoardProviderType>({
   getDashBoards: async () => {},
   updateDashBoard: async () => {},
   createDashBoard: async () => {},
+  deleteDashBoard: async () => {},
   error: null,
   boardId: undefined,
 });
@@ -129,6 +131,17 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
     [getDashBoards],
   );
 
+  const deleteDashBoard = useCallback(async (dashboardId: string) => {
+    try {
+      await axiosInstance.delete(`dashboards/${dashboardId}`);
+      router.push('/mydashboard');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setAxiosError(error);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (router.isReady) {
       if (router.asPath.includes('my') || router.asPath.includes('dashboard')) {
@@ -148,6 +161,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
       getDashBoard,
       updateDashBoard,
       createDashBoard,
+      deleteDashBoard,
       error: axiosError,
       boardId,
     }),
@@ -158,6 +172,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
       getDashBoard,
       updateDashBoard,
       createDashBoard,
+      deleteDashBoard,
       axiosError,
       boardId,
     ],
