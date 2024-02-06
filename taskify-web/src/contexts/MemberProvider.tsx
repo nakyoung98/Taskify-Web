@@ -23,6 +23,7 @@ type MemberProviderType = {
   };
   getMembers: () => Promise<void>;
   getPaginationedMembers: (page: number) => Promise<void>;
+  deleteMember: (id: number) => Promise<void>;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -38,6 +39,7 @@ const MemberContext = createContext<MemberProviderType>({
   },
   getMembers: async () => {},
   getPaginationedMembers: async () => {},
+  deleteMember: async () => {},
   error: null,
   boardId: undefined,
 });
@@ -107,6 +109,20 @@ export function MemberProvider({ children }: MemberProviderProps) {
     [axiosError, boardId],
   );
 
+  const deleteMember = useCallback(
+    async (id: number) => {
+      try {
+        setAxiosError(null);
+        await axiosInstance.delete(`members/${id}`);
+        await getPaginationedMembers();
+        await getMembers();
+      } catch {
+        setAxiosError(axiosError);
+      }
+    },
+    [axiosError, getMembers, getPaginationedMembers],
+  );
+
   useEffect(() => {
     if (router.isReady) {
       if (boardId) {
@@ -121,6 +137,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
       membersData,
       paginationedMembersData,
       getMembers,
+      deleteMember,
       getPaginationedMembers,
       error: axiosError,
       boardId,
@@ -129,6 +146,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
       membersData,
       paginationedMembersData,
       getMembers,
+      deleteMember,
       getPaginationedMembers,
       axiosError,
       boardId,
