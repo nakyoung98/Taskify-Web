@@ -2,16 +2,25 @@ import { useRouter } from 'next/router';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CreateCardModal.module.scss';
+import { UserData } from '../ui-user-state-dropdown/types';
+import { axiosInstance } from '@/lib/api/axiosInstance';
 import { Modal } from '../ui-modal/Modal';
+import { MemberList } from './type';
 import Button from '../ui-button/Button';
 import ImageInput from '../ui-image-input/ImageInput';
 import UserStateDropdown from '../ui-user-state-dropdown/UserStateDropdown';
-import { UserData } from '../ui-user-state-dropdown/types';
-import { axiosInstance } from '@/lib/api/axiosInstance';
-import { MemberList } from './type';
 import TagInput from '../ui-tag-input/TagInput';
+import CalendarInput from '../ui-calendar-input/CalendarInput';
 
 const cx = classNames.bind(styles);
+
+/**
+ *  `CreateCardModal`컴포넌트의 props타입을 정의합니다.
+ *
+ * @property {boolean} isOpen 모달이 열려 있는지 여부를 나타냅니다.
+ * @property {MouseEventHandler<HTMLButtonElement>} onClick 클릭 이벤트 핸들러입니다.
+ * @property {number} columnIdNumber 컬럼의 ID 번호입니다.
+ */
 
 type CreateCardModalProps = {
   isOpen: boolean;
@@ -56,27 +65,21 @@ export default function CreateCardModal({
     setTitleValue(e.target.value);
   };
 
-  const handleDescriptionValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDescriptionValue = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     setDescriptionValue(e.target.value);
   };
 
-  const handleDueDateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDueDateValue(e.target.value);
+  const handleDueDateValue = (date: string) => {
+    setDueDateValue(date);
   };
 
   useEffect(() => {
     const getUserData = async () => {
       let MemberListData: MemberList | null = null;
       try {
-        const sessionToken =
-          typeof window !== 'undefined'
-            ? sessionStorage.getItem('sessionToken')
-            : null;
-        const res = await axiosInstance.get(`members?dashboardId=${boardId}`, {
-          headers: {
-            Authorization: `Bearer ${sessionToken}`,
-          },
-        });
+        const res = await axiosInstance.get(`members?dashboardId=${boardId}`);
         MemberListData = res.data;
       } catch (error) {
         console.log(error);
@@ -132,7 +135,9 @@ export default function CreateCardModal({
             />
           </div>
           <div className={cx('title-container')}>
-            <span className={cx('subtitle')}>제목 *</span>
+            <span className={cx('subtitle')}>
+              제목 <span className={cx('star')}>*</span>
+            </span>
             <input
               className={cx('input')}
               value={titleValue}
@@ -141,8 +146,10 @@ export default function CreateCardModal({
             />
           </div>
           <div className={cx('description-container')}>
-            <span className={cx('subtitle')}>설명 *</span>
-            <input
+            <span className={cx('subtitle')}>
+              설명 <span className={cx('star')}>*</span>
+            </span>
+            <textarea
               className={cx('input', 'description')}
               value={descriptionValue}
               onChange={handleDescriptionValue}
@@ -151,12 +158,7 @@ export default function CreateCardModal({
           </div>
           <div className={cx('calender-container')}>
             <span className={cx('subtitle')}>마감일</span>
-            <input
-              className={cx('input')}
-              placeholder="날짜를 입력해 주세요"
-              value={dueDateValue}
-              onChange={handleDueDateValue}
-            />
+            <CalendarInput value={dueDateValue} onChange={handleDueDateValue} />
           </div>
           <div className={cx('tag-container')}>
             <span className={cx('subtitle')}>태그</span>
