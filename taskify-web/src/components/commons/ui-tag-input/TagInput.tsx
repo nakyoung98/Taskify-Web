@@ -5,6 +5,12 @@ import ChipSubject from '../ui-chip-subject/chipSubject';
 
 const cx = classNames.bind(styles);
 
+/**
+ * @typedef {Object} TagInputProps
+ * @property {string[]} tagDataValue - 태그 데이터 값의 배열입니다.
+ * @property {React.Dispatch<React.SetStateAction<string[]>>} setTagDataValue - 태그 데이터 값을 설정하는 함수입니다.
+ */
+
 type TagInputProps = {
   tagDataValue: string[];
   setTagDataValue: React.Dispatch<React.SetStateAction<string[]>>;
@@ -33,7 +39,7 @@ export default function TagInput({
     setTagDataValue((chips) => chips.filter((chip) => chip !== chipToDelete));
   };
 
-  const handleButtonContainer = () => {
+  const handleButtonListContainer = () => {
     setIsButtonList(false);
   };
 
@@ -47,16 +53,16 @@ export default function TagInput({
     <div className={cx('container')}>
       <button
         type="button"
-        onClick={handleButtonContainer}
+        onClick={handleButtonListContainer}
         className={cx('fix-button')}
       >
-        수정
+        수정/추가
       </button>
       {isButtonList && (
         <div className={cx('button-list')}>
           {tagDataValue.map((data, index) => (
             <ChipSubject
-              key={`${Date.now()}-${Math.random()}`}
+              key={index}
               label={data}
               onDelete={() => handleDelete(data)}
               index={index}
