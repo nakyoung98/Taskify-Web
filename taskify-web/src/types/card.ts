@@ -1,5 +1,4 @@
 export interface CardBase {
-  columnId: number;
   title: string;
   description: string;
   dueDate: string;
@@ -7,7 +6,9 @@ export interface CardBase {
   imageUrl: string;
 }
 
-export interface CardDetails extends CardBase {}
+export interface CardDetails extends CardBase {
+  columnId: number;
+}
 
 export interface CardRequest extends CardDetails {
   assigneeUserId: number;
