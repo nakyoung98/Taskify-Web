@@ -1,18 +1,17 @@
-import { useState, ChangeEvent } from 'react';
+import { MouseEventHandler } from 'react';
 import classNames from 'classnames/bind';
 import Button from '../ui-button/Button';
 import styles from './CommentTextarea.module.scss';
 
 const cx = classNames.bind(styles);
 
-export default function TextareaComponent() {
-  const [comment, setComment] = useState('');
-  const ButtonText = '입력';
+type TextareaComponentProps = {
+  onButtonClick: MouseEventHandler<HTMLButtonElement>;
+};
 
-  const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value);
-  };
-
+export default function CommentTextarea({
+  onButtonClick,
+}: TextareaComponentProps) {
   return (
     <div className={cx('commentTextarea-container')}>
       <textarea
@@ -20,13 +19,11 @@ export default function TextareaComponent() {
         name="commentTextarea"
         rows={4}
         cols={50}
-        value={comment}
         placeholder="댓글 작성하기"
-        onChange={handleTextareaChange}
       />
       <div className={cx('commentTextarea-button')}>
-        <Button size="small" theme="secondary" onClick={() => {}}>
-          {ButtonText}
+        <Button size="small" theme="secondary" onClick={onButtonClick}>
+          입력
         </Button>
       </div>
     </div>
