@@ -1,6 +1,18 @@
-import { UserData } from '../ui-user-state-dropdown/types';
-
-export interface MemberList {
-  members: Array<UserData>;
-  totalCount: number;
+export interface CardList {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  dueDate: string;
+  assignee: {
+    id: number;
+    nickname: string;
+    profileImageUrl: string;
+  };
+  imageUrl: string;
+  teamId: string;
+  columnId: number;
+  dashboardId: number;
+  createdAt: string;
+  updateAt: string;
 }
