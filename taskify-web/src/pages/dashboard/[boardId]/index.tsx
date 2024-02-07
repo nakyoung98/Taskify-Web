@@ -1,7 +1,18 @@
-import { useRouter } from 'next/router';
+import SideBar from '@/components/dashboard/feat-side-bar/SideBar';
+import SubHeader from '@/components/dashboard/feat-sub-header/SubHeader';
+import { DashBoardLayout } from '@/components/page-layout/dashboard-layout/DashBoardLayout';
+import { useAuth } from '@/contexts/AuthProvider';
+import { useDashBoard } from '@/contexts/DashBoardProvider';
 
 export default function DashBoard() {
-  const router = useRouter();
-  const { boardId } = router.query;
-  return <div>{boardId} 번째 대시보드 페이지입니다.</div>;
+  useAuth(true);
+  const { boardId } = useDashBoard();
+
+  return (
+    <DashBoardLayout
+      sideBar={<SideBar data={null} />}
+      subHeader={<SubHeader dashBoardInfoLabel={null} />}
+      dashboardMain={null}
+    />
+  );
 }
