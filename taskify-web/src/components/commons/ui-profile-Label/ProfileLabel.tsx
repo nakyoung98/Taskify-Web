@@ -18,9 +18,9 @@ const cx = classNames.bind(styles);
 
 type ProfileLabelProps = {
   id: number;
-  email: string;
+  email: string | undefined;
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | null;
   position?: 'header' | 'dropdown' | 'card';
 };
 
