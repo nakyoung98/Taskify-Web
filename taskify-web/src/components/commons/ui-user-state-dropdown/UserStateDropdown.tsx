@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './UserStateDropdown.module.scss';
 import ProfileLabel from '../ui-profile-Label/ProfileLabel';
@@ -23,27 +23,35 @@ const cx = classNames.bind(styles);
 type UserStateDropdownProps = {
   userData?: Array<UserData>;
   columnData?: Array<ColumnData>;
-  IsUserDataType: boolean;
+  IsUserDataType?: boolean;
   UserDataState?: UserData;
-  ColumnDataState?: ColumnData;
+  columnDataState?: ColumnData;
   setUserDataState?: React.Dispatch<React.SetStateAction<UserData>>;
   setColumnDataState?: React.Dispatch<React.SetStateAction<ColumnData>>;
+  isModifyForm: boolean;
 };
 
 export default function UserStateDropdown({
   userData,
   columnData,
   UserDataState,
-  ColumnDataState,
+  columnDataState,
   setUserDataState,
   setColumnDataState,
-  IsUserDataType,
+  IsUserDataType = false,
+  isModifyForm,
 }: UserStateDropdownProps) {
   const [search, setSearch] = useState<string>('');
   const [isDropped, setIsDropped] = useState<boolean>(false);
   const [isInsert, setIsInsert] = useState<boolean>(false);
   const setTime = 200;
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isModifyForm) {
+      setIsInsert(true);
+    }
+  }, []);
 
   const handleClickContainer = () => {
     setIsDropped(!isDropped);
@@ -63,30 +71,24 @@ export default function UserStateDropdown({
   });
   const filterColumnName = columnData?.filter((p) => {
     return p.title
-      .replace(' ', '')
-      .toLocaleLowerCase()
-      .includes(search.toLocaleLowerCase());
+      ? p.title
+          .replace(' ', '')
+          .toLocaleLowerCase()
+          .includes(search.toLocaleLowerCase())
+      : false;
   });
 
   const handleGetProfileInfo = (
-    id: number,
     userId: number,
     nickname: string,
-    email: string,
-    profileImageUrl: string,
-    createdAt: string,
-    updatedAt: string,
-    isOwner: boolean,
+    email: string | undefined,
+    profileImageUrl: string | null,
   ) => {
     setUserDataState?.({
-      id: 0,
       userId,
       nickname,
       email,
       profileImageUrl,
-      createdAt,
-      updatedAt,
-      isOwner,
     });
     setIsInsert(true);
     setSearch('');
@@ -95,19 +97,15 @@ export default function UserStateDropdown({
 
   const handleGetColumnInfo = (
     id: number,
-    title: string,
+    title: string | undefined,
     teamId: string,
     dashboardId: number,
-    createdAt: string,
-    updatedAt: string,
   ) => {
     setColumnDataState?.({
       id,
       title,
       teamId,
       dashboardId,
-      createdAt,
-      updatedAt,
     });
     setIsInsert(true);
     setSearch('');
@@ -155,7 +153,7 @@ export default function UserStateDropdown({
             onClick={handleCancelData}
             aria-label="profile-label-container"
           >
-            <ProgressChip text={ColumnDataState?.title || ''} />
+            <ProgressChip text={columnDataState?.title || ''} />
           </button>
         )}
 
@@ -184,18 +182,14 @@ export default function UserStateDropdown({
             {filterNickname?.map((data) => (
               <button
                 type="button"
-                key={data.id}
+                key={data.userId}
                 className={cx('dropdown-button')}
                 onClick={() =>
                   handleGetProfileInfo(
-                    data.id,
                     data.userId,
                     data.nickname,
                     data.email,
                     data.profileImageUrl,
-                    data.createdAt,
-                    data.updatedAt,
-                    data.isOwner,
                   )
                 }
                 aria-label={data.nickname}
@@ -224,8 +218,6 @@ export default function UserStateDropdown({
                     data.title,
                     data.teamId,
                     data.dashboardId,
-                    data.createdAt,
-                    data.updatedAt,
                   )
                 }
                 aria-label={data.title}
