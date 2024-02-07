@@ -2,10 +2,11 @@ import { useRouter } from 'next/router';
 import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CreateCardModal.module.scss';
-import { UserData } from '../ui-user-state-dropdown/types';
+import { ColumnData, UserData } from '../ui-user-state-dropdown/types';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 import { Modal } from '../ui-modal/Modal';
-import { MemberList } from './type';
+import { CardList } from './type';
+import { MemberDataRes, ColumnDataRes } from './MockData';
 import Button from '../ui-button/Button';
 import ImageInput from '../ui-image-input/ImageInput';
 import UserStateDropdown from '../ui-user-state-dropdown/UserStateDropdown';
@@ -20,32 +21,36 @@ const cx = classNames.bind(styles);
  * @property {boolean} isOpen 모달이 열려 있는지 여부를 나타냅니다.
  * @property {MouseEventHandler<HTMLButtonElement>} onClick 클릭 이벤트 핸들러입니다.
  * @property {number} columnIdNumber 컬럼의 ID 번호입니다.
+ * @property {number} [cardId] - 카드의 ID입니다. 이 값은 선택 사항입니다.
+ * @property {boolean} [isModifyForm] - 폼이 수정 모드인지 여부를 나타냅니다. 이 값은 선택 사항입니다.
  */
 
 type CreateCardModalProps = {
   isOpen: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
   columnIdNumber: number;
+  cardId?: number;
+  isModifyForm?: boolean;
 };
 
 export default function CreateCardModal({
   isOpen,
   onClick,
+  cardId = 0,
   columnIdNumber,
+  isModifyForm = false,
 }: CreateCardModalProps) {
   const [memberListValue, setMemberListValue] = useState<UserData>({
-    id: 0,
     userId: 0,
     email: '',
     nickname: '',
     profileImageUrl: '',
-    createdAt: '',
-    updatedAt: '',
-    isOwner: false,
   });
-  const [memberListData, setMemberListData] = useState<MemberList>({
-    members: [],
-    totalCount: 0,
+  const [stateListValue, setStateListValue] = useState<ColumnData>({
+    id: 0,
+    title: '',
+    teamId: '',
+    dashboardId: 0,
   });
   const [imageData, setImageData] = useState<{
     data: File | undefined;
@@ -58,7 +63,9 @@ export default function CreateCardModal({
 
   const inputref = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { members } = memberListData;
+
+  const { members: memberData } = MemberDataRes;
+  const { data: columnData } = ColumnDataRes;
   const { boardId } = router.query;
 
   const handleTitleValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,26 +83,51 @@ export default function CreateCardModal({
   };
 
   useEffect(() => {
-    const getUserData = async () => {
-      let MemberListData: MemberList | null = null;
+    const getCardData = async () => {
+      let CardDataRes: CardList | null = null;
       try {
-        const res = await axiosInstance.get(`members?dashboardId=${boardId}`);
-        MemberListData = res.data;
+        const cardDataReq = await axiosInstance.get(`cards/${cardId}`);
+        CardDataRes = cardDataReq.data;
       } catch (error) {
         console.log(error);
       }
-      if (MemberListData) {
-        setMemberListData(MemberListData);
+      if (CardDataRes && memberData && columnData) {
+        const findEmail = memberData.find(
+          (Member) => Member.userId === CardDataRes?.assignee.id,
+        );
+        const email = findEmail?.email;
+        const findColumnTitle = columnData.find(
+          (columnTitle) => columnTitle.id === CardDataRes?.columnId,
+        );
+        const columnTitle = findColumnTitle?.title;
+
+        setMemberListValue({
+          userId: CardDataRes.assignee.id,
+          email,
+          nickname: CardDataRes.assignee.nickname,
+          profileImageUrl: CardDataRes.assignee.profileImageUrl,
+        });
+        setStateListValue({
+          id: columnIdNumber,
+          title: columnTitle,
+          teamId: '2-11',
+          dashboardId: Number(boardId),
+        });
+        setTitleValue(CardDataRes.title);
+        setDescriptionValue(CardDataRes.description);
+        setTagDataValue(CardDataRes.tags);
+        setDueDateValue(CardDataRes.dueDate);
+        setImageData({ data: undefined, preview: CardDataRes.imageUrl });
       }
     };
-    if (boardId) {
-      getUserData();
+    if (isModifyForm) {
+      getCardData();
     }
-  }, [boardId]);
+  }, [isModifyForm]);
 
-  const RequestData = async () => {
+  const RequestCreateCard = async () => {
     try {
-      const res = await axiosInstance.post(
+      const imageReq = await axiosInstance.post(
         `columns/${columnIdNumber}/card-image`,
         { image: imageData.data },
         {
@@ -104,7 +136,7 @@ export default function CreateCardModal({
           },
         },
       );
-      const { data } = res;
+      const { data: imageDataRes } = imageReq;
       await axiosInstance.post('cards', {
         assigneeUserId: memberListValue.userId,
         dashboardId: Number(boardId),
@@ -113,10 +145,53 @@ export default function CreateCardModal({
         description: descriptionValue,
         dueDate: dueDateValue,
         tags: tagDataValue,
-        imageUrl: data.imageUrl,
+        imageUrl: imageDataRes.imageUrl,
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const RequestModifyCard = async () => {
+    if (imageData.data) {
+      try {
+        const imageReq = await axiosInstance.post(
+          `columns/${columnIdNumber}/card-image`,
+          { image: imageData.data },
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          },
+        );
+        const { data: imageDataRes } = imageReq;
+
+        axiosInstance.put(`cards/${cardId}`, {
+          columnId: stateListValue.id,
+          assigneeUserId: memberListValue.userId,
+          title: titleValue,
+          description: descriptionValue,
+          dueDate: dueDateValue,
+          tags: tagDataValue,
+          imageUrl: imageDataRes.imageUrl,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (!imageData.data) {
+      try {
+        axiosInstance.put(`cards/${cardId}`, {
+          columnId: stateListValue.id,
+          assigneeUserId: memberListValue.userId,
+          title: titleValue,
+          description: descriptionValue,
+          dueDate: dueDateValue,
+          tags: tagDataValue,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -135,15 +210,32 @@ export default function CreateCardModal({
     <Modal isOpen={isOpen}>
       <div className={cx('container')}>
         <div className={cx('main')}>
-          <span className={cx('modal-name')}>할 일 생성</span>
+          {!isModifyForm && (
+            <span className={cx('modal-name')}>할 일 생성</span>
+          )}
+          {isModifyForm && <span className={cx('modal-name')}>할 일 수정</span>}
           <div className={cx('dropdown-container')}>
-            <span className={cx('subtitle')}>담당자</span>
-            <UserStateDropdown
-              IsUserDataType
-              userData={members}
-              UserDataState={memberListValue}
-              setUserDataState={setMemberListValue}
-            />
+            {isModifyForm && (
+              <div className={cx('stateList')}>
+                <span className={cx('subtitle')}>상태</span>
+                <UserStateDropdown
+                  columnData={columnData}
+                  columnDataState={stateListValue}
+                  setColumnDataState={setStateListValue}
+                  isModifyForm={isModifyForm}
+                />
+              </div>
+            )}
+            <div className={cx('userList')}>
+              <span className={cx('subtitle')}>담당자</span>
+              <UserStateDropdown
+                IsUserDataType
+                userData={memberData}
+                UserDataState={memberListValue}
+                setUserDataState={setMemberListValue}
+                isModifyForm={isModifyForm}
+              />
+            </div>
           </div>
           <div className={cx('title-container')}>
             <span className={cx('subtitle')}>
@@ -176,6 +268,7 @@ export default function CreateCardModal({
             <TagInput
               tagDataValue={tagDataValue}
               setTagDataValue={setTagDataValue}
+              isModifyForm={isModifyForm}
             />
           </div>
           <div className={cx('image-input-container')}>
@@ -192,13 +285,24 @@ export default function CreateCardModal({
           <Button onClick={onClick} theme="secondary" size="modalMedium">
             취소
           </Button>
-          <Button
-            onClick={RequestData}
-            size="modalMedium"
-            disabled={!isFormValid()}
-          >
-            생성
-          </Button>
+          {!isModifyForm && (
+            <Button
+              onClick={RequestCreateCard}
+              size="modalMedium"
+              disabled={!isFormValid()}
+            >
+              생성
+            </Button>
+          )}
+          {isModifyForm && (
+            <Button
+              onClick={RequestModifyCard}
+              size="modalMedium"
+              disabled={!isFormValid()}
+            >
+              수정
+            </Button>
+          )}
         </div>
       </div>
     </Modal>
