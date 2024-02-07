@@ -14,11 +14,13 @@ const cx = classNames.bind(styles);
 type TagInputProps = {
   tagDataValue: string[];
   setTagDataValue: React.Dispatch<React.SetStateAction<string[]>>;
+  isModifyForm: boolean;
 };
 
 export default function TagInput({
   tagDataValue,
   setTagDataValue,
+  isModifyForm,
 }: TagInputProps) {
   const [inputValue, setInputValue] = useState<string>('');
   const [isButtonList, setIsButtonList] = useState<boolean>(false);
@@ -46,6 +48,11 @@ export default function TagInput({
   useEffect(() => {
     if (tagDataValue.length === 0) {
       setIsButtonList(false);
+    } else {
+      setIsButtonList(true);
+    }
+    if (isModifyForm) {
+      setIsButtonList(true);
     }
   }, [tagDataValue]);
 
@@ -62,7 +69,7 @@ export default function TagInput({
         <div className={cx('button-list')}>
           {tagDataValue.map((data, index) => (
             <ChipSubject
-              key={index}
+              key={data}
               label={data}
               onDelete={() => handleDelete(data)}
               index={index}
