@@ -12,6 +12,10 @@ type DashboardFormProps = {
   cardsWithColumns: CardsWithColumn[];
 };
 
+/**
+ * 특정 Dashboard의 form을 구현한 ui 컴포넌트입니다
+ * @param cardsWithColumns {CardsWithColumn[]} - Column에 Card리스트 정보를 추가해 만든 새로운 타입의 배열입니다
+ */
 export default function DashboardForm({
   cardsWithColumns = [],
 }: DashboardFormProps) {
