@@ -82,44 +82,45 @@ export default function CreateCardModal({
     setDueDateValue(date);
   };
 
-  useEffect(() => {
-    const getCardData = async () => {
-      let CardDataRes: CardList | null = null;
-      try {
-        const cardDataReq = await axiosInstance.get(`cards/${cardId}`);
-        CardDataRes = cardDataReq.data;
-      } catch (error) {
-        console.log(error);
-      }
-      if (CardDataRes && memberData && columnData) {
-        const findEmail = memberData.find(
-          (Member) => Member.userId === CardDataRes?.assignee.id,
-        );
-        const email = findEmail?.email;
-        const findColumnTitle = columnData.find(
-          (columnTitle) => columnTitle.id === CardDataRes?.columnId,
-        );
-        const columnTitle = findColumnTitle?.title;
+  const getCardData = async () => {
+    let CardDataRes: CardList | null = null;
+    try {
+      const cardDataReq = await axiosInstance.get(`cards/${cardId}`);
+      CardDataRes = cardDataReq.data;
+    } catch (error) {
+      console.log(error);
+    }
+    if (CardDataRes && memberData && columnData) {
+      const findEmail = memberData.find(
+        (Member) => Member.userId === CardDataRes?.assignee.id,
+      );
+      const email = findEmail?.email;
+      const findColumnTitle = columnData.find(
+        (columnTitle) => columnTitle.id === CardDataRes?.columnId,
+      );
+      const columnTitle = findColumnTitle?.title;
 
-        setMemberListValue({
-          userId: CardDataRes.assignee.id,
-          email,
-          nickname: CardDataRes.assignee.nickname,
-          profileImageUrl: CardDataRes.assignee.profileImageUrl,
-        });
-        setStateListValue({
-          id: columnIdNumber,
-          title: columnTitle,
-          teamId: '2-11',
-          dashboardId: Number(boardId),
-        });
-        setTitleValue(CardDataRes.title);
-        setDescriptionValue(CardDataRes.description);
-        setTagDataValue(CardDataRes.tags);
-        setDueDateValue(CardDataRes.dueDate);
-        setImageData({ data: undefined, preview: CardDataRes.imageUrl });
-      }
-    };
+      setMemberListValue({
+        userId: CardDataRes.assignee.id,
+        email,
+        nickname: CardDataRes.assignee.nickname,
+        profileImageUrl: CardDataRes.assignee.profileImageUrl,
+      });
+      setStateListValue({
+        id: columnIdNumber,
+        title: columnTitle,
+        teamId: '2-11',
+        dashboardId: Number(boardId),
+      });
+      setTitleValue(CardDataRes.title);
+      setDescriptionValue(CardDataRes.description);
+      setTagDataValue(CardDataRes.tags);
+      setDueDateValue(CardDataRes.dueDate);
+      setImageData({ data: undefined, preview: CardDataRes.imageUrl });
+    }
+  };
+
+  useEffect(() => {
     if (isModifyForm) {
       getCardData();
     }
