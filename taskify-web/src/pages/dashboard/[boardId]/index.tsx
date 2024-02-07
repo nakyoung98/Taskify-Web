@@ -6,6 +6,7 @@ import { DashBoardLayout } from '@/components/page-layout/dashboard-layout/DashB
 import { useAuth } from '@/contexts/AuthProvider';
 import { useDashBoard } from '@/contexts/DashBoardProvider';
 import { SidebarProvider } from '@/contexts/SidebarProvider';
+import mock from '@/components/dashboard/ui-dashboard-form/mock/mock.json';
 
 export default function DashBoard() {
   useAuth(true);
@@ -26,7 +27,8 @@ export default function DashBoard() {
             }
           />
         }
-        dashboardMain={<DashboardForm />}
+        /** TODO: 실 데이터로 변경 */
+        dashboardMain={<DashboardForm cardsWithColumns={mock} />}
       />
     </SidebarProvider>
   );
