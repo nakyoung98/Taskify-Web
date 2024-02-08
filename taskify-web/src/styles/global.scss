@@ -30,3 +30,13 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+
+// datepicker 사이즈 변경
+.react-datepicker__month-container {
+  width: 15rem;
+  height: 15rem;
+  font-size: $font_size_xsmall;
+}
+.react-datepicker-wrapper {
+  width: 100%;
+}

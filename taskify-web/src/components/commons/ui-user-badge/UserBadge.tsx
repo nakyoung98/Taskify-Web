@@ -17,8 +17,8 @@ const cx = classNames.bind(styles);
 
 type UserBadgeProps = {
   color: 'orange' | 'pink' | 'brown' | 'sky';
-  text: string;
-  profileImageUrl?: string;
+  text: string | undefined;
+  profileImageUrl?: string | null;
   IsTwoWord?: boolean;
   location: 'header' | 'card' | 'column' | 'dropdown' | 'member';
 };
@@ -30,8 +30,8 @@ export default function UserBadge({
   IsTwoWord = false,
   location,
 }: UserBadgeProps) {
-  const firstWord = text.charAt(0);
-  const twoWord = text.substring(0, 2);
+  const firstWord = text?.charAt(0);
+  const twoWord = text?.substring(0, 2);
 
   return (
     <div>
