@@ -1,5 +1,6 @@
 @import '../../../styles/mixin';
 .main {
+  padding-top: 7rem;
   @include mobile {
     padding-left: 6.7rem;
   }
