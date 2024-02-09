@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 export default function MemberList() {
   const { paginationedMembersData, getPaginationedMembers } = useMembers();
-  const [pagination, setPagination] = useState<number>(3);
+  const [pagination, setPagination] = useState<number>(1);
 
   return (
     <section className={cx('container')}>

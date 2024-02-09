@@ -5,7 +5,7 @@ import Progress from './Progress.svg';
 const cx = classNames.bind(styles);
 
 type ProgressChipProps = {
-  text: string;
+  text: string | undefined;
 };
 
 export default function ProgressChip({ text }: ProgressChipProps) {

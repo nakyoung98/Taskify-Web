@@ -1,0 +1,67 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.fix-button {
+  position: absolute;
+  top: -2.5rem;
+  right: 0.2rem;
+  width: 7rem;
+  background: $primary;
+  padding: 0.1rem;
+  border-radius: 0.6rem;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.button-list {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  border-radius: 0.6rem;
+  padding: 1.3rem 1.6rem;
+  border: 0.1rem solid $outline;
+
+  @include mobile {
+    height: 4.2rem;
+  }
+
+  @include tablet {
+    height: 4.8rem;
+  }
+
+  @include desktop {
+    height: 4.8rem;
+  }
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.6rem;
+  padding: 1.3rem 1.6rem;
+  border: 0.1rem solid $outline;
+  outline: none;
+  &:focus {
+    border: 0.1rem solid $primary;
+  }
+
+  @include mobile {
+    height: 4.2rem;
+  }
+
+  @include tablet {
+    height: 4.8rem;
+  }
+
+  @include desktop {
+    height: 4.8rem;
+  }
+}

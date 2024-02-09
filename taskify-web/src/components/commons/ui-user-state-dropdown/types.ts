@@ -1,19 +1,13 @@
 export type UserData = {
-  id: number;
   userId: number;
-  email: string;
+  email: string | undefined;
   nickname: string;
-  profileImageUrl: string;
-  createdAt: string;
-  updatedAt: string;
-  isOwner: boolean;
+  profileImageUrl: string | null;
 };
 
 export type ColumnData = {
   id: number;
-  title: string;
+  title: string | undefined;
   teamId: string;
   dashboardId: number;
-  createdAt: string;
-  updatedAt: string;
 };
