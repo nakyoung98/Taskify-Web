@@ -1,0 +1,62 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 0.8rem;
+  background-color: $white_ffffff;
+  @include mobile {
+    width: 100%;
+    height: 83.6rem;
+    padding: 2.4rem 1.6rem;
+  }
+  @include tablet {
+    width: 100%;
+    height: 59.2rem;
+    padding: 3.2rem 2.8rem;
+  }
+  @include desktop {
+    width: 102.2rem;
+    height: 60rem;
+    padding: 3.2rem 2.8rem;
+  }
+}
+
+.board-header {
+  font-size: $font_size_xxlarge;
+  font-weight: $font_weight_bold;
+  padding-bottom: 2rem;
+}
+
+.board-menu {
+  display: flex;
+  padding-top: 2.4rem;
+  padding-bottom: 0.4rem;
+  gap: 33.6rem;
+  color: $hint_color;
+}
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-list {
+  display: flex;
+  gap: 30rem;
+  padding: 2.7rem 0 2.6rem 3.6rem;
+  border-bottom: 1px solid #eee;
+}
+
+.board-button {
+  display: flex;
+  padding-left: 3.6rem;
+  gap: 1rem;
+}
