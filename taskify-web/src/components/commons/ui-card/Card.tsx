@@ -77,8 +77,15 @@ export default function Card({
         <section className={cx('card-container__section')}>
           <div className={cx('card-container__tags')}>
             {/** TODO: color 적용 */}
-            {tags?.map((tag) => {
-              return <ChipSubject label={tag} key={tag} />;
+            {tags?.map((tag, index) => {
+              return (
+                <ChipSubject
+                  label={tag}
+                  key={tag}
+                  onDelete={() => {}}
+                  index={index}
+                />
+              );
             })}
           </div>
         </section>
