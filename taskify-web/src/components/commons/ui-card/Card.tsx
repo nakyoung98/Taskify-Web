@@ -57,7 +57,7 @@ export default function Card({
 }: CardProps) {
   return (
     <div
-      className={cx('button_unstyled')}
+      className={cx('card-container', { clickable })}
       role="button"
       tabIndex={0}
       onClick={(e) => {
@@ -72,49 +72,42 @@ export default function Card({
         }
       }}
     >
-      <article className={cx('card-container', { clickable })}>
-        {imageUrl && (
-          <div className={cx('card-container__thumbnail')}>
-            <Image
-              src={imageUrl}
-              alt={`${title} 카드`}
-              objectFit="cover"
-              fill
-            />
-          </div>
-        )}
-        <header className={cx('card-container__header')}>
-          <h1 className={cx('card-container__title')}>{title}</h1>
-        </header>
-        <section className={cx('card-container__section')}>
-          <div className={cx('card-container__tags')}>
-            {/** TODO: color 적용 */}
-            {tags?.map((tag, index) => {
-              return (
-                <ChipSubject
-                  label={tag}
-                  key={tag}
-                  onDelete={() => {}}
-                  index={index}
-                />
-              );
-            })}
-          </div>
-        </section>
-        <footer className={cx('card-container__footer')}>
-          <div className={cx('card-container__expired-date')}>
-            <Calendar className={cx('card-container__expired-date_icon')} />
-            {expiredDate && (
-              <span className={cx('card-container__expired-date_text')}>
-                {expiredDate}
-              </span>
-            )}
-          </div>
-          {/** TODO: user가 있으면 UserBadge에 userData에 맞게 데이터를 불러와야함 */}
-          {/** TODO: 반응형 userBadge 적용 */}
-          {user && <UserBadge text={user} color="orange" location="card" />}
-        </footer>
-      </article>
+      {imageUrl && (
+        <div className={cx('card-container__thumbnail')}>
+          <Image src={imageUrl} alt={`${title} 카드`} objectFit="cover" fill />
+        </div>
+      )}
+      <header className={cx('card-container__header')}>
+        <h1 className={cx('card-container__title')}>{title}</h1>
+      </header>
+      <section className={cx('card-container__section')}>
+        <div className={cx('card-container__tags')}>
+          {/** TODO: color 적용 */}
+          {tags?.map((tag, index) => {
+            return (
+              <ChipSubject
+                label={tag}
+                key={tag}
+                onDelete={() => {}}
+                index={index}
+              />
+            );
+          })}
+        </div>
+      </section>
+      <footer className={cx('card-container__footer')}>
+        <div className={cx('card-container__expired-date')}>
+          <Calendar className={cx('card-container__expired-date_icon')} />
+          {expiredDate && (
+            <span className={cx('card-container__expired-date_text')}>
+              {expiredDate}
+            </span>
+          )}
+        </div>
+        {/** TODO: user가 있으면 UserBadge에 userData에 맞게 데이터를 불러와야함 */}
+        {/** TODO: 반응형 userBadge 적용 */}
+        {user && <UserBadge text={user} color="orange" location="card" />}
+      </footer>
     </div>
   );
 }
