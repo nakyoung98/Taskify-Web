@@ -31,11 +31,10 @@ type CardProps = {
   onClick?: (e: MouseEvent) => void;
 };
 
-
 /**
  * `Card` 컴포넌트는 사용자 인터페이스에 카드 형태의 요소를 렌더링합니다.
  * 각 카드는 이미지, 제목, 태그, 만료 날짜 등의 정보를 포함할 수 있습니다.
- * 
+ *
  * @property {string} [imageUrl] - 카드에 표시될 이미지의 URL입니다. 이미지가 없는 경우 생략할 수 있습니다.
  * @property {string} title - 카드 제목을 나타냅니다.
  * @property {string[]} [tags] - 카드에 표시될 태그들의 배열입니다. 선택적으로 사용할 수 있습니다.
@@ -94,7 +93,7 @@ export default function Card({
           </div>
           {/** TODO: user가 있으면 UserBadge에 userData에 맞게 데이터를 불러와야함 */}
           {/** TODO: 반응형 userBadge 적용 */}
-          {user && <UserBadge text={user} color="orange" />}
+          {user && <UserBadge text={user} color="orange" location="card" />}
         </footer>
       </article>
     </button>
