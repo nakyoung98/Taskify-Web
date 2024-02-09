@@ -38,55 +38,6 @@ export default function SubHeader({
       router.push('/mydashboard');
     }
   };
-
-  // const memberData = {
-  //   members: [
-  //     {
-  //       id: 0,
-  //       userId: 5,
-  //       email: 'ytring@test.com',
-  //       nickname: '1',
-  //       profileImageUrl: 'string',
-  //     },
-  //     {
-  //       id: 1,
-  //       userId: 6,
-  //       email: 'ctring@test.com',
-  //       nickname: '2',
-  //       profileImageUrl: 'string',
-  //     },
-  //     {
-  //       id: 2,
-  //       userId: 7,
-  //       email: 'jtring@test.com',
-  //       nickname: '3',
-  //       profileImageUrl: 'string',
-  //     },
-  //     {
-  //       id: 3,
-  //       userId: 8,
-  //       email: 'ktring@test.com',
-  //       nickname: '4',
-  //       profileImageUrl: 'string',
-  //     },
-  //     {
-  //       id: 4,
-  //       userId: 9,
-  //       email: 'string',
-  //       nickname: '5',
-  //       profileImageUrl: 'string',
-  //     },
-  //     {
-  //       id: 5,
-  //       userId: 10,
-  //       email: 'string',
-  //       nickname: '6',
-  //       profileImageUrl: 'string',
-  //     },
-  //   ],
-
-  //   totalCount: 6,
-  // };
   return (
     <UiSubHeader>
       <SubHeaderName>{dashBoardInfoLabel}</SubHeaderName>
