@@ -2,7 +2,6 @@ import { MouseEventHandler } from 'react';
 import classNames from 'classnames/bind';
 import Button from '@/components/commons/ui-button/Button';
 import DashboardInfoLabel from '@/components/commons/ui-dashboard-info-label/DashboardInfoLabel';
-import { ChipColor } from '@/components/commons/ui-dashboard-info-label/types';
 import styles from './DashboardEnterButton.module.scss';
 import ArrowIcon from './arrow.svg';
 
@@ -11,7 +10,7 @@ const cx = classNames.bind(styles);
 type DashboardEnterButtonProps = {
   onClick: MouseEventHandler<HTMLButtonElement>;
   dashboardName: string;
-  dashboardColor: ChipColor;
+  dashboardColor: string;
   isOwner: boolean;
 };
 
@@ -20,7 +19,7 @@ type DashboardEnterButtonProps = {
  *
  * @param {MouseEventHandler<HTMLButtonElement>} props.onClick 대시보드 버튼 클릭 시 처리할 업무
  * @param {string} props.dashboardName 대시보드의 이름
- * @param {ChipColor} props.dashboardColor 대시보드 레이블의 색상
+ * @param {string} props.dashboardColor 대시보드 레이블의 색상
  * @param {boolean} props.isOwner 사용자가 대시보드의 소유자인지 여부
  */
 export default function DashboardEnterButton({
