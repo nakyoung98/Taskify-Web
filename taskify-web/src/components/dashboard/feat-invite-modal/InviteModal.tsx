@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import { Modal } from '@/components/commons/ui-modal/Modal';
@@ -18,17 +18,29 @@ const cx = classNames.bind(styles);
 export default function InviteModal({ isOpen, setIsOpen }: InviteProps) {
   const router = useRouter();
   const { boardId } = router.query;
-  const { control, watch } = useForm({
+  const { control, watch, setError, setValue } = useForm({
     defaultValues: { email: '' },
     mode: 'onBlur',
   });
 
-  const { inviteMember } = useMembers();
+  const { inviteMember, error, inviteSuccess } = useMembers();
 
   const handleSubmit = async () => {
     await inviteMember(watch('email'), boardId as string);
-    setIsOpen(false);
   };
+
+  useEffect(() => {
+    if (error?.response?.status === 409 || error?.response?.status === 404) {
+      if (error.response?.data) {
+        const errorMessage = Object.values(error.response?.data);
+        setError('email', { message: errorMessage[0] });
+      }
+    }
+    if (inviteSuccess) {
+      setIsOpen(false);
+      setValue('email', '');
+    }
+  }, [error, inviteSuccess]);
 
   return (
     <Modal isOpen={isOpen}>
@@ -40,7 +52,14 @@ export default function InviteModal({ isOpen, setIsOpen }: InviteProps) {
             name="email"
             control={control}
             defaultValue=""
-            render={({ field }) => <Input {...field} isModal />}
+            render={({ field, fieldState }) => (
+              <Input
+                {...field}
+                isModal
+                hasError={Boolean(fieldState.error)}
+                errorMessage={fieldState.error?.message}
+              />
+            )}
           />
         </label>
         <div className={cx('buttonContainer')}>

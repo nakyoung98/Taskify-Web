@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { Invites, Members } from '@/types/dashboard';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 
@@ -34,6 +34,7 @@ type MemberProviderType = {
     dashboardId: string,
     invitationId: number,
   ) => Promise<void>;
+  inviteSuccess: boolean;
   error: AxiosError | null;
   boardId: string | string[] | undefined;
 };
@@ -57,6 +58,7 @@ const MemberContext = createContext<MemberProviderType>({
   inviteMember: async () => {},
   getInvitedMember: async () => {},
   cancelInviteMember: async () => {},
+  inviteSuccess: false,
   error: null,
   boardId: undefined,
 });
@@ -89,6 +91,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
   });
 
   const [axiosError, setAxiosError] = useState<AxiosError | null>(null);
+  const [inviteSuccess, setInviteSuccess] = useState<boolean>(false);
 
   const router = useRouter();
   const { boardId } = router.query;
@@ -111,6 +114,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
     async (page: number = 1) => {
       try {
         setAxiosError(null);
+
         setPaginationedMembersData((prevValue) => ({
           ...prevValue,
           error: null,
@@ -168,13 +172,18 @@ export function MemberProvider({ children }: MemberProviderProps) {
   const inviteMember = useCallback(
     async (email: string, dashboardId: string) => {
       try {
+        setInviteSuccess(false);
         setAxiosError(null);
         await axiosInstance.post(`dashboards/${dashboardId}/invitations`, {
           email,
         });
+        setInviteSuccess(true);
         await getInvitedMember(dashboardId, 1);
-      } catch {
-        setAxiosError(axiosError);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+          setInviteSuccess(false);
+        }
       }
     },
     [],
@@ -216,6 +225,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
       getInvitedMember,
       cancelInviteMember,
       error: axiosError,
+      inviteSuccess,
       boardId,
     }),
     [
@@ -229,6 +239,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
       getInvitedMember,
       cancelInviteMember,
       axiosError,
+      inviteSuccess,
       boardId,
     ],
   );
