@@ -11,6 +11,7 @@
 
 .ProfileLabelName {
   &.header {
+    flex-shrink: 0;
     height: 100%;
     @include mobile {
       display: none;
