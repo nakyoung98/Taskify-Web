@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { MouseEvent } from 'react';
+import { KeyboardEvent, MouseEvent } from 'react';
 import Image from 'next/image';
 import styles from './Card.module.scss';
 import UserBadge from '../ui-user-badge/UserBadge';
@@ -28,7 +28,9 @@ type CardProps = {
   expiredDate?: string;
   user?: string;
   clickable?: boolean;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (
+    e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
+  ) => void;
 };
 
 /**
@@ -54,11 +56,21 @@ export default function Card({
   onClick = () => {},
 }: CardProps) {
   return (
-    <button
+    <div
       className={cx('button_unstyled')}
-      type="button"
-      onClick={onClick}
-      disabled={!clickable}
+      role="button"
+      tabIndex={0}
+      onClick={(e) => {
+        if (clickable) {
+          onClick(e);
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(e);
+        }
+      }}
     >
       <article className={cx('card-container', { clickable })}>
         {imageUrl && (
@@ -103,6 +115,6 @@ export default function Card({
           {user && <UserBadge text={user} color="orange" location="card" />}
         </footer>
       </article>
-    </button>
+    </div>
   );
 }
