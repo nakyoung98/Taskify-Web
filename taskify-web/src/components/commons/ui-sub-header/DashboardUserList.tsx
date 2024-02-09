@@ -17,15 +17,17 @@ export default function DashboardUserList() {
     <div className={cx('container')}>
       <div className={cx('memberList')}>
         {membersData &&
-          membersData.data?.members.map((member) => (
-            <UserBadge
-              location="header"
-              key={member.id}
-              color={getRandomColor(member.userId)}
-              text={member.email}
-              profileImageUrl=""
-            />
-          ))}
+          membersData.data?.members.map((member) => {
+            return (
+              <UserBadge
+                location="header"
+                key={member.id}
+                color={getRandomColor(member.userId)}
+                text={member.email}
+                profileImageUrl=""
+              />
+            );
+          })}
         {getRemainNumber(width, membersData.data?.totalCount || 0) > 0 && (
           <UserBadge
             location="header"
