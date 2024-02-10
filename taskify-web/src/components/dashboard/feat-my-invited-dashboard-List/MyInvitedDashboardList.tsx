@@ -5,18 +5,12 @@ import styles from './MyInvitedDashboardList.module.scss';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 import InvitedList from './InvitedList';
 import { Invited } from './type';
-import { DashboardsData, Invitation } from '@/types/dashboard';
+import { Invitation } from '@/types/dashboard';
 import None from './None.svg';
 
 const cx = classNames.bind(styles);
 
-type MyInvitedDashboardListProps = {
-  data: DashboardsData | null;
-};
-
-export default function MyInvitedDashboardList({
-  data,
-}: MyInvitedDashboardListProps) {
+export default function MyInvitedDashboardList() {
   const [invitationData, setInvitationData] = useState<Invited>({
     invitations: [],
     cursorId: 0,
@@ -115,18 +109,16 @@ export default function MyInvitedDashboardList({
   return (
     <div className={cx('container')}>
       <span className={cx('board-header')}>초대받은 대시보드</span>
-
-      {!data?.dashboards ||
-        (data.dashboards.length === 0 && (
-          <div className={cx('None-board')}>
-            <None className={cx('None-board-image')} />
-            <span className={cx('None-board-text')}>
-              아직 초대받은 대시보드가 없어요
-            </span>
-          </div>
-        ))}
-
-      {data?.dashboards && data.dashboards.length > 0 && (
+      {(!invitationData?.invitations ||
+        invitationData.invitations.length === 0) && (
+        <div className={cx('None-board')}>
+          <None className={cx('None-board-image')} />
+          <span className={cx('None-board-text')}>
+            아직 초대받은 대시보드가 없어요
+          </span>
+        </div>
+      )}
+      {invitationData?.invitations && invitationData.invitations.length > 0 && (
         <input
           onChange={onChange}
           className={cx('input')}
@@ -134,7 +126,7 @@ export default function MyInvitedDashboardList({
           placeholder="검색"
         />
       )}
-      {data?.dashboards && data.dashboards.length > 0 && (
+      {invitationData?.invitations && invitationData.invitations.length > 0 && (
         <div className={cx('board-menu')}>
           <span className={cx('menu-name')}>이름</span>
           <span className={cx('menu-inviter')}>초대자</span>
