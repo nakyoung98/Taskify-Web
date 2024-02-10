@@ -13,10 +13,8 @@ const cx = classNames.bind(styles);
 export default function MyInvitedDashboardList() {
   const [invitationData, setInvitationData] = useState<Invited>(null);
   const [search, setSearch] = useState<string>('');
-  const [isAccept, setIsAccept] = useState<boolean>(false);
   const [cursorId, setCursorId] = useState<number | null>(null);
   const listContainerRef = useRef<HTMLDivElement | null>(null);
-
   const getInvitedListData = async () => {
     if (!search) {
       try {
@@ -37,8 +35,6 @@ export default function MyInvitedDashboardList() {
             };
           });
           setCursorId(newData.cursorId);
-        } else {
-          setInvitationData(null);
         }
       } catch (error) {
         console.log(error);
@@ -58,15 +54,41 @@ export default function MyInvitedDashboardList() {
     }
   };
 
-  const handleScroll = throttle((event: Event) => {
+  const handleScroll = throttle(async (event: Event) => {
     const target = event.target as HTMLDivElement;
     const { scrollTop, scrollHeight, clientHeight } = target;
     const scrollOffset = 100;
 
     if (scrollHeight - scrollTop <= clientHeight + scrollOffset) {
-      getInvitedListData();
+      await getInvitedListData();
     }
   }, 100);
+
+  const throttledSave = throttle((value) => setSearch(value), 500);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    throttledSave(e.target.value);
+  };
+
+  const acceptInvitation = async (InvitationId: number) => {
+    try {
+      await axiosInstance.put(`invitations/${InvitationId}`, {
+        inviteAccepted: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const refuseInvitation = async (InvitationId: number) => {
+    try {
+      await axiosInstance.put(`invitations/${InvitationId}`, {
+        inviteAccepted: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const listContainer = listContainerRef.current;
@@ -83,14 +105,7 @@ export default function MyInvitedDashboardList() {
 
   useEffect(() => {
     getInvitedListData();
-    console.log(invitationData);
-  }, [search, isAccept]);
-
-  const throttledSave = throttle((value) => setSearch(value), 500);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    throttledSave(e.target.value);
-  };
+  }, [search]);
 
   return (
     <div className={cx('container')}>
@@ -125,8 +140,8 @@ export default function MyInvitedDashboardList() {
             boardName={list.dashboard.title}
             inviter={list.inviter.nickname}
             InvitationId={list.id}
-            setIsAccept={setIsAccept}
-            isAccept={isAccept}
+            acceptInvitation={acceptInvitation}
+            refuseInvitation={refuseInvitation}
           />
         ))}
       </div>
