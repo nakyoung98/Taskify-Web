@@ -257,9 +257,11 @@
     justify-content: center;
   }
   @include tablet {
-    justify-content: flex-start;
+    padding-right: 6rem;
+    justify-content: center;
   }
   @include desktop {
+    padding-right: 0;
     padding-left: 4.2rem;
     width: fit-content;
   }
