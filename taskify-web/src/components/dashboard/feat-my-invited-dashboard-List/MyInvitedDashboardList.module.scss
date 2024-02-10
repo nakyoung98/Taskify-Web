@@ -18,7 +18,7 @@
     padding: 3.2rem 2.8rem;
   }
   @include desktop {
-    width: 102.2rem;
+    max-width: 102.2rem;
     height: 60rem;
     padding: 3.2rem 2.8rem;
   }
@@ -34,29 +34,73 @@
   display: flex;
   padding-top: 2.4rem;
   padding-bottom: 0.4rem;
-  gap: 33.6rem;
   color: $hint_color;
+  justify-content: space-between;
+
+  @include mobile {
+    font-size: $font_size_small;
+  }
+  @include tablet {
+    font-size: $font_size_medium;
+  }
 }
 
-.board-container {
-  display: flex;
-  flex-direction: column;
+.menu-name,
+.menu-inviter,
+.menu-accept {
+  width: 20rem;
+  @include mobile {
+    display: none;
+  }
+  @include tablet {
+    display: flex;
+  }
 }
 
 .board-list-container {
   display: flex;
   flex-direction: column;
+  overflow: scroll;
 }
 
-.board-list {
-  display: flex;
-  gap: 30rem;
-  padding: 2.7rem 0 2.6rem 3.6rem;
-  border-bottom: 1px solid #eee;
+.input {
+  border-radius: 0.6rem;
+  border: 0.1rem solid $outline;
+  background-color: $surface_container;
+  outline: none;
+  width: 100%;
+  background-image: url('./search.svg');
+  background-repeat: no-repeat;
+  padding: 1.1rem 4.8rem 1rem 4.8rem;
+  background-position: calc(1.5%);
+  &:focus {
+    border: 0.1rem solid $primary;
+  }
 }
 
-.board-button {
+.None-board {
   display: flex;
-  padding-left: 3.6rem;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.None-board-image {
+  @include mobile {
+    width: 6rem;
+    height: 6rem;
+  }
+  @include tablet {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+.None-board-text {
+  color: $surface_dim;
+  @include mobile {
+    font-size: $font_size_small;
+  }
+  @include tablet {
+    font-size: $font_size_large;
+  }
 }
