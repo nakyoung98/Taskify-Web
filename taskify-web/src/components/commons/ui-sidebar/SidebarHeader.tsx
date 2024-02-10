@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import LargeLogo from '@/components/commons/ui-main-header/large_logo.svg';
@@ -10,8 +11,10 @@ function SidebarHeader() {
   const { isOpen } = useSideBar();
   return (
     <header className={cx('header')}>
-      <LargeLogo className={cx('largeLogo', { isOpen: !isOpen })} />
-      <SmallLogo className={cx('smallLogo')} />
+      <Link href="/">
+        <LargeLogo className={cx('largeLogo', { isOpen: !isOpen })} />
+        <SmallLogo className={cx('smallLogo')} />
+      </Link>
     </header>
   );
 }
