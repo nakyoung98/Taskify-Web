@@ -29,7 +29,7 @@ export default function MyDashBoard() {
         dashboardMain={
           <MydashboadMain>
             <MydashboadList />
-            <MyInvitedDashboardList data={dashBoards.data} />
+            <MyInvitedDashboardList />
           </MydashboadMain>
         }
       />
