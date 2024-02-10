@@ -1,52 +1,74 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import { useAsync } from './useAsync';
+
+type DefaultInfiniteScrollType = {
+  cursorId: number | null;
+};
 
 type UseInfiniteScrollProps<T> = {
   root?: React.RefObject<HTMLElement> | null;
   target: React.RefObject<HTMLElement>;
-  onIntersect: () => Promise<AxiosResponse<T[]>>;
+  onIntersect: (
+    cursorId?: number | null,
+    pageSize?: number,
+  ) => Promise<AxiosResponse<T>>;
   threshold?: number;
   hookEnabled?: boolean;
 };
 
-export default function useInfiniteScroll<T>({
+export default function useInfiniteScroll<T extends DefaultInfiniteScrollType>({
   root = null,
   target,
   onIntersect,
   threshold = 1.0,
   hookEnabled,
 }: UseInfiniteScrollProps<T>) {
-  const { execute, loading, error, data } = useAsync<T[]>({
-    asyncFunction: onIntersect,
+  const [cursorId, setCursorId] = useState<number | null>();
+  const [pageSize, setPageSize] = useState<number>(5);
+  const { execute, loading, error, data } = useAsync<T>({
+    asyncFunction: async () => {
+      if (cursorId === null) {
+        return Promise.reject(
+          Error('새롭게 조회할 데이터가 존재하지 않습니다'),
+        );
+      }
+
+      const response = await onIntersect(cursorId, pageSize);
+      setCursorId(response.data.cursorId || null);
+      return response;
+    },
   });
+
   const callback = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          if (cursorId === null) return;
+          if (loading) return;
           execute();
         }
       });
     },
-    [execute],
+    [execute, loading, cursorId],
   );
 
   useEffect(() => {
-    if (hookEnabled === false) return undefined;
+    if (!hookEnabled || loading || cursorId === null) return undefined;
 
     const observer = new IntersectionObserver(callback, {
       threshold,
       root: root?.current,
     });
 
-    if (target.current) {
+    if (target?.current) {
       observer.observe(target.current);
     }
 
     return () => {
       observer.disconnect();
     };
-  }, [target, callback, hookEnabled, root, threshold]);
+  }, [target, callback, hookEnabled, root, threshold, cursorId, loading]);
 
-  return { loading, error, data };
+  return { loading, error, data, setPageSize };
 }
