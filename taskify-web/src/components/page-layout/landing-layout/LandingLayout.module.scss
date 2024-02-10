@@ -3,12 +3,12 @@
 
 .main {
   background-color: $black_000000;
-  padding-bottom: 16rem;
+
   @include mobile {
-    padding-top: 4.2rem;
+    padding: 4.2rem 1.6rem 16rem;
   }
   @include tablet {
-    padding-top: 9.4rem;
+    padding: 9.4rem 4rem 16rem;
   }
 }
 
