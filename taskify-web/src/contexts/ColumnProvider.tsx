@@ -21,8 +21,8 @@ type ColumnContextProps = {
   columns: ColumnResponse[];
   getCardDataFromColumn: (
     columnId: number,
-    cursorId: number,
-    size: number,
+    size?: number,
+    cursorId?: number | null,
   ) => Promise<AxiosResponse<CardListResponse>>;
 };
 
@@ -43,7 +43,7 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
   }, [boardId]);
 
   const getCardDataFromColumn = useCallback(
-    async (columnId: number, cursorId: number, size: number) => {
+    async (columnId: number, size?: number, cursorId?: number | null) => {
       const responses = await axiosInstance('cards', {
         params: {
           columnId,
