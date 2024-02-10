@@ -70,11 +70,22 @@ export default function MyInvitedDashboardList() {
     throttledSave(e.target.value);
   };
 
+  const getInvitedListReset = async () => {
+    try {
+      const response = await axiosInstance.get('invitations?size=5');
+      const newData = response.data;
+      setInvitationData(newData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const acceptInvitation = async (InvitationId: number) => {
     try {
       await axiosInstance.put(`invitations/${InvitationId}`, {
         inviteAccepted: true,
       });
+      getInvitedListReset();
     } catch (error) {
       console.log(error);
     }
@@ -85,6 +96,7 @@ export default function MyInvitedDashboardList() {
       await axiosInstance.put(`invitations/${InvitationId}`, {
         inviteAccepted: false,
       });
+      getInvitedListReset();
     } catch (error) {
       console.log(error);
     }
