@@ -5,6 +5,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useState,
 } from 'react';
 import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
@@ -31,6 +32,7 @@ export const ColumnContext = createContext<ColumnContextProps | null>(null);
 export default function ColumnProvider({ children }: ColumnProviderProps) {
   const router = useRouter();
   const { boardId } = router.query;
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
   const getColumnData = useCallback(async () => {
     const response = await axiosInstance.get('columns', {
@@ -67,10 +69,17 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
   });
 
   useEffect(() => {
-    if (!boardId) return;
-    if (loadingGetColumnData) return;
-    executeGetColumnData();
-  }, [boardId, loadingGetColumnData, executeGetColumnData]);
+    // boardId가 존재하고, 데이터가 아직 로드되지 않았으며, 로딩 중도 아닐 때만 실행
+    if (boardId && !isDataLoaded) {
+      executeGetColumnData()
+        .then(() => {
+          setIsDataLoaded(true); // 데이터 로딩이 완료되었음을 표시
+        })
+        .catch((error) => {
+          console.error('Data loading error:', error);
+        });
+    }
+  }, [boardId, isDataLoaded, loadingGetColumnData, executeGetColumnData]);
 
   const contextValue = useMemo(
     (): ColumnContextProps => ({
