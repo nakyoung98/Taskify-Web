@@ -31,3 +31,9 @@ export interface CardResponse extends CardDetails {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface CardListResponse {
+  cards: CardResponse[];
+  totalCount: number;
+  cursorId: number | null;
+}
