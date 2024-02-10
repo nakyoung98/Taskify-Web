@@ -23,8 +23,8 @@ export default function DashboardForm({
     <section className={cx('dashboard-form')}>
       {cardsWithColumns.map(({ column, cards }) => {
         return (
-          <>
-            <CardColumn key={column.id}>
+          <div key={column.id}>
+            <CardColumn>
               <ColumnHeader
                 columnName={column.title}
                 columnItemCount={cards.length}
@@ -54,7 +54,7 @@ export default function DashboardForm({
               ))}
             </CardColumn>
             <div className={cx('dashboard-form__divider')} />
-          </>
+          </div>
         );
       })}
       <div className={cx('dashboard-form__add-column')}>

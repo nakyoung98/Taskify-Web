@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { MouseEvent } from 'react';
+import { KeyboardEvent, MouseEvent } from 'react';
 import Image from 'next/image';
 import styles from './Card.module.scss';
 import UserBadge from '../ui-user-badge/UserBadge';
@@ -28,14 +28,15 @@ type CardProps = {
   expiredDate?: string;
   user?: string;
   clickable?: boolean;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (
+    e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
+  ) => void;
 };
-
 
 /**
  * `Card` 컴포넌트는 사용자 인터페이스에 카드 형태의 요소를 렌더링합니다.
  * 각 카드는 이미지, 제목, 태그, 만료 날짜 등의 정보를 포함할 수 있습니다.
- * 
+ *
  * @property {string} [imageUrl] - 카드에 표시될 이미지의 URL입니다. 이미지가 없는 경우 생략할 수 있습니다.
  * @property {string} title - 카드 제목을 나타냅니다.
  * @property {string[]} [tags] - 카드에 표시될 태그들의 배열입니다. 선택적으로 사용할 수 있습니다.
@@ -55,48 +56,58 @@ export default function Card({
   onClick = () => {},
 }: CardProps) {
   return (
-    <button
-      className={cx('button_unstyled')}
-      type="button"
-      onClick={onClick}
-      disabled={!clickable}
+    <div
+      className={cx('card-container', { clickable })}
+      role="button"
+      tabIndex={0}
+      onClick={(e) => {
+        if (clickable) {
+          onClick(e);
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(e);
+        }
+      }}
     >
-      <article className={cx('card-container', { clickable })}>
-        {imageUrl && (
-          <div className={cx('card-container__thumbnail')}>
-            <Image
-              src={imageUrl}
-              alt={`${title} 카드`}
-              objectFit="cover"
-              fill
-            />
-          </div>
-        )}
-        <header className={cx('card-container__header')}>
-          <h1 className={cx('card-container__title')}>{title}</h1>
-        </header>
-        <section className={cx('card-container__section')}>
-          <div className={cx('card-container__tags')}>
-            {/** TODO: color 적용 */}
-            {tags?.map((tag) => {
-              return <ChipSubject label={tag} key={tag} />;
-            })}
-          </div>
-        </section>
-        <footer className={cx('card-container__footer')}>
-          <div className={cx('card-container__expired-date')}>
-            <Calendar className={cx('card-container__expired-date_icon')} />
-            {expiredDate && (
-              <span className={cx('card-container__expired-date_text')}>
-                {expiredDate}
-              </span>
-            )}
-          </div>
-          {/** TODO: user가 있으면 UserBadge에 userData에 맞게 데이터를 불러와야함 */}
-          {/** TODO: 반응형 userBadge 적용 */}
-          {user && <UserBadge text={user} color="orange" />}
-        </footer>
-      </article>
-    </button>
+      {imageUrl && (
+        <div className={cx('card-container__thumbnail')}>
+          <Image src={imageUrl} alt={`${title} 카드`} objectFit="cover" fill />
+        </div>
+      )}
+      <header className={cx('card-container__header')}>
+        <h1 className={cx('card-container__title')}>{title}</h1>
+      </header>
+      <section className={cx('card-container__section')}>
+        <div className={cx('card-container__tags')}>
+          {/** TODO: color 적용 */}
+          {tags?.map((tag, index) => {
+            return (
+              <ChipSubject
+                label={tag}
+                key={tag}
+                onDelete={() => {}}
+                index={index}
+              />
+            );
+          })}
+        </div>
+      </section>
+      <footer className={cx('card-container__footer')}>
+        <div className={cx('card-container__expired-date')}>
+          <Calendar className={cx('card-container__expired-date_icon')} />
+          {expiredDate && (
+            <span className={cx('card-container__expired-date_text')}>
+              {expiredDate}
+            </span>
+          )}
+        </div>
+        {/** TODO: user가 있으면 UserBadge에 userData에 맞게 데이터를 불러와야함 */}
+        {/** TODO: 반응형 userBadge 적용 */}
+        {user && <UserBadge text={user} color="orange" location="card" />}
+      </footer>
+    </div>
   );
 }
