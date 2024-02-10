@@ -1,34 +1,42 @@
-.chip {
-  display: inline-flex;
-  padding: 0.4rem 0.6rem;
-  justify-content: center;
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+
+.container {
+  display: flex;
   align-items: center;
-  gap: 1rem;
+  width: fit-content;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
   border-radius: 0.4rem;
-  background: #f9eee3;
+  text-align: center;
+  @include mobile {
+    height: 2rem;
+  }
 
-  &[data-label='프로젝트'] {
-    background: #f9eee3;
+  @include tablet {
+    height: 2rem;
+  }
+
+  @include desktop {
+    height: 2.2rem;
+  }
+  &.orange {
+    background-color: #f9eee3;
     color: #d58d49;
   }
 
-  &[data-label='프로젝트'] {
-    background: #f9eee3;
-    color: #d58d49;
-  }
-
-  &[data-label='일반'] {
-    background: #e7f7db;
+  &.green {
+    background-color: #e7f7db;
     color: #86d549;
   }
 
-  &[data-label='백엔드'] {
-    background: #f7dbf0;
+  &.pink {
+    background-color: #f7dbf0;
     color: #d549b6;
   }
 
-  &[data-label='상'] {
-    background: #dbe6f7;
+  &.blue {
+    background-color: #dbe6f7;
     color: #4981d5;
   }
 }
