@@ -19,6 +19,8 @@ export const useAsync = <T>({
 
   //   비동기 호출
   const execute = async () => {
+    if (loading) return;
+
     setLoading(true);
     setError(null);
     setData(null);
