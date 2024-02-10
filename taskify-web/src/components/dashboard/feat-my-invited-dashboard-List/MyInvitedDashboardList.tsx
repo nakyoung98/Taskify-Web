@@ -11,10 +11,7 @@ import None from './None.svg';
 const cx = classNames.bind(styles);
 
 export default function MyInvitedDashboardList() {
-  const [invitationData, setInvitationData] = useState<Invited>({
-    invitations: [],
-    cursorId: 0,
-  });
+  const [invitationData, setInvitationData] = useState<Invited>(null);
   const [search, setSearch] = useState<string>('');
   const [isAccept, setIsAccept] = useState<boolean>(false);
   const [cursorId, setCursorId] = useState<number | null>(null);
@@ -28,19 +25,21 @@ export default function MyInvitedDashboardList() {
           : `invitations?size=5`;
         const response = await axiosInstance.get(url);
         const newData = response.data;
-
-        setInvitationData((prev) => {
-          const newInvitations = newData.invitations.filter(
-            (newInv: Invitation) =>
-              !prev.invitations.some((prevInv) => prevInv.id === newInv.id),
-          );
-
-          return {
-            invitations: [...prev.invitations, ...newInvitations],
-            cursorId: newData.cursorId,
-          };
-        });
-        setCursorId(newData.cursorId);
+        if (newData && newData.invitations.length > 0) {
+          setInvitationData((prev) => {
+            const newInvitations = newData.invitations.filter(
+              (newInv: Invitation) =>
+                !prev?.invitations?.some((prevInv) => prevInv.id === newInv.id),
+            );
+            return {
+              invitations: [...(prev?.invitations || []), ...newInvitations],
+              cursorId: newData.cursorId,
+            };
+          });
+          setCursorId(newData.cursorId);
+        } else {
+          setInvitationData(null);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -50,18 +49,9 @@ export default function MyInvitedDashboardList() {
           `invitations?size=5&title=${search}`,
         );
         const newData = response.data;
-        setInvitationData((prev) => {
-          const newInvitations = newData.invitations.filter(
-            (newInv: Invitation) =>
-              !prev.invitations.some((prevInv) => prevInv.id === newInv.id),
-          );
-
-          return {
-            invitations: [...prev.invitations, ...newInvitations],
-            cursorId: newData.cursorId,
-          };
-        });
-        setCursorId(newData.cursorId);
+        if (newData) {
+          setInvitationData(newData);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -92,11 +82,8 @@ export default function MyInvitedDashboardList() {
   }, [cursorId]);
 
   useEffect(() => {
-    setInvitationData({
-      invitations: [],
-      cursorId: 0,
-    });
     getInvitedListData();
+    console.log(invitationData);
   }, [search, isAccept]);
 
   const throttledSave = throttle((value) => setSearch(value), 500);
@@ -108,8 +95,7 @@ export default function MyInvitedDashboardList() {
   return (
     <div className={cx('container')}>
       <span className={cx('board-header')}>초대받은 대시보드</span>
-      {(!invitationData?.invitations ||
-        invitationData.invitations.length === 0) && (
+      {!invitationData && (
         <div className={cx('None-board')}>
           <None className={cx('None-board-image')} />
           <span className={cx('None-board-text')}>
@@ -117,7 +103,7 @@ export default function MyInvitedDashboardList() {
           </span>
         </div>
       )}
-      {invitationData?.invitations && invitationData.invitations.length > 0 && (
+      {invitationData && (
         <input
           onChange={onChange}
           className={cx('input')}
@@ -125,7 +111,7 @@ export default function MyInvitedDashboardList() {
           placeholder="검색"
         />
       )}
-      {invitationData?.invitations && invitationData.invitations.length > 0 && (
+      {invitationData && (
         <div className={cx('board-menu')}>
           <span className={cx('menu-name')}>이름</span>
           <span className={cx('menu-inviter')}>초대자</span>
