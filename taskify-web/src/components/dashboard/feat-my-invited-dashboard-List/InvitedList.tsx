@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './InvitedList.module.scss';
 import Button from '@/components/commons/ui-button/Button';
-import { axiosInstance } from '@/lib/api/axiosInstance';
 
 const cx = classNames.bind(styles);
 
@@ -9,39 +8,17 @@ type InvitedListListProps = {
   boardName: string;
   inviter: string;
   InvitationId: number;
-  isAccept: boolean;
-  setIsAccept: React.Dispatch<React.SetStateAction<boolean>>;
+  acceptInvitation: (InvitationId: number) => Promise<void>;
+  refuseInvitation: (InvitationId: number) => Promise<void>;
 };
 
 export default function InvitedList({
   boardName,
   inviter,
   InvitationId,
-  setIsAccept,
-  isAccept,
+  acceptInvitation,
+  refuseInvitation,
 }: InvitedListListProps) {
-  const acceptInvitation = async () => {
-    try {
-      await axiosInstance.put(`invitations/${InvitationId}`, {
-        inviteAccepted: true,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    setIsAccept(!isAccept);
-  };
-
-  const refuseInvitation = async () => {
-    try {
-      await axiosInstance.put(`invitations/${InvitationId}`, {
-        inviteAccepted: false,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    setIsAccept(!isAccept);
-  };
-
   return (
     <div className={cx('container')}>
       <div className={cx('board-mobile-container')}>
@@ -53,10 +30,18 @@ export default function InvitedList({
         <span className={cx('board-inviter')}>{inviter}</span>
       </div>
       <div className={cx('board-button')}>
-        <Button theme="primary" onClick={acceptInvitation} size="medium">
+        <Button
+          theme="primary"
+          onClick={() => acceptInvitation(InvitationId)}
+          size="medium"
+        >
           수락
         </Button>
-        <Button theme="secondary" onClick={refuseInvitation} size="medium">
+        <Button
+          theme="secondary"
+          onClick={() => refuseInvitation(InvitationId)}
+          size="medium"
+        >
           거절
         </Button>
       </div>
