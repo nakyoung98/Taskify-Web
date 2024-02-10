@@ -10,6 +10,7 @@ import { SidebarProvider } from '@/contexts/SidebarProvider';
 
 export default function MyDashBoard() {
   const { dashBoards } = useDashBoard();
+
   return (
     <SidebarProvider>
       <DashBoardLayout
@@ -27,8 +28,8 @@ export default function MyDashBoard() {
         sideBar={<SideBar data={dashBoards.data} />}
         dashboardMain={
           <MydashboadMain>
-            <MydashboadList data={dashBoards.data} />
-            <MyInvitedDashboardList />
+            <MydashboadList />
+            <MyInvitedDashboardList data={dashBoards.data} />
           </MydashboadMain>
         }
       />
