@@ -21,4 +21,4 @@ export type Invited = {
     updatedAt: string;
   }>;
   cursorId: number;
-};
+} | null;
