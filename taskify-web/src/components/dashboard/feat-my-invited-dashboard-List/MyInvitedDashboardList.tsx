@@ -97,7 +97,6 @@ export default function MyInvitedDashboardList() {
       cursorId: 0,
     });
     getInvitedListData();
-    console.log(invitationData);
   }, [search, isAccept]);
 
   const throttledSave = throttle((value) => setSearch(value), 500);
