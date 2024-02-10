@@ -262,23 +262,24 @@
       }
     }
     .modal-content-sub {
-      display: flex;
       padding: 1.6rem;
-      flex-shrink: 0;
       border-radius: 0.8rem;
       border: 0.1rem solid $gray_d9d9d9;
       background: var(--white-white_FFFFFF, #fff);
       @include mobile {
+        display: flex;
+        // justify-content: space-between;
+        gap: 6.2rem;
+        flex-shrink: 0;
         height: 6.4rem;
         margin-top: 1.6rem;
         padding: 1.2rem 1.6rem;
-        flex-direction: row;
         flex-basis: 100%;
         order: -1;
       }
       @include tablet {
+        display: block;
         height: 15.5rem;
-        flex-direction: column;
         flex-basis: 18rem;
         gap: 2rem;
         order: 1;
@@ -290,6 +291,16 @@
         display: flex;
         flex-direction: column;
         gap: 0.6rem;
+        @include mobile {
+          &:last-child {
+            margin-top: 0;
+          }
+        }
+        @include tablet {
+          &:last-child {
+            margin-top: 2rem;
+          }
+        }
         .sub-container-title {
           color: #000;
           font-feature-settings:
