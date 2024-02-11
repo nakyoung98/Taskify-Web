@@ -124,6 +124,20 @@ export default function CreateCardModal({
     if (isModifyForm) {
       getCardData();
     }
+    if (!isModifyForm) {
+      setMemberListValue({
+        userId: 0,
+        email: '',
+        nickname: '',
+        profileImageUrl: '',
+      });
+      setStateListValue({ id: 0, title: '', teamId: '', dashboardId: 0 });
+      setTitleValue('');
+      setDescriptionValue('');
+      setTagDataValue([]);
+      setDueDateValue('');
+      setImageData({ data: undefined, preview: '' });
+    }
   }, [isModifyForm]);
 
   const RequestCreateCard = async () => {
@@ -204,6 +218,16 @@ export default function CreateCardModal({
       tagDataValue.length > 0 &&
       dueDateValue &&
       imageData.data
+    );
+  };
+
+  const isModifyFormValid = () => {
+    return (
+      memberListValue &&
+      titleValue &&
+      descriptionValue &&
+      tagDataValue.length > 0 &&
+      dueDateValue
     );
   };
 
@@ -299,7 +323,7 @@ export default function CreateCardModal({
             <Button
               onClick={RequestModifyCard}
               size="modalMedium"
-              disabled={!isFormValid()}
+              disabled={!isModifyFormValid()}
             >
               수정
             </Button>

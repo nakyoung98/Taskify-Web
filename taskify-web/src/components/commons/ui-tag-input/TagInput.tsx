@@ -31,7 +31,13 @@ export default function TagInput({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputValue) {
-      setTagDataValue((prevArray) => [...prevArray, inputValue]);
+      setTagDataValue((prevArray) => {
+        if (!prevArray.includes(inputValue)) {
+          return [...prevArray, inputValue];
+        }
+        alert('중복된 태그명 입니다.');
+        return prevArray;
+      });
       setInputValue('');
       setIsButtonList(true);
     }
