@@ -61,7 +61,7 @@ export default function DashboardCardColumn({
         {cards.map((card) => (
           <Card
             key={card.id}
-            user={card.assignee.nickname}
+            user={card.assignee}
             title={card.title}
             tags={card.tags}
             imageUrl={card.imageUrl}
