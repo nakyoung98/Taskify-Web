@@ -40,6 +40,7 @@
   }
 
   &.card {
+    flex-shrink: 0;
     @include mobile {
       font-size: $font_size_xsmall;
     }
