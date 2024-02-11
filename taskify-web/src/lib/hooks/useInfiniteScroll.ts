@@ -28,12 +28,6 @@ export default function useInfiniteScroll<T extends DefaultInfiniteScrollType>({
   const [pageSize, setPageSize] = useState<number>(5);
   const { execute, loading, error, data } = useAsync<T>({
     asyncFunction: async () => {
-      if (cursorId === null) {
-        return Promise.reject(
-          Error('새롭게 조회할 데이터가 존재하지 않습니다'),
-        );
-      }
-
       const response = await onIntersect(cursorId, pageSize);
       setCursorId(response.data.cursorId || null);
       return response;
