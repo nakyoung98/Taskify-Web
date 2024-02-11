@@ -79,8 +79,8 @@ export default function DashboardCardColumn({
       <CreateCardModal
         columnIdNumber={column.id}
         isOpen={isCardCreateModalVisible}
-        onClick={() => {
-          setCardCreateModalVisible(false);
+        setIsOpen={(isOpen) => {
+          setCardCreateModalVisible(isOpen);
         }}
       />
     </div>
