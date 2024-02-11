@@ -1,0 +1,50 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  @include mobile {
+    width: 100%;
+    gap: 0.8rem;
+  }
+  @include tablet {
+    width: 100%;
+    gap: 1rem;
+  }
+  @include desktop {
+    max-width: 102.2rem;
+    gap: 1.2rem;
+  }
+}
+
+.dashboard-list {
+  display: grid;
+
+  @include mobile {
+    grid-template-columns: repeat(1, minmax(26rem, 1fr));
+    grid-template-rows: repeat(6, minmax(5.8rem, 1fr));
+    gap: 0.8rem;
+  }
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(24.7rem, 1fr));
+    grid-template-rows: repeat(3, minmax(6.8rem, 1fr));
+    gap: 1rem;
+  }
+  @include desktop {
+    grid-template-columns: repeat(3, 33.2rem);
+    grid-template-rows: repeat(2, 7rem);
+    gap: 1.3rem 1.2rem;
+  }
+}
+
+.dashboard-list button:nth-child(n + 7) {
+  display: none;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+}
