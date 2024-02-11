@@ -5,6 +5,7 @@ import styles from './Card.module.scss';
 import UserBadge from '../ui-user-badge/UserBadge';
 import Calendar from './calendar.svg';
 import ChipSubject from '../ui-chip-subject/chipSubject';
+import getRandomColor from '../ui-sub-header/utils/getRandomColor';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +16,7 @@ const cx = classNames.bind(styles);
  * @property {string} title - 카드 제목을 나타냅니다.
  * @property {string[]} [tags] - 카드에 표시될 태그들의 배열입니다. 선택적으로 사용할 수 있습니다.
  * @property {string} [expiredDate] - 카드의 만료 날짜입니다. 선택적으로 사용할 수 있습니다.
- * @property {string} [user] - 카드를 생성한 사용자의 이름입니다. 선택적으로 사용할 수 있습니다.
+ * @property {profileImageUrl: string; nickname: string; id: number;} [user] - 카드를 생성한 사용자의 이름입니다. 선택적으로 사용할 수 있습니다.
  * @property {boolean} [clickable] - 카드가 클릭 가능한지 여부를 나타냅니다. 기본값은 `false`입니다.
  * @property {Function} [onClick] - 카드 클릭 시 실행될 콜백 함수입니다.
  */
@@ -26,7 +27,11 @@ type CardProps = {
   tags?: string[];
   /**TODO: expiredDate type 명확히  */
   expiredDate?: string;
-  user?: string;
+  user?: {
+    profileImageUrl: string;
+    nickname: string;
+    id: number;
+  };
   clickable?: boolean;
   onClick?: (
     e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
@@ -106,7 +111,14 @@ export default function Card({
         </div>
         {/** TODO: user가 있으면 UserBadge에 userData에 맞게 데이터를 불러와야함 */}
         {/** TODO: 반응형 userBadge 적용 */}
-        {user && <UserBadge text={user} color="orange" location="card" />}
+        {user && (
+          <UserBadge
+            text={user.nickname}
+            location="card"
+            color={getRandomColor(user.id)}
+            profileImageUrl={user.profileImageUrl}
+          />
+        )}
       </footer>
     </div>
   );

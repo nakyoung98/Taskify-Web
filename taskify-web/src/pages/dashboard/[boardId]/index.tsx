@@ -7,6 +7,9 @@ import { useAuth } from '@/contexts/AuthProvider';
 import { useDashBoard } from '@/contexts/DashBoardProvider';
 import { SidebarProvider } from '@/contexts/SidebarProvider';
 import ColumnProvider from '@/contexts/ColumnProvider';
+import SubHeaderButton from '@/components/commons/ui-sub-header/SubHeaderButton';
+import DashboardUserList from '@/components/commons/ui-sub-header/DashboardUserList';
+import { MemberProvider } from '@/contexts/MemberProvider';
 
 export default function DashBoard() {
   useAuth(true);
@@ -14,23 +17,29 @@ export default function DashBoard() {
 
   return (
     <SidebarProvider>
-      <ColumnProvider>
-        <DashBoardLayout
-          sideBar={<SideBar data={dashBoards.data} />}
-          subHeader={
-            <SubHeader
-              dashBoardInfoLabel={
-                <DashboardInfoLabel
-                  location="header"
-                  text={dashBoard.data?.title ?? ''}
-                  isOwner={dashBoard.data?.createdByMe ?? false}
-                />
-              }
-            />
-          }
-          dashboardMain={<DashboardForm />}
-        />
-      </ColumnProvider>
+      <MemberProvider>
+        <ColumnProvider>
+          <DashBoardLayout
+            sideBar={<SideBar data={dashBoards.data} />}
+            subHeader={
+              <SubHeader
+                dashBoardInfoLabel={
+                  <DashboardInfoLabel
+                    location="header"
+                    text={dashBoard.data?.title ?? ''}
+                    isOwner={dashBoard.data?.createdByMe ?? false}
+                  />
+                }
+                subHeaderButtons={
+                  <SubHeaderButton isOwner={dashBoard.data?.createdByMe} />
+                }
+                dashBoardUserList={<DashboardUserList />}
+              />
+            }
+            dashboardMain={<DashboardForm />}
+          />
+        </ColumnProvider>
+      </MemberProvider>
     </SidebarProvider>
   );
 }
