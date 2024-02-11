@@ -194,7 +194,6 @@ export default function CreateCardModal({
       } catch (error) {
         console.log(error);
       }
-      setIsOpen(!isOpen);
     }
     if (!imageData.data) {
       try {
@@ -210,6 +209,7 @@ export default function CreateCardModal({
         console.log(error);
       }
     }
+    setIsOpen(!isOpen);
   };
 
   const isFormValid = () => {
