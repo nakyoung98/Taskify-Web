@@ -12,7 +12,7 @@ export default function DashboardUserList() {
   const { width } = getWindowSize();
 
   const { membersData } = useMembers();
-
+  console.log(membersData);
   return (
     <div className={cx('container')}>
       <div className={cx('memberList')}>
@@ -24,7 +24,7 @@ export default function DashboardUserList() {
                 key={member.id}
                 color={getRandomColor(member.userId)}
                 text={member.email}
-                profileImageUrl=""
+                profileImageUrl={member.profileImageUrl}
               />
             );
           })}
