@@ -6,7 +6,7 @@ import { DashBoardLayout } from '@/components/page-layout/dashboard-layout/DashB
 import { useAuth } from '@/contexts/AuthProvider';
 import { useDashBoard } from '@/contexts/DashBoardProvider';
 import { SidebarProvider } from '@/contexts/SidebarProvider';
-import mock from '@/components/dashboard/ui-dashboard-form/mock/mock.json';
+import ColumnProvider from '@/contexts/ColumnProvider';
 
 export default function DashBoard() {
   useAuth(true);
@@ -14,22 +14,23 @@ export default function DashBoard() {
 
   return (
     <SidebarProvider>
-      <DashBoardLayout
-        sideBar={<SideBar data={dashBoards.data} />}
-        subHeader={
-          <SubHeader
-            dashBoardInfoLabel={
-              <DashboardInfoLabel
-                location="header"
-                text={dashBoard.data?.title ?? ''}
-                isOwner={dashBoard.data?.createdByMe ?? false}
-              />
-            }
-          />
-        }
-        /** TODO: 실 데이터로 변경 */
-        dashboardMain={<DashboardForm cardsWithColumns={mock} />}
-      />
+      <ColumnProvider>
+        <DashBoardLayout
+          sideBar={<SideBar data={dashBoards.data} />}
+          subHeader={
+            <SubHeader
+              dashBoardInfoLabel={
+                <DashboardInfoLabel
+                  location="header"
+                  text={dashBoard.data?.title ?? ''}
+                  isOwner={dashBoard.data?.createdByMe ?? false}
+                />
+              }
+            />
+          }
+          dashboardMain={<DashboardForm />}
+        />
+      </ColumnProvider>
     </SidebarProvider>
   );
 }
