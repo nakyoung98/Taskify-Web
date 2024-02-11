@@ -3,15 +3,11 @@
 
 .commentTextarea-container {
   position: relative;
-  height: 100%;
-  width: 28.7rem;
-  height: 7rem;
+  width: 100%;
   @include mobile {
-    width: 28.7rem;
     height: 7rem;
   }
   @include tablet {
-    width: 45rem;
     height: 11rem;
   }
 
