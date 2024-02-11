@@ -40,6 +40,12 @@
   .modal-header {
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    width: calc(100% - 5.6rem);
+    top: 3rem;
+    z-index: 1;
+    background: $white_ffffff;
+
     h1 {
       color: $black_333236;
       font-weight: 700;
@@ -57,11 +63,10 @@
       position: fixed;
       display: flex;
       align-items: center;
-
       @include mobile {
         position: absolute;
         right: 1.2rem;
-        top: 1.2rem;
+        top: 0;
         gap: 1.6rem;
         height: 2.4rem;
       }
@@ -69,6 +74,14 @@
         position: static;
         gap: 2.4rem;
         height: auto;
+      }
+      .close-button {
+        @include mobile {
+          height: 2.4rem;
+        }
+        @include tablet {
+          height: 3.2rem;
+        }
       }
 
       .dropdown-wrapper {
@@ -81,27 +94,13 @@
           height: 2.8rem;
         }
       }
-
-      // .close-button {
-      //   background: url('./close.svg');
-      //   background-repeat: no-repeat;
-      //   background-position: center;
-      //   text-indent: -999rem;
-      //   @include mobile {
-      //     width: 2.4rem;
-      //     width: 2.4rem;
-      //   }
-      //   @include tablet {
-      //     width: 3.2rem;
-      //     height: 3.2rem;
-      //   }
-      // }
     }
   }
   .modal-contents {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-top: 3.2rem;
     .modal-content-main {
       flex-shrink: 0;
       @include mobile {
@@ -146,7 +145,7 @@
       }
       p {
         margin: 1.6rem 0;
-        color: #000;
+        color: $black_000000;
         font-feature-settings:
           'clig' off,
           'liga' off;
@@ -265,10 +264,9 @@
       padding: 1.6rem;
       border-radius: 0.8rem;
       border: 0.1rem solid $gray_d9d9d9;
-      background: var(--white-white_FFFFFF, #fff);
+      background: $white_ffffff;
       @include mobile {
         display: flex;
-        // justify-content: space-between;
         gap: 6.2rem;
         flex-shrink: 0;
         height: 6.4rem;
@@ -290,19 +288,21 @@
       .modal-content-sub-container {
         display: flex;
         flex-direction: column;
-        gap: 0.6rem;
         @include mobile {
+          gap: 0;
           &:last-child {
             margin-top: 0;
+            gap: 0.6rem;
           }
         }
         @include tablet {
+          gap: 0.6rem;
           &:last-child {
             margin-top: 2rem;
           }
         }
         .sub-container-title {
-          color: #000;
+          color: $black_000000;
           font-feature-settings:
             'clig' off,
             'liga' off;
@@ -320,7 +320,6 @@
         .profilelabel-wrapper {
           display: flex;
           gap: 0.8rem;
-          width: 2.6rem;
           height: 2.6rem;
         }
         .sub-container-content {
