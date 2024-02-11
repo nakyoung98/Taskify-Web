@@ -12,7 +12,6 @@ import UserStateDropdown from '../ui-user-state-dropdown/UserStateDropdown';
 import TagInput from '../ui-tag-input/TagInput';
 import CalendarInput from '../ui-calendar-input/CalendarInput';
 import { useColumn } from '@/contexts/ColumnProvider';
-import { MemberDataRes } from './MockData';
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +24,22 @@ const cx = classNames.bind(styles);
  * @property {number} [cardId] - 카드의 ID입니다. 이 값은 선택 사항입니다.
  * @property {boolean} [isModifyForm] - 폼이 수정 모드인지 여부를 나타냅니다. 이 값은 선택 사항입니다.
  */
+
+type DashboardMemberList = {
+  members: [
+    {
+      id: number;
+      userId: number;
+      email: string;
+      nickname: string;
+      profileImageUrl: string;
+      createdAt: string;
+      updatedAt: string;
+      isOwner: boolean;
+    },
+  ];
+  totalCount: number;
+};
 
 type CreateCardModalProps = {
   isOpen: boolean;
@@ -61,9 +76,24 @@ export default function CreateCardModal({
   const [descriptionValue, setDescriptionValue] = useState<string>('');
   const [tagDataValue, setTagDataValue] = useState<string[]>([]);
   const [dueDateValue, setDueDateValue] = useState<string>('');
+  const [membersData, setMembersData] = useState<DashboardMemberList>({
+    members: [
+      {
+        id: 0,
+        userId: 0,
+        email: '',
+        nickname: '',
+        profileImageUrl: '',
+        createdAt: '',
+        updatedAt: '',
+        isOwner: false,
+      },
+    ],
+    totalCount: 0,
+  });
   const inputref = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { members: memberData } = MemberDataRes;
+  const { members: memberData } = membersData;
   const { boardId } = router.query;
 
   const { columns: columnData } = useColumn();
@@ -81,6 +111,22 @@ export default function CreateCardModal({
   const handleDueDateValue = (date: string) => {
     setDueDateValue(date);
   };
+
+  const getMemberData = async () => {
+    try {
+      const response = await axiosInstance.get(
+        `members?dashboardId=${boardId}`,
+      );
+      const newData = response.data;
+      setMembersData(newData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getMemberData();
+  }, []);
 
   const getCardData = async () => {
     let CardDataRes: CardList | null = null;
