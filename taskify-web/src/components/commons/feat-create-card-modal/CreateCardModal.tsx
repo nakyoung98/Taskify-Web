@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router';
-import { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CreateCardModal.module.scss';
 import { ColumnData, UserData } from '../ui-user-state-dropdown/types';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 import { Modal } from '../ui-modal/Modal';
 import { CardList } from './type';
-import { MemberDataRes, ColumnDataRes } from './MockData';
 import Button from '../ui-button/Button';
 import ImageInput from '../ui-image-input/ImageInput';
 import UserStateDropdown from '../ui-user-state-dropdown/UserStateDropdown';
 import TagInput from '../ui-tag-input/TagInput';
 import CalendarInput from '../ui-calendar-input/CalendarInput';
+import { useColumn } from '@/contexts/ColumnProvider';
 
 const cx = classNames.bind(styles);
 
@@ -25,17 +25,33 @@ const cx = classNames.bind(styles);
  * @property {boolean} [isModifyForm] - 폼이 수정 모드인지 여부를 나타냅니다. 이 값은 선택 사항입니다.
  */
 
+type DashboardMemberList = {
+  members: [
+    {
+      id: number;
+      userId: number;
+      email: string;
+      nickname: string;
+      profileImageUrl: string;
+      createdAt: string;
+      updatedAt: string;
+      isOwner: boolean;
+    },
+  ];
+  totalCount: number;
+};
+
 type CreateCardModalProps = {
   isOpen: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
   columnIdNumber: number;
   cardId?: number;
   isModifyForm?: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function CreateCardModal({
   isOpen,
-  onClick,
+  setIsOpen,
   cardId = 0,
   columnIdNumber,
   isModifyForm = false,
@@ -60,13 +76,27 @@ export default function CreateCardModal({
   const [descriptionValue, setDescriptionValue] = useState<string>('');
   const [tagDataValue, setTagDataValue] = useState<string[]>([]);
   const [dueDateValue, setDueDateValue] = useState<string>('');
-
+  const [membersData, setMembersData] = useState<DashboardMemberList>({
+    members: [
+      {
+        id: 0,
+        userId: 0,
+        email: '',
+        nickname: '',
+        profileImageUrl: '',
+        createdAt: '',
+        updatedAt: '',
+        isOwner: false,
+      },
+    ],
+    totalCount: 0,
+  });
   const inputref = useRef<HTMLInputElement>(null);
   const router = useRouter();
-
-  const { members: memberData } = MemberDataRes;
-  const { data: columnData } = ColumnDataRes;
+  const { members: memberData } = membersData;
   const { boardId } = router.query;
+
+  const { columns: columnData } = useColumn();
 
   const handleTitleValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitleValue(e.target.value);
@@ -81,6 +111,22 @@ export default function CreateCardModal({
   const handleDueDateValue = (date: string) => {
     setDueDateValue(date);
   };
+
+  const getMemberData = async () => {
+    try {
+      const response = await axiosInstance.get(
+        `members?dashboardId=${boardId}`,
+      );
+      const newData = response.data;
+      setMembersData(newData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getMemberData();
+  }, []);
 
   const getCardData = async () => {
     let CardDataRes: CardList | null = null;
@@ -165,6 +211,7 @@ export default function CreateCardModal({
     } catch (error) {
       console.log(error);
     }
+    setIsOpen(false);
   };
 
   const RequestModifyCard = async () => {
@@ -208,6 +255,7 @@ export default function CreateCardModal({
         console.log(error);
       }
     }
+    setIsOpen(false);
   };
 
   const isFormValid = () => {
@@ -307,7 +355,11 @@ export default function CreateCardModal({
           </div>
         </div>
         <div className={cx('footer')}>
-          <Button onClick={onClick} theme="secondary" size="modalMedium">
+          <Button
+            onClick={() => setIsOpen(false)}
+            theme="secondary"
+            size="modalMedium"
+          >
             취소
           </Button>
           {!isModifyForm && (
