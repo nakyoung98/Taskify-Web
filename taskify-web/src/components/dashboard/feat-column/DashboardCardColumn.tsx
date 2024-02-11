@@ -9,6 +9,7 @@ import styles from './DashboardCardColumn.module.scss';
 import { CardListResponse, CardResponse } from '@/types/card';
 import { ColumnResponse } from '@/types/column';
 import { useColumn } from '@/contexts/ColumnProvider';
+import CreateCardModal from '@/components/commons/feat-create-card-modal/CreateCardModal';
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,9 @@ type DashboardCardColumnProps = {
 export default function DashboardCardColumn({
   column,
 }: DashboardCardColumnProps) {
+  const [isCardCreateModalVisible, setCardCreateModalVisible] =
+    useState<boolean>(false);
+
   const [cards, setCards] = useState<CardResponse[]>([]);
   const { getCardDataFromColumn } = useColumn();
   const infiniteScrollObserveTarget = useRef<HTMLDivElement | null>(null);
@@ -50,7 +54,7 @@ export default function DashboardCardColumn({
         />
         <AddButton
           onClick={() => {
-            /** TODO: 카드 추가 onClick */
+            setCardCreateModalVisible(true);
           }}
           addCase="addToDo"
         />
@@ -71,6 +75,14 @@ export default function DashboardCardColumn({
         <div ref={infiniteScrollObserveTarget} />
       </CardColumn>
       <div className={cx('dashboard-form__divider')} />
+
+      <CreateCardModal
+        columnIdNumber={column.id}
+        isOpen={isCardCreateModalVisible}
+        onClick={() => {
+          setCardCreateModalVisible(false);
+        }}
+      />
     </div>
   );
 }
