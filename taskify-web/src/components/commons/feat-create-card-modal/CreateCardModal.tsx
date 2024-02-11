@@ -1,17 +1,18 @@
 import { useRouter } from 'next/router';
-import { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CreateCardModal.module.scss';
 import { ColumnData, UserData } from '../ui-user-state-dropdown/types';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 import { Modal } from '../ui-modal/Modal';
 import { CardList } from './type';
-import { MemberDataRes, ColumnDataRes } from './MockData';
 import Button from '../ui-button/Button';
 import ImageInput from '../ui-image-input/ImageInput';
 import UserStateDropdown from '../ui-user-state-dropdown/UserStateDropdown';
 import TagInput from '../ui-tag-input/TagInput';
 import CalendarInput from '../ui-calendar-input/CalendarInput';
+import { useColumn } from '@/contexts/ColumnProvider';
+import { MemberDataRes } from './MockData';
 
 const cx = classNames.bind(styles);
 
@@ -27,15 +28,15 @@ const cx = classNames.bind(styles);
 
 type CreateCardModalProps = {
   isOpen: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
   columnIdNumber: number;
   cardId?: number;
   isModifyForm?: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function CreateCardModal({
   isOpen,
-  onClick,
+  setIsOpen,
   cardId = 0,
   columnIdNumber,
   isModifyForm = false,
@@ -60,13 +61,12 @@ export default function CreateCardModal({
   const [descriptionValue, setDescriptionValue] = useState<string>('');
   const [tagDataValue, setTagDataValue] = useState<string[]>([]);
   const [dueDateValue, setDueDateValue] = useState<string>('');
-
   const inputref = useRef<HTMLInputElement>(null);
   const router = useRouter();
-
   const { members: memberData } = MemberDataRes;
-  const { data: columnData } = ColumnDataRes;
   const { boardId } = router.query;
+
+  const { columns: columnData } = useColumn();
 
   const handleTitleValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitleValue(e.target.value);
@@ -165,6 +165,7 @@ export default function CreateCardModal({
     } catch (error) {
       console.log(error);
     }
+    setIsOpen(!isOpen);
   };
 
   const RequestModifyCard = async () => {
@@ -193,6 +194,7 @@ export default function CreateCardModal({
       } catch (error) {
         console.log(error);
       }
+      setIsOpen(!isOpen);
     }
     if (!imageData.data) {
       try {
@@ -307,7 +309,11 @@ export default function CreateCardModal({
           </div>
         </div>
         <div className={cx('footer')}>
-          <Button onClick={onClick} theme="secondary" size="modalMedium">
+          <Button
+            onClick={() => setIsOpen(!isOpen)}
+            theme="secondary"
+            size="modalMedium"
+          >
             취소
           </Button>
           {!isModifyForm && (
