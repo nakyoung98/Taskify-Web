@@ -39,4 +39,13 @@
     background-color: #dbe6f7;
     color: #4981d5;
   }
+
+  span {
+    @include mobile {
+      font-size: 1rem;
+    }
+    @include tablet {
+      font-size: 1.2rem;
+    }
+  }
 }
