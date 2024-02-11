@@ -95,7 +95,7 @@ export default function ColumnModal({
         </ModalContent>
       </Modal>
 
-      <Modal isOpen={!isOpen && isDeleteConfirmationModalOpen}>
+      <Modal isOpen={isDeleteConfirmationModalOpen}>
         <div className={cx('modal-delete')}>
           <p className={cx('modal-delete-text')}>
             컬럼의 모든 카드가 삭제됩니다

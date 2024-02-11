@@ -10,6 +10,7 @@ import { CardListResponse, CardResponse } from '@/types/card';
 import { ColumnResponse } from '@/types/column';
 import { useColumn } from '@/contexts/ColumnProvider';
 import CreateCardModal from '@/components/commons/feat-create-card-modal/CreateCardModal';
+import ColumnModal from '@/components/commons/ui-column-modal/ColumnModal';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +22,8 @@ export default function DashboardCardColumn({
   column,
 }: DashboardCardColumnProps) {
   const [isCardCreateModalVisible, setCardCreateModalVisible] =
+    useState<boolean>(false);
+  const [isColumnEditModalVisible, setColumnEditModalVisible] =
     useState<boolean>(false);
 
   const [cards, setCards] = useState<CardResponse[]>([]);
@@ -49,7 +52,7 @@ export default function DashboardCardColumn({
           columnName={column.title}
           columnItemCount={data?.totalCount || 0}
           columnSettingOnClick={() => {
-            /** TODO: onClick 모달 띄우기 */
+            setColumnEditModalVisible(true);
           }}
         />
         <AddButton
@@ -82,6 +85,14 @@ export default function DashboardCardColumn({
         setIsOpen={(isOpen) => {
           setCardCreateModalVisible(isOpen);
         }}
+      />
+      <ColumnModal
+        isOpen={isColumnEditModalVisible}
+        onChangeModalOpenStatus={(isOpen) => {
+          setColumnEditModalVisible(isOpen);
+        }}
+        onColumnChange={() => {}}
+        onColumnDelete={() => {}}
       />
     </div>
   );
