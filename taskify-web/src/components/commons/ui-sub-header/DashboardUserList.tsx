@@ -10,9 +10,8 @@ const cx = classNames.bind(styles);
 
 export default function DashboardUserList() {
   const { width } = getWindowSize();
-
   const { membersData } = useMembers();
-  console.log(membersData);
+
   return (
     <div className={cx('container')}>
       <div className={cx('memberList')}>
