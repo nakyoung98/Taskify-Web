@@ -9,14 +9,35 @@ import CommentTextarea from '../ui-comment-textarea/CommentTextarea';
 import UserBadge from '../ui-user-badge/UserBadge';
 import ProfileLabel from '../ui-profile-Label/ProfileLabel';
 import CloseSvg from './Close';
+import CreateCardModal from '../feat-create-card-modal/CreateCardModal';
 
 const cx = classNames.bind(styles);
+
+const testData = {
+  id: 133,
+  title: '테스트 할일',
+  description:
+    ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus nibh arcu, quis consequat ante cursus eget. Cras mattis, nulla non laoreet porttitor, diam justo laoreet eros, vel aliquet diam elit at leo.',
+  tags: ['프로젝트', '일반', '백엔드', '상'],
+  dueDate: '2024.02.11 12:00',
+  assignee: {
+    profileImageUrl: '',
+    nickname: '홍길동',
+    id: 123,
+  },
+  imageUrl: '',
+  teamId: '123',
+  columnId: 0,
+  createdAt: '2024-02-10T15:11:28.075Z',
+  updatedAt: '2024-02-10T15:11:28.075Z',
+};
 
 export function ManagementModal() {
   const testButtonList = {
     modal: ['수정하기', '삭제하기'],
-    nav: ['로그아웃', '내 정보', '내 대시보드'],
   };
+
+  const [isCreateCardModalOpen, setCreateCardModalOpen] = useState(false);
 
   const [comments, setComments] = useState([]);
   const [commentValue, setCommentValue] = useState('');
@@ -44,7 +65,6 @@ export function ManagementModal() {
   const handleCommentSubmit = () => {
     if (commentValue.trim() !== '') {
       if (editCommentIndex !== null) {
-        // If editing a comment, update the existing comment
         const updatedComments = [...comments];
         updatedComments[editCommentIndex] = {
           text: commentValue,
@@ -52,9 +72,8 @@ export function ManagementModal() {
           date: currentDate,
         };
         setComments(updatedComments);
-        setEditCommentIndex(null); // Reset edit mode
+        setEditCommentIndex(null);
       } else {
-        // If not editing, add a new comment
         setComments([
           ...comments,
           { text: commentValue, user: currentUser, date: currentDate },
@@ -67,10 +86,11 @@ export function ManagementModal() {
   };
 
   const handleButtonClick = (e: React.MouseEvent) => {
-    const input = e.target as HTMLElement;
+    const buttonText = (e.target as HTMLElement).innerText;
 
-    if (input.innerText === '수정하기' || input.innerText === '삭제하기') {
-      console.log('콘솔콘솔');
+    if (buttonText === '수정하기') {
+      setCreateCardModalOpen(true);
+    } else if (buttonText === '삭제하기') {
     }
   };
 
@@ -89,10 +109,6 @@ export function ManagementModal() {
     setModalOpen(false);
   };
 
-  const paragraphContent = `
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus nibh arcu, quis consequat ante cursus eget. Cras mattis, nulla non laoreet porttitor, diam justo laoreet eros, vel aliquet diam elit at leo.
-  `;
-
   const userId = 1;
   const userEmail = 'example@example.com';
   const userNickname = '배유철';
@@ -104,7 +120,7 @@ export function ManagementModal() {
         <div className={cx('container')}>
           <div className={cx('container-scroll')}>
             <div className={cx('modal-header')}>
-              <h1>새로운 일정 관리 Taskify</h1>
+              <h1>{testData.title}</h1>
               <div className={cx('right')}>
                 <div className={cx('dropdown-wrapper')}>
                   <Dropdown
@@ -113,7 +129,12 @@ export function ManagementModal() {
                     isKebab
                   />
                 </div>
-                <CloseSvg width={32} height={32} />
+                <button
+                  onClick={handleModalClose}
+                  className={cx('close-button')}
+                >
+                  <CloseSvg width={32} height={32} />
+                </button>
               </div>
             </div>
             <div className={cx('modal-contents')}>
@@ -123,13 +144,12 @@ export function ManagementModal() {
                     <ProgressChip text="To Do" />
                   </div>
                   <div className={cx('chipSubject-wrapper')}>
-                    <ChipSubject label="프로젝트" />
-                    <ChipSubject label="일반" />
-                    <ChipSubject label="백엔드" />
-                    <ChipSubject label="상" />
+                    {testData.tags.map((tag, index) => {
+                      return <ChipSubject label={tag} index={index} />;
+                    })}
                   </div>
                 </div>
-                <p dangerouslySetInnerHTML={{ __html: paragraphContent }} />
+                <p>{testData.description}</p>
                 <div className={cx('image-wrapper')}>이미지</div>
                 <div className={cx('comment-wrapper')}>
                   <span>댓글</span>
@@ -182,17 +202,17 @@ export function ManagementModal() {
                   <div className={cx('profilelabel-wrapper')}>
                     <ProfileLabel
                       id={userId}
-                      email={userEmail}
-                      nickname={userNickname}
-                      profileImageUrl={userProfileImageUrl}
-                      position="header"
+                      email={testData.assignee.email}
+                      nickname={testData.assignee.nickname}
+                      profileImageUrl={testData.assignee.profileImageUrl}
+                      position="card"
                     />
                   </div>
                 </div>
                 <div className={cx('modal-content-sub-container')}>
                   <span className={cx('sub-container-title')}>마감일</span>
                   <p className={cx('sub-container-content')}>
-                    2022.12.30 19:00
+                    {testData.dueDate}
                   </p>
                 </div>
               </div>
@@ -200,6 +220,13 @@ export function ManagementModal() {
           </div>
         </div>
       </Modal>
+      {isCreateCardModalOpen && (
+        <CreateCardModal
+          isOpen={isCreateCardModalOpen}
+          onClick={() => setCreateCardModalOpen(false)}
+          isModifyForm={true}
+        />
+      )}
     </div>
   );
 }
