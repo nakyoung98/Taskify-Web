@@ -10,7 +10,6 @@ const cx = classNames.bind(styles);
 
 export default function DashboardUserList() {
   const { width } = getWindowSize();
-
   const { membersData } = useMembers();
 
   return (
@@ -24,7 +23,7 @@ export default function DashboardUserList() {
                 key={member.id}
                 color={getRandomColor(member.userId)}
                 text={member.email}
-                profileImageUrl=""
+                profileImageUrl={member.profileImageUrl}
               />
             );
           })}

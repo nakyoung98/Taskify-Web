@@ -26,7 +26,7 @@ export default function SubHeaderButton({
           type="button"
           onClick={() => {
             if (!router.asPath.includes('edit')) {
-              router.push('./edit');
+              router.push(`${router.asPath}/edit`);
             }
           }}
         >
