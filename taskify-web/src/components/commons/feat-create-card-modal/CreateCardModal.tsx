@@ -211,7 +211,7 @@ export default function CreateCardModal({
     } catch (error) {
       console.log(error);
     }
-    setIsOpen(!isOpen);
+    setIsOpen(false);
   };
 
   const RequestModifyCard = async () => {
@@ -255,7 +255,7 @@ export default function CreateCardModal({
         console.log(error);
       }
     }
-    setIsOpen(!isOpen);
+    setIsOpen(false);
   };
 
   const isFormValid = () => {
@@ -356,7 +356,7 @@ export default function CreateCardModal({
         </div>
         <div className={cx('footer')}>
           <Button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen(false)}
             theme="secondary"
             size="modalMedium"
           >
