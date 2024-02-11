@@ -29,6 +29,7 @@ type AuthContextType = {
     password,
     newPassword,
   }: ChangePasswordForm) => Promise<void>;
+  clearUser: () => void;
   error: AxiosError | null;
   success: boolean;
 };
@@ -41,6 +42,7 @@ const AuthContext = createContext<AuthContextType>({
   signup: async () => {},
   updateMe: async () => {},
   changePassword: async () => {},
+  clearUser: () => {},
   error: null,
   success: false,
 });
@@ -188,6 +190,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     [],
   );
 
+  const clearUser = useCallback(() => {
+    setValue((prevValue) => ({ ...prevValue, isPending: false, user: null }));
+  }, []);
+
   useEffect(() => {
     getMe();
   }, []);
@@ -200,6 +206,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       signup,
       updateMe,
       changePassword,
+      clearUser,
       error: axiosError,
       success: axiosSuccess,
     }),
@@ -210,6 +217,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       signup,
       updateMe,
       changePassword,
+      clearUser,
       axiosError,
       axiosSuccess,
     ],
