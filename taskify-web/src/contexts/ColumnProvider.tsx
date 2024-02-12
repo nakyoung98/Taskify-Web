@@ -58,6 +58,10 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
     }
   };
 
+  const deleteColumn = (column: ColumnResponse) => {
+    setColumns((prevColumns) =>
+      prevColumns.filter((prevColumn) => prevColumn.id !== column.id),
+    );
   };
   const getColumnData = useCallback(async () => {
     const response = await axiosInstance.get('columns', {
@@ -112,8 +116,9 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
       columns: columns ?? [],
       getCardDataFromColumn,
       addColumn,
+      deleteColumn,
     }),
-    [ColumnData, getCardDataFromColumn, addColumn],
+    [ColumnData, getCardDataFromColumn, addColumn, deleteColumn],
   );
   return (
     /** TODO: 전달할 데이터 삽입 */
