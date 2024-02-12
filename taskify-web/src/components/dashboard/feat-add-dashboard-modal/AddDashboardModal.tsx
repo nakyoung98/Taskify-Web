@@ -12,7 +12,7 @@ import { useDashBoard } from '@/contexts/DashBoardProvider';
 type AddDashboardModalProps = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  getDashboardListData: () => Promise<void>;
+  getDashboardListData?: () => Promise<void>;
 };
 
 const cx = classNames.bind(styles);
@@ -20,7 +20,7 @@ const cx = classNames.bind(styles);
 export default function AddDashboardModal({
   isOpen,
   setIsOpen,
-  getDashboardListData,
+  getDashboardListData = async () => {},
 }: AddDashboardModalProps) {
   const [selectedColor, setSelectedColor] = useState<ColorChipColor>('#7AC555');
   const { control, watch } = useForm({

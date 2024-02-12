@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 type NumChipProps = {
   countNumber: number;
 };
-export default function NumChip({ countNumber }: Props) {
+export default function NumChip({ countNumber }: NumChipProps) {
   return (
     <div className={cx('NumChip')}>
       <span className={cx('countNumber')}>{countNumber}</span>
