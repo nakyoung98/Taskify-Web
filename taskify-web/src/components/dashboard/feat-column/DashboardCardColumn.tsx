@@ -36,7 +36,11 @@ export default function DashboardCardColumn({
   }>({ isOpen: false, data: null });
 
   const [cards, setCards] = useState<CardResponse[]>([]);
-  const { getCardDataFromColumn } = useColumn();
+  const {
+    getCardDataFromColumn,
+    addColumn,
+    deleteColumn: deleteColumnUI,
+  } = useColumn();
   const infiniteScrollObserveTarget = useRef<HTMLDivElement | null>(null);
   const { loading, data } = useInfiniteScroll<CardListResponse>({
     root: null,
@@ -53,12 +57,20 @@ export default function DashboardCardColumn({
       title,
     });
 
+    addColumn(response.data, (prevColumns, newColumn) => {
+      const replaceColumnIndex: number = prevColumns.findIndex(
+        (element) => element.id === column.id,
+      );
+      prevColumns.splice(replaceColumnIndex, 1, newColumn);
+      return [...prevColumns];
+    });
+
     return response;
   };
 
   const deleteColumn = async () => {
     const response = await axiosInstance.delete(`columns/${column.id}`);
-
+    deleteColumnUI(column);
     return response;
   };
 
