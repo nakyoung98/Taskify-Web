@@ -32,14 +32,10 @@
     gap: 1rem;
   }
   @include desktop {
-    grid-template-columns: repeat(3, 33.2rem);
-    grid-template-rows: repeat(2, 7rem);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 1.3rem 1.2rem;
   }
-}
-
-.dashboard-list button:nth-child(n + 7) {
-  display: none;
 }
 
 .pagination-container {
