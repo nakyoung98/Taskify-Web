@@ -26,7 +26,14 @@ type ColumnContextProps = {
     size?: number,
     cursorId?: number | null,
   ) => Promise<AxiosResponse<CardListResponse>>;
-  addColumn: (column: ColumnResponse) => void;
+  addColumn: (
+    column: ColumnResponse,
+    filter?: (
+      prevColumns: ColumnResponse[],
+      column: ColumnResponse,
+    ) => ColumnResponse[],
+  ) => void;
+  deleteColumn: (column: ColumnResponse) => void;
 };
 
 export const ColumnContext = createContext<ColumnContextProps | null>(null);
@@ -37,8 +44,20 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
   const [columns, setColumns] = useState<ColumnResponse[]>([]);
 
-  const addColumn = (column: ColumnResponse) => {
-    setColumns((prevColumns) => [...prevColumns, column]);
+  const addColumn = (
+    column: ColumnResponse,
+    filter?: (
+      prevColumns: ColumnResponse[],
+      column: ColumnResponse,
+    ) => ColumnResponse[],
+  ) => {
+    if (filter) {
+      setColumns((prevColumns) => filter(prevColumns, column));
+    } else {
+      setColumns((prevColumns) => [...prevColumns, column]);
+    }
+  };
+
   };
   const getColumnData = useCallback(async () => {
     const response = await axiosInstance.get('columns', {
