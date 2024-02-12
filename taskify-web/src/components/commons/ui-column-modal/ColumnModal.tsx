@@ -81,7 +81,10 @@ export default function ColumnModal({
 
   const handleConfirmChange = async () => {
     await excuteColumnChange();
-    onChangeModalOpenStatus(false);
+
+    if (!errorColumnChange) {
+      onChangeModalOpenStatus(false);
+    }
   };
 
   return (
