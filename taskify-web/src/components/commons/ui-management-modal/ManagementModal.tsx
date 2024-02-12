@@ -15,7 +15,6 @@ import { useComment } from '@/contexts/CommentProvider';
 import { Comment } from '@/components/dashboard/feat-comment/Comment';
 import PartitionIcon from './partition.svg';
 import CreateCardModal from '../feat-create-card-modal/CreateCardModal';
-import { axiosInstance } from '@/lib/api/axiosInstance';
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +24,6 @@ type ManagementModalProps = {
     data: CardResponse | null;
   };
   columnTitle: string;
-  reload: () => void;
   handleClose: () => void;
 };
 
@@ -33,7 +31,6 @@ export function ManagementModal({
   handleClose,
   modalStatus,
   columnTitle,
-  reload,
 }: ManagementModalProps) {
   const router = useRouter();
   const { boardId } = router.query;
@@ -51,6 +48,16 @@ export function ManagementModal({
     }
   }, [modalStatus]);
 
+  const handleButtonClick = (e: React.MouseEvent) => {
+    const buttonText = (e.target as HTMLElement).innerText;
+
+    if (buttonText === '수정하기') {
+      setIsModifyModalOpen(true);
+    } else if (buttonText === '삭제하기') {
+      console.log('hi');
+    }
+  };
+
   const handleSubmitComment = async () => {
     await postComments({
       cardId: modalStatus.data?.id || 0,
@@ -61,26 +68,6 @@ export function ManagementModal({
     setMyComment('');
   };
 
-  const handleDelete = async () => {
-    try {
-      await axiosInstance.delete(`cards/${modalStatus.data?.id || 0}`);
-      handleClose();
-      reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleButtonClick = (e: React.MouseEvent) => {
-    const buttonText = (e.target as HTMLElement).innerText;
-
-    if (buttonText === '수정하기') {
-      setIsModifyModalOpen(true);
-    } else if (buttonText === '삭제하기') {
-      handleDelete();
-    }
-  };
-
   return (
     <Modal isOpen={modalStatus.isOpen}>
       <CreateCardModal
@@ -88,8 +75,6 @@ export function ManagementModal({
         setIsOpen={() => {
           setIsModifyModalOpen(false);
         }}
-        closeAll={handleClose}
-        reload={reload}
         columnIdNumber={modalStatus.data?.columnId || 0}
         cardId={modalStatus.data?.id || 0}
         isModifyForm
