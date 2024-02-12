@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import AddButton from '@/components/commons/ui-add-button/AddButton';
-import styles from './DashboardForm.module.scss';
 import { useColumn } from '@/contexts/ColumnProvider';
-import DashboardCardColumn from '../feat-column/DashboardCardColumn';
 import CreateColumnModal from '@/components/commons/feat-create-column-modal/CreateColumnModal';
+import DashboardCardColumn from '../feat-column/DashboardCardColumn';
+import styles from './DashboardForm.module.scss';
 
 const cx = classNames.bind(styles);
 

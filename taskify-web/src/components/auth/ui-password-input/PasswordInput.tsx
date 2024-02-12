@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
-import styles from './PasswordInput.module.scss';
 import { Input, InputProps } from '@/components/commons/ui-input/Input';
+import styles from './PasswordInput.module.scss';
 import EyeOnIcon from './eye-on.svg';
 import EyeOffIcon from './eye-off.svg';
 

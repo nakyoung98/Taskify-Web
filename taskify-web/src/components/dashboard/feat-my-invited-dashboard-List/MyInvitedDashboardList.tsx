@@ -1,11 +1,11 @@
 import { throttle } from 'lodash';
 import { useEffect, useState, useRef } from 'react';
 import classNames from 'classnames/bind';
-import styles from './MyInvitedDashboardList.module.scss';
 import { axiosInstance } from '@/lib/api/axiosInstance';
-import InvitedList from './InvitedList';
-import { Invited } from './type';
 import { Invitation } from '@/types/dashboard';
+import { Invited } from './type';
+import InvitedList from './InvitedList';
+import styles from './MyInvitedDashboardList.module.scss';
 import None from './None.svg';
 
 const cx = classNames.bind(styles);

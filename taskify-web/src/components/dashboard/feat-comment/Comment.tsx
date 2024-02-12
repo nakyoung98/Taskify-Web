@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import classNames from 'classnames/bind';
-import styles from './Comment.module.scss';
 import { CommentData } from '@/types/comments';
 import UserBadge from '@/components/commons/ui-user-badge/UserBadge';
 import CommentTextarea from '@/components/commons/ui-comment-textarea/CommentTextarea';
 import { useComment } from '@/contexts/CommentProvider';
 import { useAuth } from '@/contexts/AuthProvider';
+import styles from './Comment.module.scss';
 
 const cx = classNames.bind(styles);
 

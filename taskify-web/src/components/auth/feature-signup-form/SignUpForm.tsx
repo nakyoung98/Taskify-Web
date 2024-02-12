@@ -2,12 +2,12 @@ import { useRouter } from 'next/router';
 import { MouseEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
-import styles from './SignUpForm.module.scss';
 import { Input } from '@/components/commons/ui-input/Input';
-import PasswordInput from '../ui-password-input/PasswordInput';
 import Button from '@/components/commons/ui-button/Button';
-import { TEXT } from './constant';
 import { useAuth } from '@/contexts/AuthProvider';
+import styles from './SignUpForm.module.scss';
+import PasswordInput from '../ui-password-input/PasswordInput';
+import { TEXT } from './constant';
 import { AuthModal } from '../ui-auth-modal/AuthModal';
 
 const cx = classNames.bind(styles);

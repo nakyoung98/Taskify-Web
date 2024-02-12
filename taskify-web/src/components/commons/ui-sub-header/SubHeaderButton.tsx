@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames/bind';
+import InviteModal from '@/components/dashboard/feat-invite-modal/InviteModal';
 import SettingIcon from './Setting.svg';
 import InviteIcon from './Invite.svg';
 import styles from './SubHeaderButton.module.scss';
-import InviteModal from '@/components/dashboard/feat-invite-modal/InviteModal';
 
 const cx = classNames.bind(styles);
 

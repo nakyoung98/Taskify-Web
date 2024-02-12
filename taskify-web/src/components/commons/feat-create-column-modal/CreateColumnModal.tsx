@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './CreateColumnModal.module.scss';
-import { Modal } from '../ui-modal/Modal';
-import Button from '../ui-button/Button';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 import { useColumn } from '@/contexts/ColumnProvider';
+import { Modal } from '../ui-modal/Modal';
+import Button from '../ui-button/Button';
+import styles from './CreateColumnModal.module.scss';
 
 const cx = classNames.bind(styles);
 

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames/bind';
-import styles from './DashBoardLayout.module.scss';
 import { useSideBar } from '@/contexts/SidebarProvider';
+import styles from './DashBoardLayout.module.scss';
 
 type DashBoardLayoutProps = {
   subHeader: ReactNode;
