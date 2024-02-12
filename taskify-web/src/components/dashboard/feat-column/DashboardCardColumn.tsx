@@ -10,6 +10,8 @@ import { CardListResponse, CardResponse } from '@/types/card';
 import { ColumnResponse } from '@/types/column';
 import { useColumn } from '@/contexts/ColumnProvider';
 import CreateCardModal from '@/components/commons/feat-create-card-modal/CreateCardModal';
+import ColumnModal from '@/components/commons/ui-column-modal/ColumnModal';
+import { axiosInstance } from '@/lib/api/axiosInstance';
 import { ManagementModal } from '@/components/commons/ui-management-modal/ManagementModal';
 import { CommentProvider } from '@/contexts/CommentProvider';
 
@@ -24,6 +26,10 @@ export default function DashboardCardColumn({
 }: DashboardCardColumnProps) {
   const [isCardCreateModalVisible, setCardCreateModalVisible] =
     useState<boolean>(false);
+
+  const [isColumnEditModalVisible, setColumnEditModalVisible] =
+    useState<boolean>(false);
+
   const [todoModalStatus, setTodoModalStatus] = useState<{
     isOpen: boolean;
     data: CardResponse | null;
@@ -42,6 +48,20 @@ export default function DashboardCardColumn({
     hookEnabled: true,
   });
 
+  const changeColumnName = async (title: string) => {
+    const response = await axiosInstance.put(`columns/${column.id}`, {
+      title,
+    });
+
+    return response;
+  };
+
+  const deleteColumn = async () => {
+    const response = await axiosInstance.delete(`columns/${column.id}`);
+
+    return response;
+  };
+
   useEffect(() => {
     if (loading) return;
     const newCards = data?.cards ?? [];
@@ -55,7 +75,7 @@ export default function DashboardCardColumn({
           columnName={column.title}
           columnItemCount={data?.totalCount || 0}
           columnSettingOnClick={() => {
-            /** TODO: onClick 모달 띄우기 */
+            setColumnEditModalVisible(true);
           }}
         />
         <AddButton
@@ -104,6 +124,14 @@ export default function DashboardCardColumn({
         setIsOpen={(isOpen) => {
           setCardCreateModalVisible(isOpen);
         }}
+      />
+      <ColumnModal
+        isOpen={isColumnEditModalVisible}
+        onChangeModalOpenStatus={(isOpen) => {
+          setColumnEditModalVisible(isOpen);
+        }}
+        onColumnChange={changeColumnName}
+        onColumnDelete={deleteColumn}
       />
     </div>
   );
