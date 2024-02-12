@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import classNames from 'classnames/bind';
+import { DashboardData } from '@/types/dashboard';
 import DashboardInfoLabel from '@/components/commons/ui-dashboard-info-label/DashboardInfoLabel';
 import styles from './DashBoardListItem.module.scss';
-import { DashboardData } from '@/types/dashboard';
 
 type DashBoardListItemProps = {
   isOpen: boolean;

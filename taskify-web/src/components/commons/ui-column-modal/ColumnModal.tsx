@@ -1,12 +1,12 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import classNames from 'classnames/bind';
-import styles from './ColumnModal.module.scss';
+import { useAsync } from '@/lib/hooks/useAsync';
+import { ColumnResponse } from '@/types/column';
 import { Modal } from '../ui-modal/Modal';
 import { Input } from '../ui-input/Input';
 import Button from '../ui-button/Button';
-import { useAsync } from '@/lib/hooks/useAsync';
-import { ColumnResponse } from '@/types/column';
+import styles from './ColumnModal.module.scss';
 
 const cx = classNames.bind(styles);
 

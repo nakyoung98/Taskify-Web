@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './InviteStatusList.module.scss';
 import PaginationButtonContainer from '@/components/commons/ui-pagination/PaginationButtonContainer';
 import Button from '@/components/commons/ui-button/Button';
-import AddIcon from './add-box.svg';
-import InviteStatusListItem from './InviteStatusListItem';
 import { useMembers } from '@/contexts/MemberProvider';
+import InviteStatusListItem from './InviteStatusListItem';
 import InviteModal from '../feat-invite-modal/InviteModal';
+import AddIcon from './add-box.svg';
+import styles from './InviteStatusList.module.scss';
 
 const cx = classNames.bind(styles);
 

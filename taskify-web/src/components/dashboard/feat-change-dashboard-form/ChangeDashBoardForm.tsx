@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
-import styles from './ChangeDashBoardForm.module.scss';
+import { useDashBoard } from '@/contexts/DashBoardProvider';
 import Button from '@/components/commons/ui-button/Button';
 import ColorChipList from '@/components/commons/ui-color-chip/ColorChipList';
 import { ColorChipColor } from '@/components/commons/ui-color-chip/ColorChip';
 import { Input } from '@/components/commons/ui-input/Input';
 import { DashboardData } from '@/types/dashboard';
-import { useDashBoard } from '@/contexts/DashBoardProvider';
+import styles from './ChangeDashBoardForm.module.scss';
 
 const cx = classNames.bind(styles);
 

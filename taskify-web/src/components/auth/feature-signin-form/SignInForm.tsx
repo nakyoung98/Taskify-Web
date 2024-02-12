@@ -2,12 +2,12 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import { Input } from '@/components/commons/ui-input/Input';
-import PasswordInput from '../ui-password-input/PasswordInput';
 import Button from '@/components/commons/ui-button/Button';
-import styles from './SignInForm.module.scss';
-import { TEXT } from './constant';
 import { useAuth } from '@/contexts/AuthProvider';
 import { AuthModal } from '../ui-auth-modal/AuthModal';
+import PasswordInput from '../ui-password-input/PasswordInput';
+import styles from './SignInForm.module.scss';
+import { TEXT } from './constant';
 
 const cx = classNames.bind(styles);
 

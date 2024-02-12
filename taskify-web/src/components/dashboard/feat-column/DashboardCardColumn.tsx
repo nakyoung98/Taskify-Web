@@ -5,7 +5,6 @@ import CardColumn from '@/components/commons/ui-card-column/CardColumn';
 import ColumnHeader from '@/components/commons/ui-card-column/ColumnHeader';
 import Card from '@/components/commons/ui-card/Card';
 import useInfiniteScroll from '@/lib/hooks/useInfiniteScroll';
-import styles from './DashboardCardColumn.module.scss';
 import { CardListResponse, CardResponse } from '@/types/card';
 import { ColumnResponse } from '@/types/column';
 import { useColumn } from '@/contexts/ColumnProvider';
@@ -14,6 +13,7 @@ import ColumnModal from '@/components/commons/ui-column-modal/ColumnModal';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 import { ManagementModal } from '@/components/commons/ui-management-modal/ManagementModal';
 import { CommentProvider } from '@/contexts/CommentProvider';
+import styles from './DashboardCardColumn.module.scss';
 
 const cx = classNames.bind(styles);
 
