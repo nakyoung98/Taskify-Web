@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import classNames from 'classnames/bind';
 import styles from './ColumnModal.module.scss';
@@ -41,6 +41,8 @@ export default function ColumnModal({
     execute: excuteColumnChange,
     loading: loadingColumnChange,
     error: errorColumnChange,
+    data: columnChangeData,
+    resetAsyncState: resetAsyncColumnChangeState,
   } = useAsync<ColumnResponse>({
     asyncFunction: () => {
       return onColumnChange(value);
@@ -52,6 +54,7 @@ export default function ColumnModal({
     execute: excuteColumnDelete,
     loading: loadingColumnDelete,
     error: errorColumnDelete,
+    resetAsyncState: resetAsyncColumnDeleteState,
   } = useAsync<void>({
     asyncFunction: () => {
       return onColumnDelete();
@@ -70,22 +73,38 @@ export default function ColumnModal({
     setDeleteConfirmationModalOpen(false);
   };
 
-  const handleConfirmDelete = async () => {
-    await excuteColumnDelete();
-    if (errorColumnDelete) {
-      alert('컬럼 삭제에 실패했습니다. 다시 시도해주세요');
-    }
+  const handleConfirmDelete = () => {
+    excuteColumnDelete();
     setDeleteConfirmationModalOpen(false);
     onChangeModalOpenStatus(false);
   };
 
-  const handleConfirmChange = async () => {
-    await excuteColumnChange();
+  const handleConfirmChange = () => {
+    excuteColumnChange();
+  };
 
-    if (!errorColumnChange) {
+  // 칼럼명 변경이 정상적으로 완료 되었을 때에만 모달을 닫는 훅
+  useEffect(() => {
+    if (columnChangeData && !errorColumnChange) {
       onChangeModalOpenStatus(false);
     }
-  };
+  }, [columnChangeData, errorColumnChange, onChangeModalOpenStatus]);
+
+  // 칼럼 삭제 중 오류 발생시 띄우는 alert
+  useEffect(() => {
+    if (errorColumnDelete) {
+      alert('칼럼 삭제 중 오류가 발생했습니다.\n다시 시도해주세요.');
+    }
+  }, [errorColumnDelete]);
+
+  // 모달 열었다 닫을 시 내용이 초기화되는 훅
+  useEffect(() => {
+    if (!isOpen) {
+      resetAsyncColumnDeleteState();
+      resetAsyncColumnChangeState();
+      setValue('');
+    }
+  }, [isOpen, resetAsyncColumnChangeState, resetAsyncColumnDeleteState]);
 
   return (
     <>
@@ -95,10 +114,10 @@ export default function ColumnModal({
           <div className={cx('modal-body')}>
             <p>이름</p>
             <Input
+              isModal
               type="text"
               value={value}
               onChange={handleChange}
-              isModal={true}
               placeholder="새로운 컬럼명 입력"
               hasError={errorColumnChange}
               errorMessage="컬럼명 변경에 실패했습니다. 다시 시도해주세요"
