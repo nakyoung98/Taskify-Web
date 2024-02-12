@@ -46,6 +46,8 @@ type CreateCardModalProps = {
   columnIdNumber: number;
   cardId?: number;
   isModifyForm?: boolean;
+  reload: () => void;
+  closeAll?: () => void;
   setIsOpen: (isOpen: boolean) => void;
 };
 
@@ -55,6 +57,8 @@ export default function CreateCardModal({
   cardId = 0,
   columnIdNumber,
   isModifyForm = false,
+  closeAll = () => {},
+  reload,
 }: CreateCardModalProps) {
   const [memberListValue, setMemberListValue] = useState<UserData>({
     userId: 0,
@@ -187,29 +191,47 @@ export default function CreateCardModal({
   }, [isModifyForm]);
 
   const RequestCreateCard = async () => {
-    try {
-      const imageReq = await axiosInstance.post(
-        `columns/${columnIdNumber}/card-image`,
-        { image: imageData.data },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+    if (imageData.data) {
+      try {
+        const imageReq = await axiosInstance.post(
+          `columns/${columnIdNumber}/card-image`,
+          { image: imageData.data },
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
           },
-        },
-      );
-      const { data: imageDataRes } = imageReq;
-      await axiosInstance.post('cards', {
-        assigneeUserId: memberListValue.userId,
-        dashboardId: Number(boardId),
-        columnId: columnIdNumber,
-        title: titleValue,
-        description: descriptionValue,
-        dueDate: dueDateValue,
-        tags: tagDataValue,
-        imageUrl: imageDataRes.imageUrl,
-      });
-    } catch (error) {
-      console.log(error);
+        );
+        const { data: imageDataRes } = imageReq;
+        await axiosInstance.post('cards', {
+          assigneeUserId: memberListValue.userId,
+          dashboardId: Number(boardId),
+          columnId: columnIdNumber,
+          title: titleValue,
+          description: descriptionValue,
+          dueDate: dueDateValue,
+          tags: tagDataValue,
+          imageUrl: imageDataRes.imageUrl,
+        });
+        await reload();
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        await axiosInstance.post('cards', {
+          assigneeUserId: memberListValue.userId,
+          dashboardId: Number(boardId),
+          columnId: columnIdNumber,
+          title: titleValue,
+          description: descriptionValue,
+          dueDate: dueDateValue,
+          tags: tagDataValue,
+        });
+        await reload();
+      } catch (error) {
+        console.log(error);
+      }
     }
     setIsOpen(false);
   };
@@ -228,7 +250,7 @@ export default function CreateCardModal({
         );
         const { data: imageDataRes } = imageReq;
 
-        axiosInstance.put(`cards/${cardId}`, {
+        await axiosInstance.put(`cards/${cardId}`, {
           columnId: stateListValue.id,
           assigneeUserId: memberListValue.userId,
           title: titleValue,
@@ -237,13 +259,15 @@ export default function CreateCardModal({
           tags: tagDataValue,
           imageUrl: imageDataRes.imageUrl,
         });
+        await reload();
+        closeAll();
       } catch (error) {
         console.log(error);
       }
     }
     if (!imageData.data) {
       try {
-        axiosInstance.put(`cards/${cardId}`, {
+        await axiosInstance.put(`cards/${cardId}`, {
           columnId: stateListValue.id,
           assigneeUserId: memberListValue.userId,
           title: titleValue,
@@ -251,6 +275,8 @@ export default function CreateCardModal({
           dueDate: dueDateValue,
           tags: tagDataValue,
         });
+        await reload();
+        closeAll();
       } catch (error) {
         console.log(error);
       }
@@ -264,8 +290,7 @@ export default function CreateCardModal({
       titleValue &&
       descriptionValue &&
       tagDataValue.length > 0 &&
-      dueDateValue &&
-      imageData.data
+      dueDateValue
     );
   };
 

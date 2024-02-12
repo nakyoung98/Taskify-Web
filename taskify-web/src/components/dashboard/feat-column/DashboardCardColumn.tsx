@@ -62,6 +62,20 @@ export default function DashboardCardColumn({
     return response;
   };
 
+  const handleReload = async () => {
+    const res = await getCardDataFromColumn(column.id);
+    const newCards = res.data?.cards || [];
+    setCards(newCards);
+  };
+
+  const handleCloseToDoModal = () => {
+    setTodoModalStatus((prevValue) => ({
+      ...prevValue,
+      isOpen: false,
+      data: null,
+    }));
+  };
+
   useEffect(() => {
     if (loading) return;
     const newCards = data?.cards ?? [];
@@ -109,16 +123,12 @@ export default function DashboardCardColumn({
         <ManagementModal
           columnTitle={column.title}
           modalStatus={todoModalStatus}
-          handleClose={() => {
-            setTodoModalStatus((prevValue) => ({
-              ...prevValue,
-              isOpen: false,
-              data: null,
-            }));
-          }}
+          reload={handleReload}
+          handleClose={handleCloseToDoModal}
         />
       </CommentProvider>
       <CreateCardModal
+        reload={handleReload}
         columnIdNumber={column.id}
         isOpen={isCardCreateModalVisible}
         setIsOpen={(isOpen) => {
