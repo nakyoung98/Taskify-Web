@@ -10,6 +10,8 @@ import { CardListResponse, CardResponse } from '@/types/card';
 import { ColumnResponse } from '@/types/column';
 import { useColumn } from '@/contexts/ColumnProvider';
 import CreateCardModal from '@/components/commons/feat-create-card-modal/CreateCardModal';
+import { ManagementModal } from '@/components/commons/ui-management-modal/ManagementModal';
+import { CommentProvider } from '@/contexts/CommentProvider';
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +24,10 @@ export default function DashboardCardColumn({
 }: DashboardCardColumnProps) {
   const [isCardCreateModalVisible, setCardCreateModalVisible] =
     useState<boolean>(false);
+  const [todoModalStatus, setTodoModalStatus] = useState<{
+    isOpen: boolean;
+    data: CardResponse | null;
+  }>({ isOpen: false, data: null });
 
   const [cards, setCards] = useState<CardResponse[]>([]);
   const { getCardDataFromColumn } = useColumn();
@@ -67,7 +73,11 @@ export default function DashboardCardColumn({
             imageUrl={card.imageUrl}
             expiredDate={card.dueDate}
             onClick={() => {
-              /** TODO: 카드 onClick */
+              setTodoModalStatus((prevValue) => ({
+                ...prevValue,
+                isOpen: true,
+                data: card,
+              }));
             }}
             clickable
           />
@@ -75,7 +85,18 @@ export default function DashboardCardColumn({
         <div ref={infiniteScrollObserveTarget} />
       </CardColumn>
       <div className={cx('dashboard-form__divider')} />
-
+      <CommentProvider>
+        <ManagementModal
+          modalStatus={todoModalStatus}
+          handleClose={() => {
+            setTodoModalStatus((prevValue) => ({
+              ...prevValue,
+              isOpen: false,
+              data: null,
+            }));
+          }}
+        />
+      </CommentProvider>
       <CreateCardModal
         columnIdNumber={column.id}
         isOpen={isCardCreateModalVisible}
