@@ -59,7 +59,11 @@ export default function MydashboadList() {
 
   return (
     <div className={cx('container')}>
-      <AddDashboardModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AddDashboardModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        getDashboardListData={getDashboardListData}
+      />
       <div className={cx('dashboard-list')}>
         {isPageFirst() && (
           <AddButton
