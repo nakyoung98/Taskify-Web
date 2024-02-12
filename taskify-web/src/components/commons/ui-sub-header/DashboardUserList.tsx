@@ -1,10 +1,10 @@
 import classNames from 'classnames/bind';
-import styles from './DashboardUserList.module.scss';
+import { useMembers } from '@/contexts/MemberProvider';
 import UserBadge from '../ui-user-badge/UserBadge';
 import getWindowSize from './utils/getWindowSize';
 import getRandomColor from './utils/getRandomColor';
 import getRemainNumber from './utils/getRemainNumber';
-import { useMembers } from '@/contexts/MemberProvider';
+import styles from './DashboardUserList.module.scss';
 
 const cx = classNames.bind(styles);
 

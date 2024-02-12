@@ -1,8 +1,8 @@
 import { MouseEventHandler } from 'react';
 import classNames from 'classnames/bind';
-import styles from './AuthModal.module.scss';
 import { Modal } from '@/components/commons/ui-modal/Modal';
 import Button from '@/components/commons/ui-button/Button';
+import styles from './AuthModal.module.scss';
 import { TEXT } from './constant';
 
 type AuthModalProps = {

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './MemberList.module.scss';
 import PaginationButtonContainer from '@/components/commons/ui-pagination/PaginationButtonContainer';
-import MemberListItem from './MemberListItem';
 import { useMembers } from '@/contexts/MemberProvider';
+import MemberListItem from './MemberListItem';
+import styles from './MemberList.module.scss';
 
 const cx = classNames.bind(styles);
 

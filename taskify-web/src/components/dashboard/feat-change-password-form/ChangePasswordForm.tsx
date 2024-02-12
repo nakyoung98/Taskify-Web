@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
-import styles from './ChangePasswordForm.module.scss';
 import Button from '@/components/commons/ui-button/Button';
 import PasswordInput from '@/components/auth/ui-password-input/PasswordInput';
 import { useAuth } from '@/contexts/AuthProvider';
-import { TEXT } from './constant';
 import { AuthModal } from '@/components/auth/ui-auth-modal/AuthModal';
+import { TEXT } from './constant';
+import styles from './ChangePasswordForm.module.scss';
 
 const cx = classNames.bind(styles);
 

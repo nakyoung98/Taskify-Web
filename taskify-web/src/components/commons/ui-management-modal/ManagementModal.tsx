@@ -2,7 +2,10 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames/bind';
-import styles from './ManagementModal.module.scss';
+import { CardResponse } from '@/types/card';
+import { useComment } from '@/contexts/CommentProvider';
+import { Comment } from '@/components/dashboard/feat-comment/Comment';
+import { axiosInstance } from '@/lib/api/axiosInstance';
 import { Modal } from '../ui-modal/Modal';
 import ChipSubject from '../ui-chip-subject/chipSubject';
 import ProgressChip from '../ui-progress-chip/ProgressChip';
@@ -10,12 +13,9 @@ import Dropdown from '../ui-dropdown/Dropdown';
 import CommentTextarea from '../ui-comment-textarea/CommentTextarea';
 import ProfileLabel from '../ui-profile-Label/ProfileLabel';
 import CloseIcon from './close.svg';
-import { CardResponse } from '@/types/card';
-import { useComment } from '@/contexts/CommentProvider';
-import { Comment } from '@/components/dashboard/feat-comment/Comment';
 import PartitionIcon from './partition.svg';
 import CreateCardModal from '../feat-create-card-modal/CreateCardModal';
-import { axiosInstance } from '@/lib/api/axiosInstance';
+import styles from './ManagementModal.module.scss';
 
 const cx = classNames.bind(styles);
 

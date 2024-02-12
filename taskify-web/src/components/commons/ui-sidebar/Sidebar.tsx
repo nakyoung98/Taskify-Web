@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import classNames from 'classnames/bind';
+import { useSideBar } from '@/contexts/SidebarProvider';
 import styles from './Sidebar.module.scss';
 import ArrowComponent from './draw-arrow.svg';
-import { useSideBar } from '@/contexts/SidebarProvider';
 
 const cx = classNames.bind(styles);
 
