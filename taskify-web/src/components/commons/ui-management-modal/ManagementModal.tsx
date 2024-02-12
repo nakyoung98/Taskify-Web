@@ -10,7 +10,6 @@ import Dropdown from '../ui-dropdown/Dropdown';
 import CommentTextarea from '../ui-comment-textarea/CommentTextarea';
 import ProfileLabel from '../ui-profile-Label/ProfileLabel';
 import CloseIcon from './close.svg';
-// import CreateCardModal from '../feat-create-card-modal/CreateCardModal';
 import { CardResponse } from '@/types/card';
 import { useComment } from '@/contexts/CommentProvider';
 import { Comment } from '@/components/dashboard/feat-comment/Comment';
@@ -23,12 +22,14 @@ type ManagementModalProps = {
     isOpen: boolean;
     data: CardResponse | null;
   };
+  columnTitle: string;
   handleClose: () => void;
 };
 
 export function ManagementModal({
   handleClose,
   modalStatus,
+  columnTitle,
 }: ManagementModalProps) {
   const router = useRouter();
   const { boardId } = router.query;
@@ -85,7 +86,7 @@ export function ManagementModal({
         <div className={cx('modalMain')}>
           <div className={cx('modalContent')}>
             <div className={cx('labelContainer')}>
-              <ProgressChip text="To Do" />
+              <ProgressChip text={columnTitle} />
               <PartitionIcon className={cx('partition')} />
               <div className={cx('subjectsContainer')}>
                 {modalStatus?.data &&

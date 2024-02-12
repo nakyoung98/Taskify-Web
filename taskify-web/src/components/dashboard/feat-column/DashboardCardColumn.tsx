@@ -87,6 +87,7 @@ export default function DashboardCardColumn({
       <div className={cx('dashboard-form__divider')} />
       <CommentProvider>
         <ManagementModal
+          columnTitle={column.title}
           modalStatus={todoModalStatus}
           handleClose={() => {
             setTodoModalStatus((prevValue) => ({
