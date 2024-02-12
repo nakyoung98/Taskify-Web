@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import classNames from 'classnames/bind';
-import styles from './Sidebar.module.scss';
+import { useSideBar } from '@/contexts/SidebarProvider';
 import LargeLogo from '@/components/commons/ui-main-header/large_logo.svg';
 import SmallLogo from '@/components/commons/ui-main-header/small_logo.svg';
-import { useSideBar } from '@/contexts/SidebarProvider';
+import styles from './Sidebar.module.scss';
 
 const cx = classNames.bind(styles);
 

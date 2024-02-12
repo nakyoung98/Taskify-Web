@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames/bind';
-import styles from './MydashboardList.module.scss';
 import AddButton from '@/components/commons/ui-add-button/AddButton';
-import DashboardEnterButton from '../ui-dashboard-enter-button/DashboardEnterButton';
-import AddDashboardModal from '../feat-add-dashboard-modal/AddDashboardModal';
+import { axiosInstance } from '@/lib/api/axiosInstance';
 import { DashboardsData } from '@/types/dashboard';
 import PaginationButtonContainer from '@/components/commons/ui-pagination/PaginationButtonContainer';
-import { axiosInstance } from '@/lib/api/axiosInstance';
+import DashboardEnterButton from '../ui-dashboard-enter-button/DashboardEnterButton';
+import AddDashboardModal from '../feat-add-dashboard-modal/AddDashboardModal';
+import styles from './MydashboardList.module.scss';
 
 const cx = classNames.bind(styles);
 

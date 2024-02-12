@@ -2,12 +2,12 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import { Modal } from '@/components/commons/ui-modal/Modal';
-import styles from './AddDashboardModal.module.scss';
+import { useDashBoard } from '@/contexts/DashBoardProvider';
 import { Input } from '@/components/commons/ui-input/Input';
 import Button from '@/components/commons/ui-button/Button';
 import ColorChipList from '@/components/commons/ui-color-chip/ColorChipList';
 import { ColorChipColor } from '@/components/commons/ui-color-chip/ColorChip';
-import { useDashBoard } from '@/contexts/DashBoardProvider';
+import styles from './AddDashboardModal.module.scss';
 
 type AddDashboardModalProps = {
   isOpen: boolean;

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './CreateCardModal.module.scss';
-import { ColumnData, UserData } from '../ui-user-state-dropdown/types';
 import { axiosInstance } from '@/lib/api/axiosInstance';
+import { useColumn } from '@/contexts/ColumnProvider';
+import { ColumnData, UserData } from '../ui-user-state-dropdown/types';
 import { Modal } from '../ui-modal/Modal';
 import { CardList } from './type';
 import Button from '../ui-button/Button';
@@ -11,7 +11,7 @@ import ImageInput from '../ui-image-input/ImageInput';
 import UserStateDropdown from '../ui-user-state-dropdown/UserStateDropdown';
 import TagInput from '../ui-tag-input/TagInput';
 import CalendarInput from '../ui-calendar-input/CalendarInput';
-import { useColumn } from '@/contexts/ColumnProvider';
+import styles from './CreateCardModal.module.scss';
 
 const cx = classNames.bind(styles);
 

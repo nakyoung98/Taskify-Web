@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Controller, useForm } from 'react-hook-form';
-import styles from './ChangeProfileForm.module.scss';
 import Button from '@/components/commons/ui-button/Button';
 import ImageInput from '@/components/commons/ui-image-input/ImageInput';
 import { Input } from '@/components/commons/ui-input/Input';
 import { useAuth } from '@/contexts/AuthProvider';
 import { TEXT } from './constant';
+import styles from './ChangeProfileForm.module.scss';
 
 const cx = classNames.bind(styles);
 

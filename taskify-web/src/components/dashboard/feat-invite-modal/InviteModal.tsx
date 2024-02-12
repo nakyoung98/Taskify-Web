@@ -3,10 +3,10 @@ import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import classNames from 'classnames/bind';
 import { Modal } from '@/components/commons/ui-modal/Modal';
-import styles from './InviteModal.module.scss';
 import { Input } from '@/components/commons/ui-input/Input';
 import Button from '@/components/commons/ui-button/Button';
 import { useMembers } from '@/contexts/MemberProvider';
+import styles from './InviteModal.module.scss';
 
 type InviteProps = {
   isOpen: boolean;
