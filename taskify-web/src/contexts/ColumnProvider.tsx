@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
+import { useAsync } from '@/lib/hooks/useAsync';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 import { ColumnListResponse, ColumnResponse } from '@/types/column';
 import { CardListResponse } from '@/types/card';
@@ -31,7 +32,7 @@ export const ColumnContext = createContext<ColumnContextProps | null>(null);
 export default function ColumnProvider({ children }: ColumnProviderProps) {
   const router = useRouter();
   const { boardId } = router.query;
-  const [columnData, setColumnData] = useState<ColumnListResponse | null>(null);
+  const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
 
   const getColumnData = useCallback(async () => {
     const response = await axiosInstance.get('columns', {
@@ -39,7 +40,6 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
         dashboardId: boardId,
       },
     });
-    setColumnData(() => response.data);
 
     return response;
   }, [boardId]);
@@ -59,21 +59,34 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
     [],
   );
 
+  const {
+    execute: executeGetColumnData,
+    loading: loadingGetColumnData,
+    data: ColumnData,
+  } = useAsync<ColumnListResponse>({
+    asyncFunction: getColumnData,
+    isManual: true,
+  });
+
   useEffect(() => {
     // boardId가 존재하고, 데이터가 아직 로드되지 않았으며, 로딩 중도 아닐 때만 실행
-    if (boardId) {
-      getColumnData().catch((error) => {
-        console.error('Data loading error:', error);
-      });
+    if (boardId && !isDataLoaded) {
+      executeGetColumnData()
+        .then(() => {
+          setIsDataLoaded(true); // 데이터 로딩이 완료되었음을 표시
+        })
+        .catch((error) => {
+          console.error('Data loading error:', error);
+        });
     }
-  }, [boardId, router.asPath]);
+  }, [boardId, isDataLoaded, loadingGetColumnData, executeGetColumnData]);
 
   const contextValue = useMemo(
     (): ColumnContextProps => ({
-      columns: columnData?.data ?? [],
+      columns: ColumnData?.data ?? [],
       getCardDataFromColumn,
     }),
-    [columnData, getCardDataFromColumn],
+    [ColumnData, getCardDataFromColumn],
   );
   return (
     /** TODO: 전달할 데이터 삽입 */
