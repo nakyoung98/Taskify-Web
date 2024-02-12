@@ -23,9 +23,9 @@ const cx = classNames.bind(styles);
 type CardProps = {
   imageUrl?: string;
   title: string;
-  /**TODO: tag에 대한 type을 추후 추가로 신설해야할 듯  */
+  /** TODO: tag에 대한 type을 추후 추가로 신설해야할 듯  */
   tags?: string[];
-  /**TODO: expiredDate type 명확히  */
+  /** TODO: expiredDate type 명확히  */
   expiredDate?: string;
   user?: {
     profileImageUrl: string;
