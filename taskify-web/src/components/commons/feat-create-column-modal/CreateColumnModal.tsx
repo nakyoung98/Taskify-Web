@@ -71,7 +71,7 @@ export default function CreateColumnModal({
         console.log(error);
       }
       setIsError(false);
-      columnsData();
+      await columnsData();
       onClick();
     }
   };
