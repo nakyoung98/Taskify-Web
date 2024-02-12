@@ -14,6 +14,7 @@ import { CardResponse } from '@/types/card';
 import { useComment } from '@/contexts/CommentProvider';
 import { Comment } from '@/components/dashboard/feat-comment/Comment';
 import PartitionIcon from './partition.svg';
+import CreateCardModal from '../feat-create-card-modal/CreateCardModal';
 
 const cx = classNames.bind(styles);
 
@@ -37,6 +38,7 @@ export function ManagementModal({
   const testButtonList = {
     modal: ['수정하기', '삭제하기'],
   };
+  const [isModifyModalOpen, setIsModifyModalOpen] = useState<boolean>(false);
 
   const { comments, getComments, postComments } = useComment();
 
@@ -50,7 +52,7 @@ export function ManagementModal({
     const buttonText = (e.target as HTMLElement).innerText;
 
     if (buttonText === '수정하기') {
-      console.log('hi');
+      setIsModifyModalOpen(true);
     } else if (buttonText === '삭제하기') {
       console.log('hi');
     }
@@ -68,6 +70,15 @@ export function ManagementModal({
 
   return (
     <Modal isOpen={modalStatus.isOpen}>
+      <CreateCardModal
+        isOpen={isModifyModalOpen}
+        setIsOpen={() => {
+          setIsModifyModalOpen(false);
+        }}
+        columnIdNumber={modalStatus.data?.columnId || 0}
+        cardId={modalStatus.data?.id || 0}
+        isModifyForm
+      />
       <div className={cx('container')}>
         <div className={cx('modalHeader')}>
           <h1 className={cx('title')}>{modalStatus?.data?.title || ''}</h1>
