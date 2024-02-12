@@ -106,6 +106,7 @@ export default function CreateColumnModal({
             theme="primary"
             onClick={createColumnRequest}
             size="modalMedium"
+            disabled={!inputValue}
           >
             생성
           </Button>
