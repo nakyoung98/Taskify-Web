@@ -46,7 +46,7 @@ type CreateCardModalProps = {
   columnIdNumber: number;
   cardId?: number;
   isModifyForm?: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen: (isOpen: boolean) => void;
 };
 
 export default function CreateCardModal({
