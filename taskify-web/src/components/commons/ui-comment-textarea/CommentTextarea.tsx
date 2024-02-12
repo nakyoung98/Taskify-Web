@@ -10,6 +10,9 @@ type TextareaComponentProps = {
   onChange: ChangeEventHandler<HTMLTextAreaElement>;
   buttonText: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
+  disabled: boolean;
+  isEdit?: boolean;
+  onCancel: MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function CommentTextarea({
@@ -17,6 +20,9 @@ export default function CommentTextarea({
   onChange,
   buttonText,
   onClick,
+  disabled,
+  isEdit = false,
+  onCancel,
 }: TextareaComponentProps) {
   return (
     <div className={cx('commentTextarea-container')}>
@@ -30,7 +36,17 @@ export default function CommentTextarea({
         onChange={onChange}
       />
       <div className={cx('commentTextarea-button')}>
-        <Button size="small" theme="secondary" onClick={onClick}>
+        {isEdit && (
+          <Button size="small" theme="secondary" onClick={onCancel}>
+            취소
+          </Button>
+        )}
+        <Button
+          disabled={disabled}
+          size="small"
+          theme="secondary"
+          onClick={onClick}
+        >
           {buttonText}
         </Button>
       </div>

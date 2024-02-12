@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import AddButton from '@/components/commons/ui-add-button/AddButton';
 import styles from './DashboardForm.module.scss';
 import { useColumn } from '@/contexts/ColumnProvider';
 import DashboardCardColumn from '../feat-column/DashboardCardColumn';
+import CreateColumnModal from '@/components/commons/feat-create-column-modal/CreateColumnModal';
 
 const cx = classNames.bind(styles);
 
@@ -12,6 +14,13 @@ const cx = classNames.bind(styles);
 function DashboardForm() {
   const { columns } = useColumn();
 
+  const [isColumnCreateModalVisible, setIsColumnCreateModalVisible] =
+    useState<boolean>(false);
+
+  const onClick = () => {
+    setIsColumnCreateModalVisible(false);
+  };
+
   return (
     <section className={cx('dashboard-form')}>
       {columns.map((column) => {
@@ -20,11 +29,15 @@ function DashboardForm() {
       <div className={cx('dashboard-form__add-column')}>
         <AddButton
           onClick={() => {
-            /** TODO: 칼럼 추가 onClick  */
+            setIsColumnCreateModalVisible(true);
           }}
           addCase="addColumn"
         />
       </div>
+      <CreateColumnModal
+        isOpen={isColumnCreateModalVisible}
+        onClick={onClick}
+      />
     </section>
   );
 }

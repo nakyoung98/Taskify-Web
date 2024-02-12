@@ -19,7 +19,7 @@ export default function MydashboadList() {
   const [page, setPage] = useState<number>(1);
   const totalCount =
     dashboardData && dashboardData.totalCount ? dashboardData.totalCount : 0;
-  const size = 6;
+  const size = 5;
   const offset = page * size;
   const totalPage = Math.ceil(totalCount / size);
 
@@ -59,14 +59,16 @@ export default function MydashboadList() {
 
   return (
     <div className={cx('container')}>
-      <AddDashboardModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <AddDashboardModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        getDashboardListData={getDashboardListData}
+      />
       <div className={cx('dashboard-list')}>
-        {isPageFirst() && (
-          <AddButton
-            onClick={handleCreateDashBoardModal}
-            addCase="addDashBoard"
-          />
-        )}
+        <AddButton
+          onClick={handleCreateDashBoardModal}
+          addCase="addDashBoard"
+        />
         {dashboardData?.dashboards &&
           dashboardData.dashboards.map((list) => (
             <DashboardEnterButton

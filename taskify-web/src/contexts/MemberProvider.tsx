@@ -211,7 +211,7 @@ export function MemberProvider({ children }: MemberProviderProps) {
         getMembers();
       }
     }
-  }, [router.isReady]);
+  }, [router.isReady, boardId]);
 
   const memoizedValue = useMemo(
     () => ({

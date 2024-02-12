@@ -23,12 +23,13 @@ export default function SubHeader({
   const { subHeaderButtonList } = TEXT;
   const router = useRouter();
 
-  const { user } = useAuth();
+  const { user, clearUser } = useAuth();
 
   const handleRouteOnClick = async (e: React.MouseEvent) => {
     const input = e.target as HTMLElement;
     if (input.innerText === '로그아웃') {
       sessionStorage.clear();
+      clearUser();
       router.push('/');
     }
     if (input.innerText === '내 정보') {

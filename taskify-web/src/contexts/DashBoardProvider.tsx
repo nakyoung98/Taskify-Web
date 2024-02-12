@@ -151,7 +151,7 @@ export function DashBoardProvider({ children }: DashBoardProviderProps) {
         getDashBoard();
       }
     }
-  }, [router.isReady]);
+  }, [router.isReady, router.asPath, boardId]);
 
   const memoizedValue = useMemo(
     () => ({
