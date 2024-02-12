@@ -11,6 +11,7 @@ import { ColumnResponse } from '@/types/column';
 import { useColumn } from '@/contexts/ColumnProvider';
 import CreateCardModal from '@/components/commons/feat-create-card-modal/CreateCardModal';
 import ColumnModal from '@/components/commons/ui-column-modal/ColumnModal';
+import { axiosInstance } from '@/lib/api/axiosInstance';
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +39,20 @@ export default function DashboardCardColumn({
     },
     hookEnabled: true,
   });
+
+  const changeColumnName = async (title: string) => {
+    const response = await axiosInstance.put(`columns/${column.id}`, {
+      title,
+    });
+
+    return response;
+  };
+
+  const deleteColumn = async () => {
+    const response = await axiosInstance.delete(`columns/${column.id}`);
+
+    return response;
+  };
 
   useEffect(() => {
     if (loading) return;
@@ -91,8 +106,8 @@ export default function DashboardCardColumn({
         onChangeModalOpenStatus={(isOpen) => {
           setColumnEditModalVisible(isOpen);
         }}
-        onColumnChange={() => {}}
-        onColumnDelete={() => {}}
+        onColumnChange={changeColumnName}
+        onColumnDelete={deleteColumn}
       />
     </div>
   );

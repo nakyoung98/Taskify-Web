@@ -1,9 +1,12 @@
 import { ReactNode, useState } from 'react';
+import { AxiosResponse } from 'axios';
 import classNames from 'classnames/bind';
 import styles from './ColumnModal.module.scss';
 import { Modal } from '../ui-modal/Modal';
 import { Input } from '../ui-input/Input';
 import Button from '../ui-button/Button';
+import { useAsync } from '@/lib/hooks/useAsync';
+import { ColumnResponse } from '@/types/column';
 
 const cx = classNames.bind(styles);
 
@@ -13,8 +16,10 @@ type ModalContentProps = {
 
 type ColumnModalProps = {
   isOpen: boolean;
-  onColumnDelete: (columnId: number) => void;
-  onColumnChange: (columnId: number, newColumnName: string) => void;
+  onColumnDelete: () => Promise<AxiosResponse>;
+  onColumnChange: (
+    columnName: string,
+  ) => Promise<AxiosResponse<ColumnResponse>>;
   onChangeModalOpenStatus: (isOpen: boolean) => void;
 };
 
@@ -32,6 +37,27 @@ export default function ColumnModal({
   const [isDeleteConfirmationModalOpen, setDeleteConfirmationModalOpen] =
     useState<boolean>(false);
 
+  const {
+    execute: excuteColumnChange,
+    loading: loadingColumnChange,
+    error: errorColumnChange,
+  } = useAsync<ColumnResponse>({
+    asyncFunction: () => {
+      return onColumnChange(value);
+    },
+    isManual: true,
+  });
+
+  const {
+    execute: excuteColumnDelete,
+    loading: loadingColumnDelete,
+    error: errorColumnDelete,
+  } = useAsync<void>({
+    asyncFunction: () => {
+      return onColumnDelete();
+    },
+    isManual: true,
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
@@ -44,8 +70,17 @@ export default function ColumnModal({
     setDeleteConfirmationModalOpen(false);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
+    await excuteColumnDelete();
+    if (errorColumnDelete) {
+      alert('컬럼 삭제에 실패했습니다. 다시 시도해주세요');
+    }
     setDeleteConfirmationModalOpen(false);
+    onChangeModalOpenStatus(false);
+  };
+
+  const handleConfirmChange = async () => {
+    await excuteColumnChange();
     onChangeModalOpenStatus(false);
   };
 
@@ -62,6 +97,8 @@ export default function ColumnModal({
               onChange={handleChange}
               isModal={true}
               placeholder="새로운 컬럼명 입력"
+              hasError={errorColumnChange}
+              errorMessage="컬럼명 변경에 실패했습니다. 다시 시도해주세요"
             />
           </div>
           <div className={cx('modal-footer')}>
@@ -84,9 +121,8 @@ export default function ColumnModal({
               </Button>
               <Button
                 size="modalMedium"
-                onClick={() => {
-                  onChangeModalOpenStatus(false);
-                }}
+                onClick={handleConfirmChange}
+                disabled={loadingColumnChange}
               >
                 변경
               </Button>
@@ -108,7 +144,11 @@ export default function ColumnModal({
             >
               취소
             </Button>
-            <Button size="modalMedium" onClick={handleConfirmDelete}>
+            <Button
+              size="modalMedium"
+              onClick={handleConfirmDelete}
+              disabled={loadingColumnDelete}
+            >
               삭제
             </Button>
           </div>
