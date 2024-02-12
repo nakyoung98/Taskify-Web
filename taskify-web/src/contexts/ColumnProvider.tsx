@@ -81,6 +81,10 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
     }
   }, [boardId, isDataLoaded, loadingGetColumnData, executeGetColumnData]);
 
+  useEffect(() => {
+    setIsDataLoaded(false);
+  }, [boardId]);
+
   const contextValue = useMemo(
     (): ColumnContextProps => ({
       columns: ColumnData?.data ?? [],
