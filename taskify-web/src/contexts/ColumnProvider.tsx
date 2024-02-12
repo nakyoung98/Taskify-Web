@@ -20,11 +20,13 @@ type ColumnProviderProps = {
 
 type ColumnContextProps = {
   columns: ColumnResponse[];
+
   getCardDataFromColumn: (
     columnId: number,
     size?: number,
     cursorId?: number | null,
   ) => Promise<AxiosResponse<CardListResponse>>;
+  addColumn: (column: ColumnResponse) => void;
 };
 
 export const ColumnContext = createContext<ColumnContextProps | null>(null);
@@ -33,7 +35,11 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
   const router = useRouter();
   const { boardId } = router.query;
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false);
+  const [columns, setColumns] = useState<ColumnResponse[]>([]);
 
+  const addColumn = (column: ColumnResponse) => {
+    setColumns((prevColumns) => [...prevColumns, column]);
+  };
   const getColumnData = useCallback(async () => {
     const response = await axiosInstance.get('columns', {
       params: {
@@ -72,8 +78,9 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
     // boardId가 존재하고, 데이터가 아직 로드되지 않았으며, 로딩 중도 아닐 때만 실행
     if (boardId && !isDataLoaded) {
       executeGetColumnData()
-        .then(() => {
+        .then((response) => {
           setIsDataLoaded(true); // 데이터 로딩이 완료되었음을 표시
+          setColumns(response?.data.data ?? []);
         })
         .catch((error) => {
           console.error('Data loading error:', error);
@@ -83,10 +90,11 @@ export default function ColumnProvider({ children }: ColumnProviderProps) {
 
   const contextValue = useMemo(
     (): ColumnContextProps => ({
-      columns: ColumnData?.data ?? [],
+      columns: columns ?? [],
       getCardDataFromColumn,
+      addColumn,
     }),
-    [ColumnData, getCardDataFromColumn],
+    [ColumnData, getCardDataFromColumn, addColumn],
   );
   return (
     /** TODO: 전달할 데이터 삽입 */
