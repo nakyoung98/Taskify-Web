@@ -22,3 +22,14 @@ export interface PostCommentData {
   columnId: number;
   dashboardId: string;
 }
+
+export interface PutCommentData {
+  content: string;
+  commentId: number;
+  cardId: number;
+}
+
+export interface DeleteCommentData {
+  cardId: number;
+  commentId: number;
+}

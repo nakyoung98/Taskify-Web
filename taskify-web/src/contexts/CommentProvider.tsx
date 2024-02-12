@@ -7,7 +7,12 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Comments, PostCommentData } from '@/types/comments';
+import {
+  Comments,
+  DeleteCommentData,
+  PostCommentData,
+  PutCommentData,
+} from '@/types/comments';
 import { axiosInstance } from '@/lib/api/axiosInstance';
 
 type CommentContextType = {
@@ -19,12 +24,20 @@ type CommentContextType = {
     content,
     dashboardId,
   }: PostCommentData) => Promise<void>;
+  putComments: ({
+    commentId,
+    content,
+    cardId,
+  }: PutCommentData) => Promise<void>;
+  deleteComments: ({ cardId, commentId }: DeleteCommentData) => Promise<void>;
   error: AxiosError | null;
 };
 const CommentContext = createContext<CommentContextType>({
   comments: { data: null },
   getComments: async () => {},
   postComments: async () => {},
+  putComments: async () => {},
+  deleteComments: async () => {},
   error: null,
 });
 
@@ -68,14 +81,53 @@ export function CommentProvider({ children }: CommentProviderProps) {
     [getComments],
   );
 
+  const putComments = useCallback(
+    async ({ commentId, content, cardId }: PutCommentData) => {
+      try {
+        await axiosInstance.put(`comments/${commentId}`, {
+          content,
+        });
+        getComments(cardId);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
+      }
+    },
+    [getComments],
+  );
+
+  const deleteComments = useCallback(
+    async ({ cardId, commentId }: DeleteCommentData) => {
+      try {
+        await axiosInstance.delete(`comments/${commentId}`);
+        getComments(cardId);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setAxiosError(error);
+        }
+      }
+    },
+    [],
+  );
+
   const memoizedValue = useMemo(
     () => ({
       comments,
       error: axiosError,
       getComments,
       postComments,
+      putComments,
+      deleteComments,
     }),
-    [comments, axiosError, getComments, postComments],
+    [
+      comments,
+      axiosError,
+      getComments,
+      postComments,
+      putComments,
+      deleteComments,
+    ],
   );
 
   return (

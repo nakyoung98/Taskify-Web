@@ -121,6 +121,7 @@ export function ManagementModal({
                 buttonText="입력"
                 onClick={handleSubmitComment}
                 disabled={myComment === ''}
+                onCancel={() => {}}
               />
             </div>
             <div className={cx('commentList')}>
