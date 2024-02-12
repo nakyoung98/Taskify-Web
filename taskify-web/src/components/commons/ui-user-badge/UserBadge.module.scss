@@ -10,7 +10,7 @@
   border: 0.2rem solid $surface_container;
 
   &.image {
-    background: cover;
+    object-fit: cover;
   }
 
   &.orange {
