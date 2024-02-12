@@ -1,0 +1,16 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+
+  @include mobile {
+    gap: 0.6rem;
+  }
+  @include tablet {
+    gap: 1.2rem;
+  }
+  @include desktop {
+    gap: 1.6rem;
+  }
+}

@@ -1,0 +1,24 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.dashboard-form {
+  display: flex;
+  height: 100%;
+
+  @include mobile {
+    flex-direction: column;
+  }
+  @include desktop {
+    flex-direction: row;
+  }
+}
+
+.dashboard-form__add-column {
+  @include mobile {
+    padding: 2rem;
+  }
+
+  @include desktop {
+    margin-top: 4rem;
+  }
+}

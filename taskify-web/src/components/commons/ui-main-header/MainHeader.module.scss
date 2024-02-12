@@ -1,0 +1,85 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-shadow: 0 1px 0 0 $gray_d9d9d9;
+
+  @include mobile {
+    padding: 1.6rem 2.4rem;
+  }
+
+  @include tablet {
+    padding: 1.6rem 4rem 1.6rem 2rem;
+  }
+
+  @include desktop {
+    padding: 1.6rem 8rem 1.6rem 2rem;
+  }
+
+  &.black {
+    background: $black_000000;
+  }
+}
+
+.largeLogo {
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet {
+    display: block;
+  }
+
+  &.black {
+    filter: brightness(0) invert(1);
+  }
+}
+.smallLogo {
+  @include mobile {
+    display: block;
+  }
+
+  @include tablet {
+    display: none;
+  }
+  &.black {
+    filter: brightness(0) invert(1);
+  }
+}
+
+.buttonWrap {
+  display: flex;
+  align-items: center;
+  @include mobile {
+    gap: 2rem;
+  }
+  @include tablet {
+    gap: 3.6rem;
+  }
+}
+
+.button {
+  border: none;
+  background: none;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  align-items: center;
+  &:visited {
+    color: $on_surface;
+  }
+  @include mobile {
+    font-size: $font_size_small;
+  }
+
+  @include tablet {
+    font-size: $font_size_medium;
+  }
+
+  &.black {
+    color: $surface_container;
+  }
+}

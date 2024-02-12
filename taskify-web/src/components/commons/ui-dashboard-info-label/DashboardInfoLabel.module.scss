@@ -1,0 +1,157 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+
+.dashboard-info-label {
+  width: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dashboard-color-chip {
+  width: 0.8rem;
+  height: 0.8rem;
+
+  border-radius: 9999rem;
+}
+
+.sidebar {
+  display: flex;
+  align-items: center;
+  .dashboard-color-chip {
+    flex-shrink: 0;
+    @include mobile {
+      margin-right: 0;
+    }
+    @include tablet {
+      margin-right: 1.2rem;
+    }
+    @include desktop {
+      margin-right: 1.6rem;
+    }
+    &.hide {
+      margin-right: 0;
+    }
+  }
+
+  .dashboard-title {
+    color: $gray_787486;
+    font-weight: $font_weight_normal;
+    margin: 0;
+
+    @include mobile {
+      display: none;
+    }
+    @include tablet {
+      display: block;
+      font-size: $font_size_default;
+    }
+    @include desktop {
+      font-size: $font_size_large;
+    }
+    &.hide {
+      display: none;
+    }
+  }
+
+  .dashboard-owner-icon {
+    flex-shrink: 0;
+    @include mobile {
+      display: none;
+    }
+    @include tablet {
+      display: block;
+
+      height: 1.2rem;
+      margin-left: 0.4rem;
+    }
+    @include desktop {
+      height: 1.4rem;
+      margin-left: 0.6rem;
+    }
+    &.hide {
+      display: none;
+    }
+  }
+}
+
+.button {
+  .dashboard-color-chip {
+    @include mobile {
+      margin-right: 1.2rem;
+    }
+    @include desktop {
+      margin-right: 1.6rem;
+    }
+  }
+
+  .dashboard-title {
+    font-weight: $font_weight_bold;
+
+    @include mobile {
+      font-size: $font_size_small;
+    }
+    @include tablet {
+      font-size: $font_size_default;
+    }
+  }
+
+  .dashboard-owner-icon {
+    @include mobile {
+      height: 1.2rem;
+      margin-left: 0.4rem;
+    }
+    @include tablet {
+      height: 1.4rem;
+      margin-left: 0.6rem;
+    }
+    @include desktop {
+      height: 1.6rem;
+      margin-left: 0.8rem;
+    }
+  }
+}
+
+.header {
+  .dashboard-color-chip {
+    display: none;
+  }
+
+  .dashboard-title {
+    display: none;
+    font-weight: $font_weight_bold;
+    margin: 0;
+
+    @include desktop {
+      display: block;
+      font-size: $font_size_xlarge;
+    }
+  }
+
+  .dashboard-owner-icon {
+    display: none;
+
+    @include desktop {
+      display: block;
+      height: 1.6rem;
+      margin-left: 0.8rem;
+    }
+  }
+}
+
+.green {
+  background-color: $green_7ac555;
+}
+.purple {
+  background-color: $purple_760dde;
+}
+.orange {
+  background-color: $orange_ffa500;
+}
+.blue {
+  background-color: $blue_76a6ea;
+}
+.pink {
+  background-color: $pink_e876ea;
+}

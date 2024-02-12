@@ -1,0 +1,30 @@
+//== 눈누 프리텐다드
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
+}
+
+@mixin font-size($font_sizes) {
+  @each $name, $size in $font_sizes {
+    .font_size_#{$name} {
+      font-size: $size;
+    }
+  }
+}
+
+@mixin font-weight($font_weights) {
+  @each $name, $size in $font_weights {
+    .font_weight_#{$name} {
+      font-weight: $size;
+    }
+  }
+}
+
+@mixin text-align($text_aligns) {
+  @each $name, $align in $text_aligns {
+    .text_align_#{$name} {
+      text-align: $align;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+
+.datepicker-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .datepicker {
+    width: 100%;
+    outline: none;
+    border: 0.1rem solid $outline;
+    border-radius: 0.6rem;
+    &:focus {
+      border: 0.1rem solid $primary;
+    }
+    @include mobile {
+      height: 4.2rem;
+      font-size: $font_size_small;
+      text-indent: 1.8rem;
+    }
+    @include tablet {
+      height: 4.8rem;
+      font-size: $font_size_medium;
+    }
+  }
+
+  .calendar-icon {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    left: 1.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

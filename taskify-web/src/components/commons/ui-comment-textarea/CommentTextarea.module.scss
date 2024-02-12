@@ -1,0 +1,46 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.commentTextarea-container {
+  position: relative;
+  width: 100%;
+  @include mobile {
+    height: 7rem;
+  }
+  @include tablet {
+    height: 11rem;
+  }
+
+  textarea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    border: 1px solid $gray_d9d9d9;
+    border-radius: 0.6rem;
+    color: $black_171717;
+    @include mobile {
+      padding: 1.2rem;
+      font-size: 1.2rem;
+    }
+    @include tablet {
+      padding: 1.6rem;
+      font-size: 1.4rem;
+    }
+    &:placeholder {
+      color: $gray_9fa6b2;
+    }
+    &:focus {
+      outline: 1px solid $primary;
+    }
+  }
+  .commentTextarea-button {
+    position: absolute;
+    right: 1.2rem;
+    bottom: 1.2rem;
+  }
+}

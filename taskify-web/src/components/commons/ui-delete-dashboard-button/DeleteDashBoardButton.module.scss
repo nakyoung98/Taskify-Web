@@ -1,0 +1,16 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.btn {
+  border-radius: 0.8rem;
+  border: 1px solid $gray_d9d9d9;
+  background: $surface;
+  max-width: 32rem;
+
+  @include mobile {
+    padding: 1.6rem 8.4rem;
+  }
+  @include tablet {
+    padding: 2rem 9.5rem;
+  }
+}

@@ -1,0 +1,112 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+/* theme */
+.primary {
+  background-color: $primary;
+  color: $white_ffffff;
+}
+
+.secondary {
+  background-color: $white_ffffff;
+  color: $primary;
+  border: 1px solid $gray_d9d9d9;
+}
+
+/* style */
+/* 대시보드 관련 매우 큰 사이즈*/
+.xlarge {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  border-radius: 0.8rem;
+
+  font-size: $font_size_large;
+  line-height: normal;
+}
+
+/* 로그인 회원가입 용 큰 사이즈 */
+.large {
+  width: 100%;
+  padding: 1.4rem 0;
+  text-align: center;
+  border-radius: 0.8rem;
+
+  font-size: $font_size_large;
+  font-style: normal;
+  line-height: normal;
+}
+
+/* 기본 수락 거절 버튼 사이즈 */
+.medium {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.4rem;
+  @include mobile {
+    width: 10.9rem;
+    padding: 0.7rem 0;
+    font-size: $font_size_xsmall;
+  }
+  @include tablet {
+    width: 7.2rem;
+    padding: 0.6rem 0;
+    font-size: $font_size_small;
+  }
+  @include desktop {
+    width: 8.4rem;
+    padding: 0.7rem 0;
+  }
+  font-style: normal;
+  line-height: normal;
+}
+
+/* 기본 삭제 버튼 사이즈*/
+.small {
+  border-radius: 0.4rem;
+  @include mobile {
+    width: 5.2rem;
+    padding: 0.7rem 0;
+    font-size: $font_size_xsmall;
+  }
+  @include tablet {
+    width: 8.4rem;
+    font-size: $font_size_small;
+  }
+}
+
+/* 모달 확인 닫기 버튼 사이즈 */
+.modalMedium {
+  border-radius: 0.8rem;
+  @include mobile {
+    padding: 1.2rem 0;
+    width: 13.8rem;
+    font-size: $font_size_small;
+  }
+  @include tablet {
+    padding: 1.4rem 0;
+    width: 12rem;
+    font-size: $font_size_medium;
+  }
+}
+
+/* 모달 입력 버튼 사이즈(작은거) */
+.modalSmall {
+  border-radius: 0.4rem;
+  @include mobile {
+    padding: 0.7rem 3.1rem;
+    font-size: $font_size_xsmall;
+  }
+  @include tablet {
+    padding: 0.9rem 3.1rem;
+  }
+}
+
+.btn {
+  &:disabled {
+    background-color: $surface_dim;
+    color: $white_ffffff;
+  }
+}

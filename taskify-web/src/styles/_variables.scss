@@ -1,0 +1,126 @@
+@import './fonts';
+
+//
+// Variables
+// ---------------------------------------// ---------------------------------------
+
+//== Colors
+//
+//## 요구되는 색상을 변수로 설정
+
+// primary
+$violet_5534da: #5534da !default; //primary
+$violet_f1effd: #f1effd !default; //primary container
+
+// 무채색 계열
+$black_000000: #000 !default;
+$black_171717: #171717 !default;
+$black_333236: #333236 !default;
+$black_4b4b4b: #4b4b4b !default;
+$gray_787486: #787486 !default;
+$gray_9fa6b2: #9fa6b2 !default;
+$gray_d9d9d9: #d9d9d9 !default;
+$gray_eeeeee: #eeeeee !default;
+$gray_fafafa: #fafafa !default;
+$white_ffffff: #ffffff !default;
+
+// 대시보드 색상
+$purple_760dde: #760dde !default;
+$green_7ac555: #7ac555 !default;
+$orange_ffa500: #ffa500 !default;
+$blue_76a6ea: #76a6ea !default;
+$pink_e876ea: #e876ea !default;
+
+// 에러 색상
+$red_d6173a: #d6173a !default;
+
+// 색상 시스템
+$primary: $violet_5534da !default;
+$surface: $gray_fafafa !default;
+$on_surface: $black_333236 !default;
+$surface_container: $white_ffffff !default;
+$surface_dim: $gray_9fa6b2 !default;
+$outline: $gray_d9d9d9 !default;
+$error: $red_d6173a !default;
+
+//== Scaffolding
+//
+// 글로벌 스타일 설정
+
+//** <body> 태그 내의 기본 폰트색
+$text_color: $on_surface !default;
+$hint_color: $surface_dim !default;
+
+//== Tyfography
+//
+//## 폰트패밀리, 폰트사이즈, 행높이
+
+// 폰트패밀리
+$font_family_sans-serif: 'Pretendard-Regular', Arial, sans-serif !default;
+$font_family_base: $font_family_sans-serif !default;
+
+// 폰트사이즈
+$font_size_base: 10px !default;
+
+$font_size_xsmall: 1.2rem !default;
+$font_size_small: 1.4rem !default;
+$font_size_medium: 1.6rem !default; // 기본 폰트 사이즈
+$font_size_large: 1.8rem !default;
+$font_size_xlarge: 2rem !default;
+$font_size_xxlarge: 2.4rem !default;
+$font_size_xxxlarge: 2.8rem !default;
+
+// 폰트 사이즈 맵
+$font_sizes: (
+  'xsmall': $font_size_xsmall,
+  'small': $font_size_small,
+  'medium': $font_size_medium,
+  'large': $font_size_large,
+  'xlarge': $font_size_xlarge,
+  'xxlarge': $font_size_xxlarge,
+  'xxxlarge': $font_size_xxxlarge,
+);
+
+// 폰트 사이즈 class 생성
+@include font-size($font_sizes);
+
+$font_size_default: $font_size_medium !default; // 기본 폰트 사이즈 = 16px
+
+// 행높이
+$line_height_base: 1.4 !default;
+
+$line_height_normal: $line_height_base !default;
+
+// 폰트 두께
+$font_weight_base: 500 !default;
+
+$font_weight_default: $font_weight_base !default;
+
+$font_weight_lighter: lighter;
+$font_weight_normal: normal;
+$font_weight_bold: bold;
+
+// 폰트 두께 맵
+$font_weights: (
+  'lighter': $font_weight_lighter,
+  'normal': $font_weight_normal,
+  'bold': $font_weight_bold,
+);
+
+// 폰트 두께 class 생성
+@include font-weight($font_weights);
+
+// 텍스트 정렬
+$text_align_left: left !default;
+$text_align_center: center !default;
+$text_align_right: right !default;
+
+// 텍스트 정렬 맵
+$text_aligns: (
+  'left': $text_align_left,
+  'center': $text_align_center,
+  'right': $text_align_right,
+);
+
+// 텍스트 정렬 class 생성
+@include text-align($text_aligns);

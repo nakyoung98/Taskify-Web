@@ -1,0 +1,17 @@
+@import '../../../styles/mixin';
+.main {
+  padding-top: 7rem;
+  @include mobile {
+    padding-left: 6.7rem;
+  }
+  @include tablet {
+    padding-left: 16rem;
+  }
+  @include desktop {
+    padding-left: 30rem;
+  }
+}
+
+.isOpened {
+  padding-left: 6.7rem;
+}

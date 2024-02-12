@@ -1,0 +1,60 @@
+@import '../../../styles/mixin';
+@import '../../../styles/variables';
+
+.button {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $outline;
+  color: $gray_787486;
+
+  &.setting {
+    @include mobile {
+      width: 4.9rem;
+      height: 3rem;
+    }
+
+    @include tablet {
+      width: 8.5rem;
+      height: 3.6rem;
+    }
+
+    @include desktop {
+      width: 8.8rem;
+      height: 4rem;
+    }
+  }
+
+  &.invite {
+    @include mobile {
+      width: 7.3rem;
+      height: 3rem;
+    }
+
+    @include tablet {
+      width: 10.9rem;
+      height: 3.6rem;
+    }
+
+    @include desktop {
+      width: 11.6rem;
+      height: 4rem;
+    }
+  }
+}
+
+.icon {
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet {
+    display: block;
+  }
+
+  @include desktop {
+    display: block;
+  }
+}

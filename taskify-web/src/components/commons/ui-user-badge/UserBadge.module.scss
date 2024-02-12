@@ -1,0 +1,119 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixin';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.Badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  border: 0.2rem solid $surface_container;
+
+  &.image {
+    object-fit: cover;
+  }
+
+  &.orange {
+    background: #ffc85a;
+  }
+  &.pink {
+    background: #f4d7da;
+  }
+  &.sky {
+    background: #9dd7ed;
+  }
+  &.brown {
+    background: #c4b1a2;
+  }
+
+  &.header {
+    @include mobile {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: $font_size_small;
+    }
+    @include tablet {
+      width: 3.8rem;
+      height: 3.8rem;
+      font-size: $font_size_medium;
+    }
+    @include desktop {
+      width: 3.8rem;
+      height: 3.8rem;
+      font-size: $font_size_medium;
+    }
+  }
+
+  &.card {
+    @include mobile {
+      width: 2.6rem;
+      height: 2.6rem;
+      font-size: $font_size_xsmall;
+    }
+    @include tablet {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: $font_size_medium;
+    }
+    @include desktop {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: $font_size_medium;
+    }
+  }
+
+  &.column {
+    @include mobile {
+      width: 2.2rem;
+      height: 2.2rem;
+      font-size: $font_size_base;
+    }
+    @include tablet {
+      width: 2.4rem;
+      height: 2.4rem;
+      font-size: $font_size_xsmall;
+    }
+    @include desktop {
+      width: 2.4rem;
+      height: 2.4rem;
+      font-size: $font_size_xsmall;
+    }
+  }
+
+  &.dropdown {
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: $font_size_xsmall;
+  }
+
+  &.member {
+    @include mobile {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: $font_size_small;
+    }
+    @include tablet {
+      width: 3.8rem;
+      height: 3.8rem;
+      font-size: $font_size_medium;
+    }
+    @include desktop {
+      width: 3.8rem;
+      height: 3.8rem;
+      font-size: $font_size_medium;
+    }
+  }
+}
+
+.Badge-text {
+  font-family: Montserrat;
+  font-weight: 600;
+  color: $surface_container;
+  text-transform: uppercase;
+
+  &.twoWord-text {
+    color: #d25b68;
+    font-family: $font_family_base;
+    font-weight: $font_weight_base;
+  }
+}
