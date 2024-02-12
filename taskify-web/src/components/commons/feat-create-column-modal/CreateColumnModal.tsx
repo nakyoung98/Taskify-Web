@@ -5,6 +5,7 @@ import styles from './CreateColumnModal.module.scss';
 import { Modal } from '../ui-modal/Modal';
 import Button from '../ui-button/Button';
 import { axiosInstance } from '@/lib/api/axiosInstance';
+import { useColumn } from '@/contexts/ColumnProvider';
 
 const cx = classNames.bind(styles);
 
@@ -36,6 +37,7 @@ export default function CreateColumnModal({
   const [columnData, setColumnData] = useState<ColumnData>();
   const router = useRouter();
   const { boardId } = router.query;
+  const { addColumn } = useColumn();
 
   const columnsData = async () => {
     try {
@@ -63,15 +65,16 @@ export default function CreateColumnModal({
     }
     if (!isTitleVaild) {
       try {
-        await axiosInstance.post('columns', {
+        const response = await axiosInstance.post('columns', {
           title: inputValue,
           dashboardId: Number(boardId),
         });
+
+        addColumn(response.data);
       } catch (error) {
         console.log(error);
       }
       setIsError(false);
-      await columnsData();
       onClick();
     }
   };
