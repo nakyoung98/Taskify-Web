@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useState, useEffect } from 'react';
 
 type UseAsyncParams<T> = {
@@ -16,6 +16,12 @@ export const useAsync = <T>({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | any>(null);
   const [data, setData] = useState<null | T>(null);
+
+  const resetAsyncState = () => {
+    setLoading(false);
+    setError(null);
+    setData(null);
+  };
 
   //   비동기 호출
   const execute = async () => {
@@ -42,5 +48,5 @@ export const useAsync = <T>({
   }, [reload, isManual]);
 
   //   로딩, 에러, 데이터 반환
-  return { execute, loading, error, data };
+  return { execute, loading, error, data, resetAsyncState };
 };
