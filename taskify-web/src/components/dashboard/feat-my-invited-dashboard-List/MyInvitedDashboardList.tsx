@@ -65,12 +65,6 @@ export default function MyInvitedDashboardList() {
     }
   }, 100);
 
-  const throttledSave = throttle((value) => setSearch(value), 500);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    throttledSave(e.target.value);
-  };
-
   const getInvitedListReset = async () => {
     try {
       const response = await axiosInstance.get('invitations?size=5');
