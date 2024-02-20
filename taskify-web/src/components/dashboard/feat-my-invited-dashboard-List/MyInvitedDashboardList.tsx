@@ -7,6 +7,7 @@ import { Invited } from './type';
 import InvitedList from './InvitedList';
 import styles from './MyInvitedDashboardList.module.scss';
 import None from './None.svg';
+import SearchInput from '@/components/commons/feat-search-input/SearchInput';
 
 const cx = classNames.bind(styles);
 
@@ -131,11 +132,8 @@ export default function MyInvitedDashboardList() {
         </div>
       )}
       {invitationData && (
-        <input
-          onChange={onChange}
-          className={cx('input')}
-          value={search}
-          placeholder="검색"
+        <SearchInput
+          onSearch={(string) => {setSearch(string)}}
         />
       )}
       {invitationData && (
